@@ -70,6 +70,7 @@ export default class MistakeCtrl implements CevalHandler {
       },
       onUciHover: () => {},
     });
+    site.sound.preloadBoardSounds();
     this.initiate();
     pubsub.on('zen', toggleZenMode);
     $('body').addClass('playing'); // for zen
@@ -178,6 +179,7 @@ export default class MistakeCtrl implements CevalHandler {
       pos: () => Res.ok(chess),
     });
     this.setGround();
+    this.soundMove();
 
     // the move that was actually played in the game. Retro spots this the same
     // way: the node it walks onto already carries a server eval.
@@ -241,6 +243,7 @@ export default class MistakeCtrl implements CevalHandler {
       });
     }
     this.setGround();
+    this.soundMove();
     this.finish('fail');
   };
 
@@ -267,6 +270,22 @@ export default class MistakeCtrl implements CevalHandler {
   }
 
   isSolving = (): boolean => ['find', 'fail'].includes(this.feedback());
+
+  /* Same sound the analyse board makes when a move lands on it - `site.sound.move`
+   * on a forward step, in analyse's `jump()` - so the deck sounds like retro
+   * rather than like nothing. `move` picks capture, check and mate off the san
+   * by itself; the atomic branch beside it in analyse doesn't apply, the deck
+   * being standard only.
+   *
+   * Only forward. Retracting the tried move in `onFail` is a jump backwards and
+   * analyse is silent for those, and so is dealing the next position: retro
+   * walks to its next mistake across the tree, which is not a forward step
+   * either. */
+  private soundMove(): void {
+    if (!this.tried) return;
+    site.sound.move(this.tried);
+    site.sound.saySan(this.tried.san, true);
+  }
 
   // ------------------------------------------------------------------- board
 
