@@ -48,13 +48,6 @@ is a bug in this module.
   (`ui/lib/src/game/masterOpening.ts`); the page carries the explorer endpoint,
   and each deal carries the game's `divisionMiddle` so the client knows when it
   has left the opening.
-- **Sound** is the site's board sound, from the same call analyse makes on a
-  forward step in `jump()`: `site.sound.move(node)`, plus `saySan`, plus
-  `preloadBoardSounds()` on boot. It fires when the tried move lands and when
-  the solution is played, and not when a move is retracted or a new position
-  dealt - analyse is silent for jumps that aren't a forward step, and so is
-  retro. There is no win or fail jingle: retro has none either, and puzzles are
-  the wrong thing to copy here.
 - `MistakeApi.extract` builds the ordinary analyse tree with `TreeBuilder` and
   pulls one node out of it, rather than replaying the game by hand. The
   engine's line is already hanging off the pre-mistake node as a `comp` child,
