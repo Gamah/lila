@@ -1,7 +1,7 @@
 /* The answered list. Boards rather than rows: the list this replaces was three
  * columns of words repeated down the page, and the words were the problem. */
 
-.blindspot {
+.mistake {
   &__list {
     padding-bottom: $box-padding;
   }
@@ -49,7 +49,7 @@
   }
 }
 
-.blindspot-cards--positions {
+.mistake-cards--positions {
   padding: 0 $box-padding;
 
   /* pagerNext appends into the scroll container, so without this the "Next"
@@ -61,7 +61,7 @@
   }
 }
 
-.blindspot-position {
+.mistake-position {
   padding: 0.6em;
 
   &__board {

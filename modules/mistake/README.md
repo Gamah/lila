@@ -1,8 +1,7 @@
 # mistake
 
-**Blindspot** on the page. `mistake` in the code, `/mistakes` in the URL - the
-two never have to agree, and keeping them apart is what makes the name cheap to
-change. Everything below uses the code token.
+**Mistakes** on the page, `mistake` in the code, `/mistakes` in the URL: one
+name all the way down. Everything below uses it.
 
 Shows a player one of their own past mistakes at a time, at random, cold: a
 board, the move they played drawn on it, "find something better".
@@ -145,27 +144,31 @@ is a bug in this module.
   `/tutor` renders and waits for "Compute my tutor report" posting to
   `POST /tutor/:user/compute`. Everything that spends is a press.
 
-## The two names
+## The name
 
-The **displayed** name is Blindspot, and it is hardcoded English in exactly
-three places - `MistakeUi.name`, the profile card in
-`app/views/user/show/header.scala`, and the `.blindspot` block in
-`ui/user/css/_profile.scss`. It is not a translated string, because "Chess
-Insights" isn't either: a product name is not one. Renaming the feature is
-those three edits.
+**Mistakes**, one word, everywhere: on the page, in `/mistakes`, in the
+`mistake` package, collection prefix and translation module. This README used
+to have a section arguing for keeping a display name apart from the code token
+so the former stayed cheap to change. The display name changed, to the code
+token, and the argument went with it. Do not reintroduce a third word.
+
+The name itself is hardcoded English in three places - `MistakeUi.name`, the
+profile card in `app/views/user/show/header.scala`, and the `.mistake` block in
+`ui/user/css/_profile.scss` - because "Chess Insights" is too: a product name
+is not a translatable string.
 
 Everything *else* on these pages is translated, through
-`translation/source/blindspot.xml`. That is the site's ordinary mechanism - 43
+`translation/source/mistake.xml`. That is the site's ordinary mechanism - 43
 features have their own file, `bin/i18n-file-gen.ts` finds it by listing the
 directory and `ui/.build/src/i18n.ts` creates its dest folder - but a new
 module has to be named by hand in **two** places, and missing either fails
 quietly:
 
 - the `I18nModule` enum in `modules/coreI18n/src/main/modules.scala`, without
-  which `.i18n(_.blindspot)` does not compile;
+  which `.i18n(_.mistake)` does not compile;
 - the `dbs` string in `build.sbt`'s `i18n` module, which is what
   `project/I18n.scala` serialises into the `i18n.<lang>.ser` the server reads.
-  Miss this one and every page renders the raw key - `blindspot:tagline` - with
+  Miss this one and every page renders the raw key - `mistake:tagline` - with
   no error anywhere.
 
 Note that this is deliberately *not*
@@ -173,13 +176,12 @@ what Tutor does, whose layout the landing otherwise copies: Tutor hardcodes
 about forty English literals and has no module at all. That is Tutor's bug, not
 a pattern to follow, and it is filed as Gamah/lila#7.
 
-`key.scala` is generated. Changing `blindspot.xml` means running
+`key.scala` is generated. Changing `mistake.xml` means running
 `pnpm i18n-file-gen` *and* `./ui/build`: the build regenerates `i18n.d.ts`
 only, and CI checks both are in sync.
 
-The **code** token is `mistake` and appears in these places, all of them the
-single word (or the path `mistakes`). Renaming *that* is a bigger job and buys
-nothing user visible:
+The token appears in these places, all of them the single word (or the path
+`mistakes`). Renaming the feature is this whole table:
 
 | what | where |
 | --- | --- |
@@ -194,7 +196,7 @@ nothing user visible:
 | collections | `mistake_solve`, `mistake_request` in `modules/mistake/src/main/Env.scala` |
 | setting | `mistakeNbAnalysis` |
 | fishnet origin | `Work.Origin.autoMistake` |
-| i18n | `translation/source/blindspot.xml`, and the `blindspot` case in `I18nModule` |
+| i18n | `translation/source/mistake.xml`, and the `mistake` case in `I18nModule` |
 
 No user visible string is built out of the token, which is why the two lists
 above are independent.

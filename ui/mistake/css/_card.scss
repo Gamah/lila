@@ -1,8 +1,8 @@
-/* Tutor's card, narrowed to what Blindspot has to put in one. Its own rather
+/* Tutor's card, narrowed to what Mistakes has to put in one. Its own rather
  * than an @extend of `.tutor-card`: the two bundles do not see each other, and
  * a card here holds a bar or a board rather than a report. */
 
-.blindspot-cards {
+.mistake-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
   gap: $block-gap;
@@ -18,7 +18,7 @@
   }
 }
 
-.blindspot-card {
+.mistake-card {
   @extend %box-neat;
 
   background: $c-bg-box;

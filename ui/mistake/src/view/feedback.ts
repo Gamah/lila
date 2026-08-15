@@ -24,7 +24,7 @@ const gameLink = (ctrl: MistakeCtrl): VNode | false =>
   hl(
     'a.mistake__game-link',
     { attrs: { href: ctrl.gameUrl, target: '_blank', rel: 'noopener' } },
-    i18n.blindspot.seeTheGameItCameFrom,
+    i18n.mistake.seeTheGameItCameFrom,
   );
 
 const played = (ctrl: MistakeCtrl): VNode[] => [
@@ -116,10 +116,10 @@ const empty = (ctrl: MistakeCtrl): VNode[] => [
   hl('div.player', [
     hl('div.no-square', hl('piece.king.white')),
     hl('div.instruction', [
-      hl('em', i18n.blindspot.queueIsEmpty),
+      hl('em', i18n.mistake.queueIsEmpty),
       hl('div.choices.end', [
         hl('a', { hook: bind('click', ctrl.reset) }, i18n.site.doItAgain),
-        hl('a', { attrs: { href: ctrl.homeUrl() } }, i18n.blindspot.olderGames),
+        hl('a', { attrs: { href: ctrl.homeUrl() } }, i18n.mistake.olderGames),
       ]),
     ]),
   ]),

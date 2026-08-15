@@ -16,7 +16,7 @@
   }
 }
 
-.blindspot-record {
+.mistake-record {
   &__bar {
     @extend %flex-center-nowrap;
 
@@ -69,7 +69,7 @@
 
 /* one per answer, oldest first. Twenty of them say the thing a lifetime
  * percentage cannot: that the last handful went badly. */
-.blindspot-strip {
+.mistake-strip {
   @extend %flex-center-nowrap;
 
   gap: 3px;

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="tagline">Learn from your mistakes, shuffled</string>
-  <string name="mascotIntro">Every position here is a move you played, and got wrong.</string>
-  <string name="mascotIntroMore">They are torn out of your own finished games and handed to you one at a time, in no particular order and old enough that you have stopped remembering them. The move that led into the position is played for you, and then it is your turn.</string>
+  <string name="tagline">From your own games, shuffled</string>
+  <string name="mascotIntro">Positions from your own games, where you went wrong.</string>
+  <string name="mascotIntroMore">They come one at a time, in a random order. The move before is played for you, then it is your turn to find something better.</string>
 
   <string name="noAnalysedGamesFrom">No analysed games from %s.</string>
   <string name="noGamesFrom">No games from %s.</string>
   <string name="nbOfNbGamesAnalysed">%1$s of %2$s games analysed.</string>
-  <string name="comeBackLater">Come back later.</string>
+  <string name="comeBackLater">Come back later!</string>
   <string name="nbAnalysedGamesFrom">%1$s analysed games from %2$s.</string>
   <plurals name="youHaveAnsweredNbPositionsFromThem">
     <item quantity="one">You have answered %s position from them.</item>
@@ -55,12 +55,12 @@
     <item quantity="other">%s positions answered</item>
   </plurals>
   <string name="all">All</string>
-  <string name="noPositionsAnsweredYet">You have not answered a position yet.</string>
+  <string name="noPositionsAnsweredYet">Nothing here yet, go and play some positions!</string>
   <string name="nothingMatchesThisFilter">Nothing matches this filter.</string>
-  <string name="positionNotKept">This one was answered before Blindspot started keeping the position.</string>
+  <string name="positionNotKept">Answered before positions were kept.</string>
 
   <string name="putPositionsBack">Put positions back in the queue</string>
-  <string name="putPositionsBackExplanation">A position you have answered is retired and is not handed to you again. Putting it back makes it available to the queue once more.</string>
+  <string name="putPositionsBackExplanation">Answered positions are not handed to you again. Put them back to see them once more.</string>
   <string name="scopeAllTime">All time</string>
   <string name="scopeWindow">Only from %s</string>
   <string name="putBackTheOnesYouGaveUpOn">Put back the ones you gave up on</string>
@@ -72,13 +72,13 @@
 
   <string name="whatThisIs">What this is</string>
   <string name="whatCountsAsAMistake">What counts as a mistake here?</string>
-  <string name="whatCountsAsAMistakeAnswer">A move where the computer evaluation of the game swung against you, and where the computer had a better move to show you. It is the same selection the analysis board's "Learn from your mistakes" makes at the end of a game, applied across every analysed game in your window rather than one game at a time.</string>
-  <string name="howIsThisDifferentFromPuzzles">How is this different from my puzzle history?</string>
-  <string name="howIsThisDifferentFromPuzzlesAnswer">Puzzles are positions from other people's games, chosen because they have a clean tactical solution. These are your own positions, chosen because you got them wrong. There is no rating here, and nothing is trying to be fair to you.</string>
+  <string name="whatCountsAsAMistakeAnswer">A move where the computer evaluation swung against you, and the computer has a better move to show. It is the same selection as "Learn from your mistakes" on the analysis board, over every analysed game instead of one.</string>
+  <string name="howIsThisDifferentFromPuzzles">How is this different from puzzles?</string>
+  <string name="howIsThisDifferentFromPuzzlesAnswer">Puzzles come from other people's games and have a clean solution. These are your own positions, and you already got them wrong once. Nothing here is rated.</string>
   <string name="whyAreMyRecentGamesMissing">Why are my recent games missing?</string>
-  <string name="whyAreMyRecentGamesMissingAnswer">By default the queue leaves out anything from the last month. A game you played last week is still in your memory, and remembering the move is exactly what this is trying to avoid. You can move that boundary all the way to today with the controls at the top of the page.</string>
+  <string name="whyAreMyRecentGamesMissingAnswer">Games from the last month are left out by default: you probably still remember the move. Use the controls at the top to include them.</string>
   <string name="whyCantISeeWhichGame">Why is the link to the game only there afterwards?</string>
-  <string name="whyCantISeeWhichGameAnswer">The link opens the game at that exact move, and that page has the computer's opinion of the move written on it. Opening it while you are still thinking is the solution by another route, so it waits until you have answered.</string>
+  <string name="whyCantISeeWhichGameAnswer">The link opens the game at that move, where the computer analysis is already shown. So it waits until you have answered.</string>
 
   <string name="queueIsEmpty">Your queue is empty. Play some more games.</string>
   <string name="seeTheGameItCameFrom">See the game it came from</string>

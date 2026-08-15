@@ -1,9 +1,9 @@
-/* The Blindspot landing, and the answered list that shares its furniture.
+/* The Mistakes landing, and the answered list that shares its furniture.
  * A column of boxes with $block-gap between them, which is `.tutor-home`
  * (ui/tutor/css/_home.scss): one box was what made this read like an admin
  * page. */
 
-.blindspot {
+.mistake {
   @extend %flex-column;
 
   gap: $block-gap;

@@ -232,10 +232,10 @@ object header:
               ),
               // your own queue only: solving records against the solver
               ctx.is(u).option(
-                a(cls := "blindspot", href := routes.Mistake.home(none), dataIcon := Icon.ChasingArrows):
+                a(cls := "mistake", href := routes.Mistake.home(none), dataIcon := Icon.ChasingArrows):
                   span(
-                    strong("Blindspot"),
-                    // site's own key: one line is not worth loading blindspot's
+                    strong("Mistakes"),
+                    // site's own key: one line is not worth loading mistake's
                     // translations onto every profile page
                     em(trans.site.learnFromYourMistakes())
                   )
