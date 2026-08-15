@@ -12,15 +12,14 @@ final class MistakeJson:
 
   /* Note what is NOT in here: game id, opponent, date, result, and no
    * evaluation of the move that was played. `prevEval` is, because the client
-   * judges against it exactly as retro does - it just isn't rendered. */
-  def deal(deal: MistakeApi.Deal, pref: Option[Pref] = none): JsObject =
+   * judges against it exactly as retro does - it just isn't rendered.
+   *
+   * The counts aren't here either any more. They belong to the landing page,
+   * which can render them without consuming a position to do it. */
+  def next(mistake: Option[Mistake], pref: Option[Pref] = none): JsObject =
     Json
-      .obj(
-        "nbGames" -> deal.nbGames,
-        "nbSolved" -> deal.nbSolved
-      )
-      .add("mistake" -> deal.mistake.map(position))
-      .add("nbQueued" -> deal.nbQueued.some.filter(_ > 0))
+      .obj()
+      .add("mistake" -> mistake.map(position))
       .add("pref" -> pref)
 
   def position(m: Mistake): JsObject =

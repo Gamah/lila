@@ -12,29 +12,51 @@ final class MistakeApi(
     analysisRepo: AnalysisRepo,
     divider: Divider,
     solveRepo: MistakeSolveRepo,
-    dealStore: MistakeDealStore,
+    currentStore: MistakeCurrentStore,
     fishnet: MistakeFishnet
 )(using Executor):
 
   import MistakeApi.*
 
-  def deal(userId: UserId, window: MistakeWindow = MistakeWindow.default): Fu[Deal] = for
+  /* Everything the landing page shows, and nothing it changes. Opening
+   * /mistakes must not spend a position or a second of fishnet, which is
+   * exactly what the old combined call did on every load. */
+  def home(userId: UserId, window: MistakeWindow): Fu[MistakeHome] = for
+    nbAnalysed <- gameRepo.countAnalysedBetween(userId, window.since, window.until)
+    nbUnanalysed <- gameRepo.countUnanalysedBetween(userId, window.since, window.until)
+    stats <- solveRepo.stats(userId)
+    request <- fishnet.lastRequest(userId)
+    warming <- fishnet.warming(request)
+  yield MistakeHome(
+    window = window,
+    nbAnalysed = nbAnalysed,
+    nbUnanalysed = nbUnanalysed,
+    maxPerRequest = fishnet.maxPerRequest,
+    stats = stats,
+    warming = warming,
+    canRequest = request.forall(_.canRequestAgain)
+  )
+
+  /* Hands out the next position and remembers it. Unlike `home` this is not
+   * idempotent - it consumes, which is why it lives behind its own request. */
+  def next(userId: UserId, window: MistakeWindow): Fu[Option[Mistake]] = for
     ids <- gameRepo.analysedIdsBetween(userId, window.since, window.until, maxGamesToConsider)
     // shuffled, not newest first: the whole point is not knowing what's coming
     shuffled = ThreadLocalRandom.shuffle[GameId, List[GameId]](ids)
     solved <- solveRepo.solvedIn(userId, shuffled)
     mistake <- pick(userId, shuffled.take(maxGamesToVisit.value), solved)
-    _ = mistake.foreach(m => dealStore.put(userId, Mistake.Dealt(m.key, m.color)))
-    nbSolved <- solveRepo.count(userId)
-    queued <- fishnet.ensureSomeAnalysis(userId, window)
-  yield Deal(mistake, nbGames = ids.size, nbSolved = nbSolved, nbQueued = queued)
+    _ = mistake.foreach(m => currentStore.put(userId, Mistake.Current(m.key, m.color)))
+  yield mistake
 
-  /* Answers the position the user was last dealt, and only then hands back the
-   * game it came from. Returns none if we've forgotten the deal (stale tab). */
-  def record(userId: UserId, result: MistakeResult): Fu[Option[Mistake.Dealt]] =
-    dealStore.take(userId) match
+  def requestAnalysis(userId: UserId, window: MistakeWindow): Fu[Option[Int]] =
+    fishnet.request(userId, window)
+
+  /* Answers the position the user was last shown, and only then hands back the
+   * game it came from. Returns none if we've forgotten it (stale tab). */
+  def record(userId: UserId, result: MistakeResult): Fu[Option[Mistake.Current]] =
+    currentStore.take(userId) match
       case None => fuccess(none)
-      case Some(dealt) => solveRepo.record(userId, dealt.key, result).inject(dealt.some)
+      case Some(current) => solveRepo.record(userId, current.key, result).inject(current.some)
 
   def clear(userId: UserId): Funit = solveRepo.clear(userId)
 
@@ -130,5 +152,3 @@ object MistakeApi:
 
   private val maxGamesToConsider = Max(200)
   private val maxGamesToVisit = Max(20)
-
-  case class Deal(mistake: Option[Mistake], nbGames: Int, nbSolved: Int, nbQueued: Int)

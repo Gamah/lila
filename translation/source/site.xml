@@ -903,10 +903,6 @@
   <string name="shuffledMistakes">Shuffled mistakes</string>
   <string name="nothingLeftToShuffle">Nothing left to shuffle. Play some more games, or start the deck again.</string>
   <string name="seeTheGameItCameFrom">See the game it came from</string>
-  <plurals name="nbGamesQueuedForAnalysis">
-    <item quantity="one">%s game sent for computer analysis. Come back in a while for more positions.</item>
-    <item quantity="other">%s games sent for computer analysis. Come back in a while for more positions.</item>
-  </plurals>
   <string name="advantage">Advantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s second</item>

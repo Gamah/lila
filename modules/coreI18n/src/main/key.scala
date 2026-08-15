@@ -2543,7 +2543,6 @@ object I18nKey:
     val `availableInNbLanguages`: I18nKey = "availableInNbLanguages"
     val `nbAnonymous`: I18nKey = "nbAnonymous"
     val `nbSecondsToPlayTheFirstMove`: I18nKey = "nbSecondsToPlayTheFirstMove"
-    val `nbGamesQueuedForAnalysis`: I18nKey = "nbGamesQueuedForAnalysis"
     val `nbSeconds`: I18nKey = "nbSeconds"
     val `andSaveNbPremoveLines`: I18nKey = "andSaveNbPremoveLines"
 

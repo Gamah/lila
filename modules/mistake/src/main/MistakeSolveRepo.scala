@@ -47,3 +47,33 @@ final private class MistakeSolveRepo(coll: Coll)(using Executor):
   def clear(userId: UserId): Funit = coll.delete.one($doc("u" -> userId)).void
 
   def count(userId: UserId): Fu[Int] = coll.countSel($doc("u" -> userId))
+
+  /* The whole of the stats page, in two reads. Deliberately not a second
+   * insights: by phase, by piece and by opening are tutor's job and would be a
+   * worse copy of it. */
+  def stats(userId: UserId): Fu[MistakeStats] =
+    for
+      byResult <- countByResult(userId)
+      recent <- recentResults(userId)
+    yield MistakeStats(byResult, recent)
+
+  private def countByResult(userId: UserId): Fu[Map[MistakeResult, Int]] =
+    coll
+      .aggregateList(MistakeResult.values.size, _.sec): framework =>
+        import framework.*
+        Match($doc("u" -> userId)) -> List(GroupField("r")("nb" -> SumAll))
+      .map: docs =>
+        docs.flatMap: doc =>
+          for
+            result <- doc.string("_id").flatMap(MistakeResult.apply)
+            nb <- doc.int("nb")
+          yield result -> nb
+        .toMap
+
+  private def recentResults(userId: UserId): Fu[List[MistakeResult]] =
+    coll
+      .find($doc("u" -> userId), $doc("r" -> true).some)
+      .sort($doc("d" -> -1))
+      .cursor[Bdoc](ReadPref.sec)
+      .list(MistakeStats.recentSize)
+      .map(_.flatMap(_.string("r").flatMap(MistakeResult.apply)))

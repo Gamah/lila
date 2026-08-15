@@ -18,6 +18,7 @@ final class Env(
 )(using Executor):
 
   private lazy val solveColl = db(CollName("mistake_solve"))
+  private lazy val requestColl = db(CollName("mistake_request"))
 
   lazy val nbAnalysisSetting = settingStore[Int](
     "mistakeNbAnalysis",
@@ -25,8 +26,11 @@ final class Env(
     text = "Number of fishnet analysis to request per user per hour of learning from mistakes".some
   ).taggedWith[NbAnalysis]
 
-  private lazy val solveRepo = wire[MistakeSolveRepo]
-  private lazy val dealStore = wire[MistakeDealStore]
+  // two collections in scope, so these two are named rather than wired
+  private lazy val solveRepo = MistakeSolveRepo(solveColl)
+  private lazy val requestRepo = MistakeRequestRepo(requestColl)
+
+  private lazy val currentStore = wire[MistakeCurrentStore]
   private lazy val fishnet = wire[MistakeFishnet]
 
   lazy val api = wire[MistakeApi]

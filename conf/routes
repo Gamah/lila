@@ -873,10 +873,16 @@ GET   /tutor/:user/:range/:perf/opening/:color/:opening controllers.Tutor.openin
 # Mistakes
 # the /mistakes path is the only place the name is user visible;
 # everything behind it is the `mistake` token, see modules/mistake/README.md
-GET   /mistakes                        controllers.Mistake.home
-GET   /mistakes/next                   controllers.Mistake.next
+# /mistakes only reads. Everything that spends a position, or fishnet time, is
+# behind /mistakes/play or a POST.
+GET   /mistakes                        controllers.Mistake.home(window: Option[String] ?= None)
+# `board`, not `play`: a route action named play shadows the play package
+# inside the generated reverse router, and every queryString call in it breaks
+GET   /mistakes/play                   controllers.Mistake.board(window: Option[String] ?= None)
+GET   /mistakes/next                   controllers.Mistake.next(window: Option[String] ?= None)
+POST  /mistakes/analyse                controllers.Mistake.analyse(window: Option[String] ?= None)
 POST  /mistakes/record/:result         controllers.Mistake.record(result)
-POST  /mistakes/reset                  controllers.Mistake.reset
+POST  /mistakes/reset                  controllers.Mistake.reset(window: Option[String] ?= None)
 
 # Recap
 GET   /recap                           controllers.Recap.home

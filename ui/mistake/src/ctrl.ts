@@ -46,6 +46,7 @@ export default class MistakeCtrl implements CevalHandler {
   // moves masters play in this position, once the explorer has answered
   private openingUcis: Uci[] = [];
   private readonly explorerEndpoint: string;
+  readonly window: string;
 
   constructor(
     opts: MistakeOpts,
@@ -53,6 +54,7 @@ export default class MistakeCtrl implements CevalHandler {
   ) {
     this.data = opts;
     this.explorerEndpoint = opts.explorerEndpoint;
+    this.window = opts.window;
     this.flipped = toggle(false, redraw);
     this.promotion = new PromotionCtrl(this.withGround, () => this.setGround(), redraw);
     this.ceval = new CevalCtrl({
@@ -137,14 +139,17 @@ export default class MistakeCtrl implements CevalHandler {
   next = (): void => {
     this.loading = true;
     this.redraw();
-    this.pending.then(xhr.next).then(this.load);
+    this.pending.then(() => xhr.next(this.window)).then(this.load);
   };
 
   reset = (): void => {
     this.loading = true;
     this.redraw();
-    xhr.reset().then(this.load);
+    xhr.reset(this.window).then(this.load);
   };
+
+  // where to go to widen the window, or just to see how the deck is doing
+  homeUrl = (): string => xhr.homeUrl(this.window);
 
   // ------------------------------------------------------------------ solving
 

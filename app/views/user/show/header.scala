@@ -232,7 +232,7 @@ object header:
               ),
               // your own deck only: solving records against the solver
               ctx.is(u).option(
-                a(cls := "mistakes-link", href := routes.Mistake.home, dataIcon := Icon.ChasingArrows):
+                a(cls := "mistakes-link", href := routes.Mistake.home(none), dataIcon := Icon.ChasingArrows):
                   span(
                     strong(trans.site.shuffledMistakes()),
                     em(trans.site.learnFromYourMistakes())

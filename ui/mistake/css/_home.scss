@@ -1,0 +1,110 @@
+/* The landing page: plain boxes, no board. Everything here is a read, so it
+ * reads like a page rather than an app. */
+
+.mistake-home {
+  display: flex;
+  flex-flow: column;
+  gap: $block-gap;
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  h2 {
+    font-size: 1.3em;
+    margin-bottom: 0.6em;
+  }
+
+  &__hint {
+    color: $c-font-dimmer;
+    font-size: 0.9em;
+  }
+
+  &__play,
+  &__request {
+    margin-top: 1em;
+  }
+
+  &__request .mistake-home__hint {
+    margin-top: 0.5em;
+  }
+
+  /* Tutor shows the games it is analysing while you wait. We withhold those on
+   * purpose, so all that is left is how far along it is. */
+  &__progress {
+    background: $c-bg-zebra;
+    border-radius: $box-radius-size;
+    height: 0.8em;
+    overflow: hidden;
+    margin-bottom: 1em;
+
+    &__bar {
+      background: $c-secondary;
+      height: 100%;
+      transition: width 0.4s;
+    }
+  }
+
+  &__hit-rate {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    margin-bottom: 0.8em;
+  }
+
+  &__big {
+    font-size: 3em;
+    line-height: 1;
+    color: $c-good;
+  }
+
+  &__counts {
+    display: flex;
+    gap: $block-gap;
+    margin-bottom: 1em;
+  }
+
+  &__tile {
+    flex: 1 1 0;
+    background: $c-bg-zebra;
+    border-radius: $box-radius-size;
+    padding: 0.8em;
+    text-align: center;
+    display: flex;
+    flex-flow: column;
+
+    strong {
+      font-size: 1.6em;
+    }
+
+    span {
+      color: $c-font-dimmer;
+      font-size: 0.9em;
+    }
+
+    &--win strong {
+      color: $c-good;
+    }
+
+    &--fail strong {
+      color: $c-bad;
+    }
+  }
+
+  &__window {
+    form {
+      display: flex;
+      gap: 1em;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    select {
+      flex: 1 1 14em;
+    }
+  }
+
+  &__reset {
+    margin-top: 1.5em;
+  }
+}

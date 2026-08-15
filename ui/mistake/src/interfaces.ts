@@ -28,18 +28,20 @@ export interface MistakePosition {
   divisionMiddle?: Ply;
 }
 
+/* No counts in here. How much of the deck is left and how you have been doing
+ * are the landing page's job, and it can say them without spending a position
+ * to find out. */
 export interface MistakeData {
   mistake?: MistakePosition;
-  nbGames: number;
-  nbSolved: number;
-  nbQueued?: number;
   pref: MistakePrefs;
 }
 
-/* The page carries one thing the later deals don't: where to ask the opening
- * explorer. It never changes, so it is not part of a deal. */
+/* The page carries two things the later positions don't: where to ask the
+ * opening explorer, and which window we are drawing from. Neither changes
+ * while the board is open. */
 export interface MistakeOpts extends MistakeData {
   explorerEndpoint: string;
+  window: string;
 }
 
 /* Same states as retro, minus 'offTrack' - there is nowhere to browse away to. */

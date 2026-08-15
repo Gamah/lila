@@ -6,9 +6,15 @@ import type { MistakeData, Result } from './interfaces';
  * this constant and the feature is called something else. */
 const base = '/mistakes';
 
-export const next = (): Promise<MistakeData> => json(`${base}/next`);
+// the window travels with every request: the server holds no per-user setting
+const qs = (window: string) => `?window=${encodeURIComponent(window)}`;
+
+export const next = (window: string): Promise<MistakeData> => json(`${base}/next${qs(window)}`);
 
 export const record = (result: Result): Promise<{ game?: string }> =>
   json(`${base}/record/${result}`, { method: 'post' });
 
-export const reset = (): Promise<MistakeData> => json(`${base}/reset`, { method: 'post' });
+export const reset = (window: string): Promise<MistakeData> =>
+  json(`${base}/reset${qs(window)}`, { method: 'post' });
+
+export const homeUrl = (window: string): string => `${base}${qs(window)}`;

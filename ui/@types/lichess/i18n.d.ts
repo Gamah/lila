@@ -4033,8 +4033,6 @@ interface I18n {
     nbGames: I18nPlural;
     /** %s games in play */
     nbGamesInPlay: I18nPlural;
-    /** %s games sent for computer analysis. Come back in a while for more positions. */
-    nbGamesQueuedForAnalysis: I18nPlural;
     /** %s games with you */
     nbGamesWithYou: I18nPlural;
     /** %s hours */

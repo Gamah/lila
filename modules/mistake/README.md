@@ -1,8 +1,13 @@
 # mistake
 
-Deals a player one of their own past mistakes at a time, at random, cold: a
-board, the move they played drawn on it, "find something better". Served at
-`/mistakes`.
+Shows a player one of their own past mistakes at a time, at random, cold: a
+board, the move they played drawn on it, "find something better".
+
+`/mistakes` is the landing page and `/mistakes/play` is the board. The split is
+not cosmetic: the board is not idempotent - arriving there hands out a position
+and spends it - so it cannot also be the page you land on, get linked to, or
+open in a background tab. Everything that spends something is a POST or lives
+behind `/play`.
 
 It is *not* puzzles. Nothing here reads or writes `puzzle2_puzzle`,
 `PuzzleTier`, `PuzzleFinisher`, puzzle glicko or the puzzle dashboard. These
@@ -43,19 +48,35 @@ is a bug in this module.
   pulls one node out of it, rather than replaying the game by hand. The
   engine's line is already hanging off the pre-mistake node as a `comp` child,
   which is the same thing retro reads.
-- **Window**: games created between 1 and 3 months ago (`MistakeWindow`).
-  Recent games are skipped on purpose - they're still in your memory.
-- **Supply**: `MistakeFishnet` hands unanalysed games in that window to
-  fishnet, once per user per hour, with `Origin.autoMistake` (100k nodes/move,
-  `slowOk`) so its metrics separate from tutor's. Unlike `TutorFishnet` it
-  never awaits.
+- **Window**: games created between 1 and 3 months ago by default
+  (`MistakeWindow`). Recent games are skipped on purpose - they're still in
+  your memory. The landing page can widen it, from a fixed list of choices: it
+  travels in the URL as `?window=<since>-<until>` and there is no per-user
+  setting behind it, so a window nobody picked is one we never spend fishnet
+  on.
+- **Supply**: `MistakeFishnet` hands unanalysed games in the window to fishnet
+  with `Origin.autoMistake` (100k nodes/move, `slowOk`) so its metrics separate
+  from tutor's. Unlike `TutorFishnet` it never awaits. It is asked by
+  `POST /mistakes/analyse` and by nothing else - rendering a page has never had
+  the right to spend engine time.
+- **The one enqueue per user per hour lives in mongo**, in `mistake_request`,
+  not in an `OnceEvery`. An in-memory limiter does not survive a deploy, and on
+  production a rolling restart would let every active user re-enqueue. The same
+  document holds the game ids of the batch, which is the only way the warming
+  state knows how far along it is: fishnet tells us nothing when it finishes.
 - **Memory**: one document per `(userId, gameId, ply)` in `mistake_solve`.
   Result and date, nothing else. Solving, failing then moving on, and skipping
   all retire a position, exactly as retro's `skip()` and `viewSolution()` both
   call `solveCurrent()`.
-- **Withholding**: the client is never sent the game id. `MistakeDealStore`
+- **Withholding**: the client is never sent the game id. `MistakeCurrentStore`
   remembers which position each user is looking at, so answering says only
   *how it went*, and the server hands back the game link in reply.
+- **Stats** on the landing come from `mistake_solve` and nothing else: how many
+  you solved, gave up on and skipped, and the same over the last twenty. By
+  phase, by piece and by opening are tutor's job and would be a worse copy of
+  it, so the page links there instead. There is deliberately no "positions
+  remaining": knowing it means deriving candidates for every game in the
+  window, which is exactly the work the board does one game at a time.
 
 ## Renaming it
 
@@ -64,18 +85,18 @@ of them the single token `mistake` (or the path `mistakes`):
 
 | what | where |
 | --- | --- |
-| route path | `conf/routes` - the four `/mistakes*` lines |
+| route path | `conf/routes` - the six `/mistakes*` lines |
 | client's copy of the path | `ui/mistake/src/xhr.ts`, the `base` constant |
 | module | `modules/mistake/`, package `lila.mistake`, `build.sbt` |
 | controller | `app/controllers/Mistake.scala`, wired in `app/Lila.scala` |
 | env | `app/Env.scala` |
 | page view | `modules/mistake/src/main/ui/MistakeUi.scala`, `app/views/ui.scala` |
-| js bundle | `ui/mistake/` (`package.json` name, `src/mistake.ts`) |
-| css bundle | `ui/mistake/css/build/mistake.scss` |
-| collection | `mistake_solve` in `modules/mistake/src/main/Env.scala` |
+| js bundle | `ui/mistake/` (`package.json` name, `src/mistake.ts`, `src/mistake.landing.ts`) |
+| css bundle | `ui/mistake/css/build/mistake.scss`, `mistake.home.scss` |
+| collections | `mistake_solve`, `mistake_request` in `modules/mistake/src/main/Env.scala` |
 | setting | `mistakeNbAnalysis` |
 | fishnet origin | `Work.Origin.autoMistake` |
-| i18n | `site.xml`: `shuffledMistakes`, `oneOfYourOwnMistakes`, `nothingLeftToShuffle`, `seeTheGameItCameFrom`, `dealAnother`, `nbGamesQueuedForAnalysis`, `nbMistakesSolved` |
+| i18n | `site.xml`: `shuffledMistakes`, `nothingLeftToShuffle`, `seeTheGameItCameFrom` |
 
 Nothing else derives the name from anything, and no user visible string builds
 it out of the token, so a rename is a rename of that list.
@@ -91,5 +112,10 @@ it out of the token, so a rename is a rename of that list.
 - **Variants.** Candidates are standard games only (`Query.variantStandard`).
 - **Entry point.** The profile page links to it, beside the Chess Insights
   card. There is nothing in the nav yet, same as `/tutor`.
-- **Landing page, deck stats and a window control.** `nbGames`, `nbSolved` and
-  `MistakeWindow` are all in place but the page barely shows them.
+- **A "deck spent" state on the landing.** The landing cannot know the deck is
+  empty without dealing a position to find out, which is the one thing it must
+  not do, so that state lives on the board. Its two real actions - draw from
+  further back, put the deck back - are on the landing, and the board links
+  there.
+- **Copy is hardcoded English**, as tutor's is. Only the three strings the
+  board inherited from retro are in `site.xml`.
