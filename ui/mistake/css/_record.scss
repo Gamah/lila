@@ -1,0 +1,86 @@
+/* Tutor's grade strip is seven segments lit or unlit against your peers. There
+ * are no peers here, so the same three colours are put to a proportion: one bar
+ * for the whole record, and one segment per answer for the last twenty. */
+
+@mixin result-colors($property) {
+  &--win {
+    #{$property}: $c-grade-good;
+  }
+
+  &--fail {
+    #{$property}: $c-grade-bad;
+  }
+
+  &--skip {
+    #{$property}: $c-grade-avg;
+  }
+}
+
+.blindspot-record {
+  &__bar {
+    @extend %flex-center-nowrap;
+
+    height: 1.5em;
+    border-radius: 4px;
+    overflow: hidden;
+    background: $c-bg-low;
+
+    &__seg {
+      height: 100%;
+
+      @include result-colors(background);
+    }
+  }
+
+  &__legend {
+    @extend %flex-column;
+
+    margin-top: 1em;
+    list-style: none;
+    gap: 0.4em;
+
+    li {
+      @extend %flex-center-nowrap;
+
+      gap: 0.6em;
+    }
+
+    &__label {
+      flex: 1 1 auto;
+    }
+
+    em {
+      color: $c-font-dim;
+      width: 3.5em;
+      text-align: right;
+    }
+  }
+
+  &__dot {
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    background: $c-bg-low;
+
+    @include result-colors(background);
+  }
+}
+
+/* one per answer, oldest first. Twenty of them say the thing a lifetime
+ * percentage cannot: that the last handful went badly. */
+.blindspot-strip {
+  @extend %flex-center-nowrap;
+
+  gap: 3px;
+  height: 1.5em;
+
+  &__seg {
+    flex: 1 1 auto;
+    height: 100%;
+    border-radius: 3px;
+    background: $c-bg-low;
+
+    @include result-colors(background);
+  }
+}

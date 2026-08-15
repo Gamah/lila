@@ -86,12 +86,31 @@ is a bug in this module.
   document holds the game ids of the batch, which is the only way the warming
   state knows how far along it is: fishnet tells us nothing when it finishes.
 - **Memory**: one document per `(userId, gameId, ply)` in `mistake_solve`.
-  Result and date, nothing else. Solving, failing then moving on, and skipping
-  all retire a position, exactly as retro's `skip()` and `viewSolution()` both
-  call `solveCurrent()`.
-- **Withholding**: the client is never sent the game id. `MistakeCurrentStore`
-  remembers which position each user is looking at, so answering says only
-  *how it went*, and the server hands back the game link in reply.
+  Result, date, and the board and colour it was played on. Solving, failing
+  then moving on, and skipping all retire a position, exactly as retro's
+  `skip()` and `viewSolution()` both call `solveCurrent()`.
+
+  The board on the document is a denormalisation, and it is the one place this
+  module departs from how the rest of the site draws a position. Everywhere
+  else - puzzle history, `Puzzle.ofPlayer`, every game list - the board comes
+  from the entity the row points at, and no history row anywhere stores a fen.
+  There is no such entity here: a position is derived and never kept, so the
+  answer is the only record of it there will ever be. Rows written before
+  Gamah/lila#6 have neither field and render as a date and a result.
+- **The position arrives in one piece**: game, ply, colour and the move that
+  led into it, all in `MistakeJson.position`. The board starts a ply back and
+  plays that move in, the way a puzzle plays its first move, and the red arrow
+  for the mistake is drawn only once it lands. `MistakeCurrentStore` still
+  remembers which position each user has in flight, not to keep it secret but
+  so `record` resolves what is being answered server side and a stale tab
+  cannot record against whatever it still has on screen.
+
+  The link into the game is offered only once the position has been answered.
+  Not withholding: `/{gameId}/{colour}#{ply}` is `Round.watcher`, which hands
+  any finished game to `analyseC.replay` (`app/controllers/Round.scala:153`),
+  and that page annotates the very move being asked about. There is no
+  ply-linked view of a game on lila without the engine's verdict on it, so the
+  link is the solution with extra steps.
 - **Stats** on the landing come from `mistake_solve` and nothing else: how many
   you solved, gave up on and skipped, and the same over the last twenty. By
   phase, by piece and by opening belong elsewhere and would be a worse copy of
@@ -108,11 +127,17 @@ is a bug in this module.
   reason `next` is, so on a user with more games than that in the window it is
   a count over the pool the board can actually reach, not over the whole window.
 
-  There is no list of what you *have* answered. One was built and cut:
-  `mistake_solve` makes it cheap, but a table of "Solved / 45 minutes ago / see
-  the game" told you nothing you wanted at a glance, and reading your own
-  history is not why anyone opens this. Reconsider it as a real page - grouped,
-  or with the positions drawn - or not at all.
+  The list of what you *have* answered is `/mistakes/answered`, its own route
+  as `/storm/dashboard` and `/training/history` are their own routes. It is the
+  whole list, newest first, server paginated with `infinite-scroll`, filtered
+  by result in the URL, and every position is drawn rather than described -
+  which is what the first attempt at it got wrong and was cut for.
+
+  It is **not** scoped to the window. The window governs what the queue draws
+  from; what you have already answered is a different question, and the two
+  being the same control would be an accident rather than a decision. The
+  window is still carried in that page's URL, but only so the put-back controls
+  can offer to narrow themselves to it and name it while doing so.
 
 - **Nothing on the landing spends fishnet on its own.** The cold state used to
   submit the request form on load; that is gone (Gamah/lila#5). The condition
@@ -125,9 +150,32 @@ is a bug in this module.
 The **displayed** name is Blindspot, and it is hardcoded English in exactly
 three places - `MistakeUi.name`, the profile card in
 `app/views/user/show/header.scala`, and the `.blindspot` block in
-`ui/user/css/_profile.scss`. It is not in `site.xml`, because "Chess Insights"
-isn't either: a product name is not a translatable string. Renaming the feature
-is those three edits.
+`ui/user/css/_profile.scss`. It is not a translated string, because "Chess
+Insights" isn't either: a product name is not one. Renaming the feature is
+those three edits.
+
+Everything *else* on these pages is translated, through
+`translation/source/blindspot.xml`. That is the site's ordinary mechanism - 43
+features have their own file, `bin/i18n-file-gen.ts` finds it by listing the
+directory and `ui/.build/src/i18n.ts` creates its dest folder - but a new
+module has to be named by hand in **two** places, and missing either fails
+quietly:
+
+- the `I18nModule` enum in `modules/coreI18n/src/main/modules.scala`, without
+  which `.i18n(_.blindspot)` does not compile;
+- the `dbs` string in `build.sbt`'s `i18n` module, which is what
+  `project/I18n.scala` serialises into the `i18n.<lang>.ser` the server reads.
+  Miss this one and every page renders the raw key - `blindspot:tagline` - with
+  no error anywhere.
+
+Note that this is deliberately *not*
+what Tutor does, whose layout the landing otherwise copies: Tutor hardcodes
+about forty English literals and has no module at all. That is Tutor's bug, not
+a pattern to follow, and it is filed as Gamah/lila#7.
+
+`key.scala` is generated. Changing `blindspot.xml` means running
+`pnpm i18n-file-gen` *and* `./ui/build`: the build regenerates `i18n.d.ts`
+only, and CI checks both are in sync.
 
 The **code** token is `mistake` and appears in these places, all of them the
 single word (or the path `mistakes`). Renaming *that* is a bigger job and buys
@@ -146,7 +194,7 @@ nothing user visible:
 | collections | `mistake_solve`, `mistake_request` in `modules/mistake/src/main/Env.scala` |
 | setting | `mistakeNbAnalysis` |
 | fishnet origin | `Work.Origin.autoMistake` |
-| i18n | `site.xml`: `queueIsEmpty`, `seeTheGameItCameFrom` - the board's only two translated strings |
+| i18n | `translation/source/blindspot.xml`, and the `blindspot` case in `I18nModule` |
 
 No user visible string is built out of the token, which is why the two lists
 above are independent.
@@ -161,22 +209,19 @@ above are independent.
   not implemented.
 - **Variants.** Candidates are standard games only (`Query.variantStandard`).
 - **Entry point.** The profile page links to it, beside the Chess Insights
-  card. There is nothing in the nav yet.
+  card. There is nothing in the nav yet - Tutor isn't in the nav either.
+- **A subnav.** Two pages get the profile's `number-menu--tabs` strip. If a
+  third ever turns up, `bits.pageMenu` is where this goes, which is what Tutor
+  and Puzzle both use.
 - **An "empty queue" state on the landing.** The landing cannot know the queue
   is empty without handing out a position to find out, which is the one thing it
   must not do, so that state lives on the board. Having nothing to play is a
   valid state and not a problem to engineer around: the board says so and tells
   you to go and play some games - which is true only because `until` can now be
   0, so the games you go and play can reach the queue.
-- **A reset button on the landing.** `POST /mistakes/reset` is still there and
-  the board still calls it, because on the board it follows "Your queue is
-  empty" and "Do it again" is then self explanatory. Sat on the landing under
-  a stats table it was a bare red button that explained nothing, and it is a
-  thing you want on a dev instance rather than in production. Deliberately left
-  for a later pass in Gamah/lila#5 rather than ruled out: if it comes back it
-  has to say what it destroys.
-- **Landing copy is hardcoded English**, as the Chess Insights empty page is.
-  Only the board's two strings are in `site.xml`.
+- **Archiving a position** so a put-back never restores it. Considered in
+  Gamah/lila#6 and dropped: skipping already retires a position, and a second
+  kind of retirement is a concept the feature has not earned.
 - **Any kind of warming progress indicator.** There is no live progress bar
   anywhere on lila - insights spins and reloads - and `bar-glider`, the site's
   one waiting notice, means

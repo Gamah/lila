@@ -8,20 +8,24 @@ import lila.tree.Eval
 
 /* One position in the queue: a move this player got wrong, torn out of its game.
  *
- * Everything that would say *where* it comes from - opponent, date, game id -
- * is deliberately absent. `key` is the only link back, it stays server side
- * until the position has been answered.
+ * `key` says which game and which ply, and the client gets it. Nothing here is
+ * a secret: the shuffle is what makes this exercise, not ignorance of where you
+ * are, and knowing the game does not hand you the move.
  */
 case class Mistake(
     key: Mistake.Key,
     color: Color,
     fen: Fen.Full, // the position BEFORE the mistake was played
+    // the move that led into it, played on arrival the way a puzzle plays its
+    // first move. None when the mistake is the very first move of the game.
+    intro: Option[Mistake.Intro],
     played: Mistake.Played,
     prevEval: Option[Eval], // eval of the position before, ie of the best move
     solution: List[SanStr], // engine line from `fen`
     // where the opening ends, so the client knows whether to ask the explorer
     divisionMiddle: Option[Ply]
-)
+):
+  def gameUrl = Mistake.gameUrl(key, color)
 
 object Mistake:
 
@@ -29,10 +33,18 @@ object Mistake:
 
   case class Played(uci: Uci, san: SanStr)
 
-  // what the server remembers about the position a user is currently looking at
-  case class Current(key: Mistake.Key, color: Color):
-    // deep link into the analysis of the game it came from
-    def gameUrl = s"/${key.gameId}/${color.name}#${key.ply}"
+  // where the board starts, and the move it plays to get to `fen`
+  case class Intro(fen: Fen.Full, uci: Uci)
+
+  // deep link into the analysis of the game a position came from
+  def gameUrl(key: Key, color: Color) = s"/${key.gameId}/${color.name}#${key.ply}"
+
+  /* Which position a user has in flight, so `record` knows what it is
+   * answering - and carries the board with it, because the answer is where the
+   * position gets written down and by then it is gone. */
+  case class Current(key: Mistake.Key, color: Color, board: Fen.Board):
+    def gameUrl = Mistake.gameUrl(key, color)
+    def solvePosition = MistakeSolve.Position(color, board)
 
 /* Mimics retro: solving it, failing it and moving on, and skipping it all
  * retire the position. We keep which of the three it was anyway. */
@@ -41,6 +53,46 @@ enum MistakeResult:
 
 object MistakeResult:
   def apply(str: String): Option[MistakeResult] = values.find(_.toString == str)
+
+/* One answered position, as `mistake_solve` remembers it.
+ *
+ * A position is derived, never stored: it is a game and a ply run through the
+ * selector, and once it has been answered nothing keeps it. So the board and
+ * the colour are written onto the answer itself, which is the only record of it
+ * there will ever be. Rows written before that have neither, and are shown as
+ * a date and a result with nothing to look at. */
+case class MistakeSolve(
+    key: Mistake.Key,
+    result: MistakeResult,
+    date: Instant,
+    position: Option[MistakeSolve.Position]
+):
+  def gameUrl = position.map(p => Mistake.gameUrl(key, p.color))
+
+object MistakeSolve:
+  case class Position(color: Color, board: Fen.Board)
+
+/* Which answers the list is showing. `all` is not a fourth result: it is the
+ * absence of the filter, and the URL says nothing when it applies. */
+enum MistakeFilter:
+  case all, win, fail, skip
+
+  def result: Option[MistakeResult] = MistakeResult(toString)
+  def key: Option[String] = (this != MistakeFilter.all).option(toString)
+
+object MistakeFilter:
+  def orAll(key: Option[String]): MistakeFilter =
+    key.flatMap(k => values.find(_.toString == k)) | all
+
+/* How much of the queue a "put it back" puts back. The window is the one the
+ * user is looking at on the page, so the narrow form says what it will do
+ * without them having to hold the two controls in their head at once. */
+enum MistakeScope:
+  case window, allTime
+
+object MistakeScope:
+  def orAllTime(key: Option[String]): MistakeScope =
+    key.flatMap(k => values.find(_.toString == k)) | allTime
 
 /* How far back we draw from. Anything more recent than `until` is skipped by
  * default: a game from last week is still in your memory, and remembering the
@@ -51,12 +103,6 @@ case class MistakeWindow(sinceMonths: Int, untilMonths: Int):
   def until = nowInstant.minusMonths(untilMonths)
   // what the URL carries, and the only form of it the client ever sees
   def key = s"$sinceMonths-$untilMonths"
-  def name =
-    if untilMonths == 0 then s"the last ${MistakeWindow.months(sinceMonths)}"
-    else s"$untilMonths to $sinceMonths months ago"
-  // the two halves, named for the two selects that set them
-  def fromName = s"from ${MistakeWindow.months(sinceMonths)} ago"
-  def toName = if untilMonths == 0 then "to today" else s"to ${MistakeWindow.months(untilMonths)} ago"
 
 object MistakeWindow:
   val default = MistakeWindow(sinceMonths = 3, untilMonths = 1)
@@ -94,8 +140,6 @@ object MistakeWindow:
 
   def orDefault(key: Option[String]): MistakeWindow = key.flatMap(byKey) | default
 
-  private def months(n: Int) = if n == 1 then "1 month" else s"$n months"
-
 /* Everything the landing page knows, and nothing it doesn't. There is no
  * "positions remaining": finding that out means deriving candidates for every
  * game in the window, which is what the board does one game at a time.
@@ -123,6 +167,16 @@ case class MistakeHome(
 object MistakeHome:
   enum State:
     case Cold, Warming, Ready
+
+/* The answered list. The window is not what the list is filtered by - history
+ * is every position you ever answered - it is carried so the page can offer to
+ * put back only what that window covers, and name it while doing so. */
+case class MistakeAnswered(
+    window: MistakeWindow,
+    filter: MistakeFilter,
+    pager: scalalib.paginator.Paginator[MistakeSolve],
+    stats: MistakeStats
+)
 
 /* Games this user handed to fishnet that have not come back yet. */
 case class MistakeWarming(nbDone: Int, nbTotal: Int)

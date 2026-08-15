@@ -1,0 +1,75 @@
+/* Tutor's card, narrowed to what Blindspot has to put in one. Its own rather
+ * than an @extend of `.tutor-card`: the two bundles do not see each other, and
+ * a card here holds a bar or a board rather than a report. */
+
+.blindspot-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: $block-gap;
+
+  @media (max-width: $xxx-small) {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+
+  /* boards, so many more per row and no minimum worth 380px */
+  &--positions {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1.5em;
+  }
+}
+
+.blindspot-card {
+  @extend %box-neat;
+
+  background: $c-bg-box;
+  display: block;
+  color: $c-font;
+
+  &--link {
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+
+    &:hover {
+      outline: 1px solid color-mix(in oklab, $c-primary 60%, $c-bg);
+      background: color-mix(in oklab, $c-primary 08%, $c-bg);
+      box-shadow: 0 0 20px color-mix(in oklab, $c-primary 20%, $c-bg);
+    }
+  }
+
+  &__top {
+    @extend %flex-center-nowrap;
+
+    padding: 1.5em 1.5em 0 1.5em;
+    gap: 0.8em;
+
+    i {
+      font-size: 2.5em;
+      opacity: 0.7;
+    }
+
+    &__title {
+      @extend %flex-column;
+
+      &__text {
+        font-size: 1.4em;
+      }
+
+      &__sub {
+        margin-top: 0.2rem;
+        color: $c-font-dim;
+      }
+    }
+  }
+
+  &__content {
+    padding: 1.5em;
+  }
+
+  &__more {
+    display: block;
+    text-align: right;
+    margin-top: 1em;
+    color: $c-link;
+  }
+}

@@ -1,7 +1,26 @@
-/* The Blindspot landing. Same shape as the Chess Insights empty page - one
- * small box - and the same table-of-numbers idiom as the perf stat page. */
+/* The Blindspot landing, and the answered list that shares its furniture.
+ * A column of boxes with $block-gap between them, which is `.tutor-home`
+ * (ui/tutor/css/_home.scss): one box was what made this read like an admin
+ * page. */
 
 .blindspot {
+  @extend %flex-column;
+
+  gap: $block-gap;
+  overflow: hidden;
+
+  .box {
+    @extend %box-neat-force;
+  }
+
+  &__head {
+    /* the band runs the full width of the box, so the head's own padding is on
+     * the parts above it */
+    .box__top {
+      padding: $box-padding $box-padding 0 $box-padding;
+    }
+  }
+
   &__beta {
     color: $c-brag;
     font-size: 0.75em;
@@ -14,6 +33,23 @@
     font-size: 0.5em;
     font-weight: normal;
     color: $c-font-dim;
+  }
+
+  /* The mascot slot with nobody in it. Laid out at the size a mascot would be
+   * so dropping one in later does not reflow the band, and gone below $x-small
+   * exactly as the component's own mascot is. */
+  .mascot--empty {
+    flex: 0 0 160px;
+    height: 160px;
+
+    @media (max-width: at-most($x-small)) {
+      display: none;
+    }
+  }
+
+  &__state {
+    padding: $box-padding;
+    text-align: center;
   }
 
   &__hint {
@@ -30,43 +66,34 @@
   &__start,
   &__request {
     margin-top: 2em;
-    text-align: center;
   }
 
-  /* the .perf-stat .counter table, verbatim: total row, then the breakdown */
-  &__stats {
-    margin-top: 3em;
-
-    table {
-      width: 100%;
-    }
-
-    th {
-      font-weight: normal;
-      padding-inline-start: 1.5em;
-    }
-
-    td {
-      text-align: right;
-      padding: 0.8em 1.2em;
-      font-weight: bold;
-      font-size: 1.2em;
-    }
-
-    tr.full td:last-child {
-      background: $c-bg-zebra;
-      width: 5em;
-    }
-
-    tr:first-child {
-      border-bottom: $border;
-    }
-  }
-
-  /* two selects now, from and to, so they need to sit next to each other */
+  /* two selects, from and to, so they need to sit next to each other */
   .box__top__actions {
     display: flex;
     gap: 0.7em;
   }
 
+  /* Two pages is not enough for a subnav, so the profile's tab strip. It sits
+   * on the box below it, which is what menu-box-pop expects. */
+  &__tabs {
+    margin-bottom: -$block-gap;
+  }
+
+  &__glossary {
+    &__entry {
+      &:not(:last-child) {
+        margin-bottom: 1.5em;
+      }
+
+      h3 {
+        font-size: 1.1em;
+        margin-bottom: 0.3em;
+      }
+
+      p {
+        color: $c-font-dim;
+      }
+    }
+  }
 }
