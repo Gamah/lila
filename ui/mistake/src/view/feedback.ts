@@ -13,11 +13,8 @@ const skipOrViewSolution = (ctrl: MistakeCtrl): VNode =>
     hl('a', { hook: bind('click', ctrl.skip) }, i18n.site.skipThisMove),
   ]);
 
-const dealAnother = (ctrl: MistakeCtrl): VNode =>
-  hl('a.half.continue', { hook: bind('click', ctrl.next) }, [
-    icon(licon.PlayTriangle)(),
-    i18n.site.dealAnother,
-  ]);
+const jumpToNext = (ctrl: MistakeCtrl): VNode =>
+  hl('a.half.continue', { hook: bind('click', ctrl.next) }, [icon(licon.PlayTriangle)(), i18n.site.next]);
 
 /* The only thing the position gives up once it has been answered. There is no
  * reveal beyond this: knowing which game it came from tells you nothing you
@@ -93,7 +90,7 @@ const feedback = {
         hl('div.instruction', [hl('strong', i18n.study.goodMove), gameLink(ctrl)]),
       ]),
     ),
-    dealAnother(ctrl),
+    jumpToNext(ctrl),
   ],
 
   view: (ctrl: MistakeCtrl): VNode[] => [
@@ -108,7 +105,7 @@ const feedback = {
         ]),
       ]),
     ),
-    dealAnother(ctrl),
+    jumpToNext(ctrl),
   ],
 };
 
@@ -130,10 +127,6 @@ const empty = (ctrl: MistakeCtrl): VNode[] => [
 export default function (ctrl: MistakeCtrl): VNode {
   const fb = ctrl.feedback();
   return hl('div.retro-box.mistake-box.training-box.sub-box', [
-    hl('div.title', [
-      hl('span', i18n.site.shuffledMistakes),
-      hl('span', i18n.site.nbMistakesSolved(ctrl.data.nbSolved)),
-    ]),
     hl('div.feedback.' + fb, ctrl.position ? feedback[fb](ctrl) : empty(ctrl)),
   ]);
 }

@@ -11,9 +11,6 @@ import feedback from './feedback';
 export default function (ctrl: MistakeCtrl): VNode {
   return hl('main.mistake.mistake-app', { class: { 'mistake--empty': !ctrl.position } }, [
     ctrl.position && hl('div.mistake__board.main-board', [chessground(ctrl), ctrl.promotion.view()]),
-    hl('div.mistake__side', [
-      hl('div.mistake__intro', i18n.site.oneOfYourOwnMistakes),
-      ctrl.loading ? hl('div.mistake__loading', spinner()) : feedback(ctrl),
-    ]),
+    hl('div.mistake__side', [ctrl.loading ? hl('div.mistake__loading', spinner()) : feedback(ctrl)]),
   ]);
 }

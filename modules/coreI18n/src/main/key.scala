@@ -2355,10 +2355,8 @@ object I18nKey:
     val `reviewWhiteMistakes`: I18nKey = "reviewWhiteMistakes"
     val `reviewBlackMistakes`: I18nKey = "reviewBlackMistakes"
     val `shuffledMistakes`: I18nKey = "shuffledMistakes"
-    val `oneOfYourOwnMistakes`: I18nKey = "oneOfYourOwnMistakes"
     val `nothingLeftToShuffle`: I18nKey = "nothingLeftToShuffle"
     val `seeTheGameItCameFrom`: I18nKey = "seeTheGameItCameFrom"
-    val `dealAnother`: I18nKey = "dealAnother"
     val `advantage`: I18nKey = "advantage"
     val `opening`: I18nKey = "opening"
     val `middlegame`: I18nKey = "middlegame"
@@ -2546,7 +2544,6 @@ object I18nKey:
     val `nbAnonymous`: I18nKey = "nbAnonymous"
     val `nbSecondsToPlayTheFirstMove`: I18nKey = "nbSecondsToPlayTheFirstMove"
     val `nbGamesQueuedForAnalysis`: I18nKey = "nbGamesQueuedForAnalysis"
-    val `nbMistakesSolved`: I18nKey = "nbMistakesSolved"
     val `nbSeconds`: I18nKey = "nbSeconds"
     val `andSaveNbPremoveLines`: I18nKey = "andSaveNbPremoveLines"
 

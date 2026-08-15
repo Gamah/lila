@@ -3525,8 +3525,6 @@ interface I18n {
     database: string;
     /** Days per turn */
     daysPerTurn: string;
-    /** Deal another */
-    dealAnother: string;
     /** Decline */
     decline: string;
     /** Defeat */
@@ -4051,8 +4049,6 @@ interface I18n {
     nbMinutes: I18nPlural;
     /** %s mistakes */
     nbMistakes: I18nPlural;
-    /** %s mistakes done */
-    nbMistakesSolved: I18nPlural;
     /** %1$s %2$s players this week. */
     nbPerfTypePlayersThisWeek: I18nPlural;
     /** %s players */
@@ -4155,8 +4151,6 @@ interface I18n {
     ok: string;
     /** One day */
     oneDay: string;
-    /** One of your own mistakes, drawn at random from your games of one to three months ago. */
-    oneOfYourOwnMistakes: string;
     /** One URL per line. */
     oneUrlPerLine: string;
     /** online */
