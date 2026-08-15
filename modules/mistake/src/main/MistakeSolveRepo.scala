@@ -7,7 +7,9 @@ import lila.db.dsl.{ *, given }
 
 /* One document per (user, game, ply). That's the whole schema.
  * It is what makes the queue deplete rather than being a random draw with
- * repeats, and what lets the page say how many are left. */
+ * repeats. It does *not* let the page say how many are left - #2 claimed it
+ * would, and it cannot: it knows what came out of the queue, never what is
+ * still in it. `countIn` is the half of that promise we can keep. */
 final private class MistakeSolveRepo(coll: Coll)(using Executor):
 
   private def makeId(userId: UserId, key: Mistake.Key) = s"$userId/${key.gameId}/${key.ply}"
@@ -27,6 +29,13 @@ final private class MistakeSolveRepo(coll: Coll)(using Executor):
                 ply <- doc.getAsOpt[Int]("p")
               yield Mistake.Key(gameId, Ply(ply))
             .toSet
+
+  /* How many positions this user has answered out of a given set of games -
+   * the landing's only honest statement about a window, and served by the same
+   * (u, g) index `solvedIn` uses. */
+  def countIn(userId: UserId, gameIds: List[GameId]): Fu[Int] =
+    if gameIds.isEmpty then fuccess(0)
+    else coll.secondary.countSel($doc("u" -> userId, "g".$in(gameIds)))
 
   def record(userId: UserId, key: Mistake.Key, result: MistakeResult): Funit =
     coll.update

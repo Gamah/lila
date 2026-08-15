@@ -21,6 +21,12 @@
     margin-top: 0.7em;
   }
 
+  /* sits under the "N analysed games" line and says less than it does */
+  &__answered {
+    color: $c-font-dim;
+    margin-top: 0.4em;
+  }
+
   &__start,
   &__request {
     margin-top: 2em;

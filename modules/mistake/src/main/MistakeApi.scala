@@ -24,6 +24,10 @@ final class MistakeApi(
   def home(userId: UserId, window: MistakeWindow): Fu[MistakeHome] = for
     nbAnalysed <- gameRepo.countAnalysedBetween(userId, window.since, window.until)
     nbUnanalysed <- gameRepo.countUnanalysedBetween(userId, window.since, window.until)
+    // the same bounded pool `next` draws on, so the count below is about the
+    // games the board can actually reach rather than about the whole window
+    ids <- gameRepo.analysedIdsBetween(userId, window.since, window.until, maxGamesToConsider)
+    nbAnswered <- solveRepo.countIn(userId, ids)
     stats <- solveRepo.stats(userId)
     request <- fishnet.lastRequest(userId)
     warming <- fishnet.warming(request)
@@ -31,6 +35,7 @@ final class MistakeApi(
     window = window,
     nbAnalysed = nbAnalysed,
     nbUnanalysed = nbUnanalysed,
+    nbAnswered = nbAnswered,
     maxPerRequest = fishnet.maxPerRequest,
     stats = stats,
     warming = warming,

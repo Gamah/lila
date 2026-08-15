@@ -42,9 +42,7 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
    * Starting, asking for analysis and resetting are all a link or a POST away. */
   def home(home: MistakeHome)(using Context) =
     Page(name)
-      .css("mistake.home")
-      // only loaded where there is an auto-submitting request form to submit
-      .js(List(autoRequests(home).option(Esm("mistake.landing")))):
+      .css("mistake.home"):
         main(cls := "box box-pad page-small blindspot")(
           boxTop(
             div(cls := "box__top__title")(
@@ -66,13 +64,10 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
 
   private def beta = strong(cls := "blindspot__beta")("BETA")
 
-  /* Arriving with nothing analysed asks for analysis by itself, because a page
-   * that explains the exercise and then makes you press a button before it can
-   * start is a worse first visit. It is still a POST, and still the same one
-   * the button submits. */
-  private def autoRequests(home: MistakeHome) =
-    home.state == MistakeHome.State.Cold && home.canRequest && home.nbUnanalysed > 0
-
+  /* Arriving with nothing analysed does *not* ask for analysis by itself. The
+   * landing used to submit the request form on load, on the grounds that Tutor
+   * does the same; it does not - /tutor renders and waits for "Compute my tutor
+   * report". Spending someone's fishnet is worth a press. Gamah/lila#5. */
   private def cold(home: MistakeHome)(using Context) = frag(
     p(
       if home.nbUnanalysed > 0
@@ -93,8 +88,18 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
         (home.nbAnalysed > 0).option(startButton(home))
       )
 
+  /* The one thing the landing says about the queue. Not how much is left in it
+   * - that means deriving candidates for every game in the window - but how
+   * much you have taken out of it, which `mistake_solve` already knows. */
   private def ready(home: MistakeHome)(using Context) = frag(
     p(strong(home.nbAnalysed), " analysed games from ", strong(home.window.name), "."),
+    (home.nbAnswered > 0).option(
+      p(cls := "blindspot__answered")(
+        "You have answered ",
+        strong(home.nbAnswered),
+        if home.nbAnswered == 1 then " position from them." else " positions from them."
+      )
+    ),
     startButton(home),
     (home.nbUnanalysed > 0 && home.canRequest).option(requestForm(home, secondary = true))
   )
@@ -115,11 +120,7 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       p(cls := "blindspot__hint")("Already requested. Try again in an hour.")
     else
       postForm(
-        cls := List(
-          "blindspot__request" -> true,
-          // the landing esm submits this one on arrival; without JS it is a button
-          "blindspot__request--auto" -> !secondary
-        ),
+        cls := "blindspot__request",
         action := routes.Mistake.analyse(home.window.key.some)
       )(
         submitButton(

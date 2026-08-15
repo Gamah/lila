@@ -42,18 +42,21 @@ enum MistakeResult:
 object MistakeResult:
   def apply(str: String): Option[MistakeResult] = values.find(_.toString == str)
 
-/* How far back we draw from. Anything more recent than `until` is skipped on
- * purpose: a game from last week is still in your memory, and remembering the
- * move is exactly what this exercise is trying to avoid. */
+/* How far back we draw from. Anything more recent than `until` is skipped by
+ * default: a game from last week is still in your memory, and remembering the
+ * move is exactly what this exercise is trying to avoid. It is a default and
+ * not a rule - see `untilChoices`. */
 case class MistakeWindow(sinceMonths: Int, untilMonths: Int):
   def since = nowInstant.minusMonths(sinceMonths)
   def until = nowInstant.minusMonths(untilMonths)
   // what the URL carries, and the only form of it the client ever sees
   def key = s"$sinceMonths-$untilMonths"
-  def name = s"$untilMonths to $sinceMonths months ago"
+  def name =
+    if untilMonths == 0 then s"the last ${MistakeWindow.months(sinceMonths)}"
+    else s"$untilMonths to $sinceMonths months ago"
   // the two halves, named for the two selects that set them
   def fromName = s"from ${MistakeWindow.months(sinceMonths)} ago"
-  def toName = s"to ${MistakeWindow.months(untilMonths)} ago"
+  def toName = if untilMonths == 0 then "to today" else s"to ${MistakeWindow.months(untilMonths)} ago"
 
 object MistakeWindow:
   val default = MistakeWindow(sinceMonths = 3, untilMonths = 1)
@@ -64,10 +67,14 @@ object MistakeWindow:
    * analysis for. Narrowing `until` costs nothing - it is a subset of a window
    * we already pay for - which is why it has more choices than `since`.
    *
-   * 0 is not among them. `until` is not decoration: it is what makes the
-   * position cold, and a control that can switch it off has broken the feature. */
+   * 0 is among them, and the default is not. Coldness is what the feature is
+   * for, so it is what you get without asking - but it is a default and not an
+   * invariant, because a heavy player who empties their queue has nowhere left
+   * to draw from, and telling them to go and play more games is only an answer
+   * if the games they then play can reach the queue. That is what the board's
+   * empty state says, so 0 has to be reachable for it to be true. Gamah/lila#5. */
   val sinceChoices: List[Int] = List(3, 6, 12)
-  val untilChoices: List[Int] = List(1, 2, 3)
+  val untilChoices: List[Int] = List(0, 1, 2, 3)
 
   // what byKey's flat list of pairs used to give us for free
   def valid(w: MistakeWindow): Boolean =
@@ -91,11 +98,15 @@ object MistakeWindow:
 
 /* Everything the landing page knows, and nothing it doesn't. There is no
  * "positions remaining": finding that out means deriving candidates for every
- * game in the window, which is what the board does one game at a time. */
+ * game in the window, which is what the board does one game at a time.
+ *
+ * `nbAnswered` is the half of that we can afford: what you have already taken
+ * out of this window, with no claim about what is left in it. */
 case class MistakeHome(
     window: MistakeWindow,
     nbAnalysed: Int, // games in the window we can draw from
     nbUnanalysed: Int, // games in the window we could still send to fishnet
+    nbAnswered: Int, // positions already answered from the games the board draws on
     maxPerRequest: Int, // how many of those one request would actually take
     stats: MistakeStats,
     warming: Option[MistakeWarming],

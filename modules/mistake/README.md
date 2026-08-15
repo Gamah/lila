@@ -53,7 +53,7 @@ is a bug in this module.
   engine's line is already hanging off the pre-mistake node as a `comp` child,
   which is the same thing retro reads.
 - **Window**: games created between 1 and 3 months ago by default
-  (`MistakeWindow`). Recent games are skipped on purpose - they're still in
+  (`MistakeWindow`). Recent games are skipped by default - they're still in
   your memory. It travels in the URL as `?window=<since>-<until>` in months and
   there is no per-user setting behind it, so a window nobody picked is one we
   never spend fishnet on.
@@ -63,15 +63,18 @@ is a bug in this module.
   and `MistakeWindow.valid` checks both halves and that the range is not
   inverted. That check is what the old flat list of four pairs got for free.
 
-  **`until` is never 0.** It is not decoration: it is the whole of what makes a
-  position cold, and a control that can switch it off has broken the feature.
   Widening `since` is the half that costs fishnet, which is why it has the
   shorter list; narrowing `until` is free, being a subset of a window we
   already pay for.
 
-  That rule is **contested** - see Gamah/lila#5. A heavy player who empties
-  their queue has nowhere left to draw from, and "play more games" is no answer
-  when their recent games are the excluded ones. Don't treat it as settled.
+  **`until` can be 0, and the default is not.** This README used to state the
+  opposite as an invariant. It was reversed in Gamah/lila#5: coldness is what
+  the feature is for, so it is what you get without asking, but the board's
+  empty state tells you to go and play some more games, and that is only an
+  answer if the games you then play can reach the queue. With a floor of one
+  month they never could. So "to today" is offered, at the far end of the
+  `to` select, and picking it is the user saying they would rather have warm
+  positions than none.
 - **Supply**: `MistakeFishnet` hands unanalysed games in the window to fishnet
   with `Origin.autoMistake` (100k nodes/move, `slowOk`) so its metrics separate
   from tutor's. Unlike `TutorFishnet` it never awaits. It is asked by
@@ -96,11 +99,26 @@ is a bug in this module.
   it means deriving candidates for every game in the window, which is exactly
   the work the board does one game at a time.
 
-  There is no list of what you *have* answered either. One was built and cut:
+  What the landing does say about the queue is **how many positions you have
+  answered out of the window you are looking at** - `MistakeHome.nbAnswered`,
+  one `countSel` on `mistake_solve` over the game ids `next` would draw on. It
+  is the honest half of the "how many are left" that #2 promised and #4 built a
+  page around: it reports what has come out of the queue and makes no claim
+  about what is still in it. Bounded by `maxGamesToConsider` for the same
+  reason `next` is, so on a user with more games than that in the window it is
+  a count over the pool the board can actually reach, not over the whole window.
+
+  There is no list of what you *have* answered. One was built and cut:
   `mistake_solve` makes it cheap, but a table of "Solved / 45 minutes ago / see
   the game" told you nothing you wanted at a glance, and reading your own
   history is not why anyone opens this. Reconsider it as a real page - grouped,
   or with the positions drawn - or not at all.
+
+- **Nothing on the landing spends fishnet on its own.** The cold state used to
+  submit the request form on load; that is gone (Gamah/lila#5). The condition
+  it was accepted under was that Tutor does the same, and Tutor does not -
+  `/tutor` renders and waits for "Compute my tutor report" posting to
+  `POST /tutor/:user/compute`. Everything that spends is a press.
 
 ## The two names
 
@@ -123,7 +141,7 @@ nothing user visible:
 | controller | `app/controllers/Mistake.scala`, wired in `app/Lila.scala` |
 | env | `app/Env.scala` |
 | page view | `modules/mistake/src/main/ui/MistakeUi.scala`, `app/views/ui.scala` |
-| js bundle | `ui/mistake/` (`package.json` name, `src/mistake.ts`, `src/mistake.landing.ts`) |
+| js bundle | `ui/mistake/` (`package.json` name, `src/mistake.ts`) |
 | css bundle | `ui/mistake/css/build/mistake.scss`, `mistake.home.scss` |
 | collections | `mistake_solve`, `mistake_request` in `modules/mistake/src/main/Env.scala` |
 | setting | `mistakeNbAnalysis` |
@@ -148,13 +166,15 @@ above are independent.
   is empty without handing out a position to find out, which is the one thing it
   must not do, so that state lives on the board. Having nothing to play is a
   valid state and not a problem to engineer around: the board says so and tells
-  you to go and play some games.
+  you to go and play some games - which is true only because `until` can now be
+  0, so the games you go and play can reach the queue.
 - **A reset button on the landing.** `POST /mistakes/reset` is still there and
   the board still calls it, because on the board it follows "Your queue is
   empty" and "Do it again" is then self explanatory. Sat on the landing under
   a stats table it was a bare red button that explained nothing, and it is a
-  thing you want on a dev instance rather than in production. If it comes back
-  it needs to say what it destroys.
+  thing you want on a dev instance rather than in production. Deliberately left
+  for a later pass in Gamah/lila#5 rather than ruled out: if it comes back it
+  has to say what it destroys.
 - **Landing copy is hardcoded English**, as the Chess Insights empty page is.
   Only the board's two strings are in `site.xml`.
 - **Any kind of warming progress indicator.** There is no live progress bar
