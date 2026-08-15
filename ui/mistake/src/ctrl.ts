@@ -2,10 +2,10 @@ import { Result as Res } from '@badrap/result';
 import type { DrawShape } from '@lichess-org/chessground/draw';
 import { uciToMove } from '@lichess-org/chessground/util';
 import { Chess, normalizeMove } from 'chessops/chess';
-import { makeFen } from 'chessops/fen';
+import { makeFen, parseFen } from 'chessops/fen';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import type { Move, Role } from 'chessops/types';
-import { parseSquare, makeUci, opposite } from 'chessops/util';
+import { parseSquare, makeUci, parseUci, opposite } from 'chessops/util';
 
 import { prop, type Prop, type Toggle, toggle } from 'lib';
 import { beatsBaseline, bestMoveMargin, CevalCtrl, isCevalReady } from 'lib/ceval';
@@ -19,7 +19,7 @@ import { completeNode } from 'lib/tree/node';
 import type { TreeNode } from 'lib/tree/types';
 import { toggleZenMode } from 'lib/view/zen';
 
-import type { Feedback, MistakeData, MistakeOpts, MistakePosition, Result } from './interfaces';
+import type { Feedback, Intro, MistakeData, MistakeOpts, MistakePosition, Result } from './interfaces';
 import * as xhr from './xhr';
 
 export default class MistakeCtrl implements CevalHandler {
@@ -31,14 +31,13 @@ export default class MistakeCtrl implements CevalHandler {
   flipped: Toggle;
   loading = false;
 
-  /* Revealed only once the position has been answered, and only because the
-   * server chose to send it. There is nothing to "reveal" beyond it: knowing
-   * where the position came from doesn't tell you anything about it. */
-  gameUrl?: string;
-
   // the position before the mistake, and the move being tried in it
   private root!: TreeNode;
   private tried?: TreeNode;
+  /* The board sits one ply back until the move that led here has been played
+   * in. Nothing is askable, and nothing is drawn on it, until it has. */
+  private arrived = true;
+  private intro?: { fen: FEN; uci: Uci; san: San };
   private failed = false;
   private recorded = false;
   // the in flight record POST, if any. Asking for the next must wait for it.
@@ -85,6 +84,11 @@ export default class MistakeCtrl implements CevalHandler {
     return this.tried ?? this.root;
   }
 
+  // where this came from, said up front rather than earned by answering
+  get gameUrl(): string | undefined {
+    return this.position?.game;
+  }
+
   get orientation(): Color {
     const color = this.position?.color ?? 'white';
     return this.flipped() ? opposite(color) : color;
@@ -97,13 +101,34 @@ export default class MistakeCtrl implements CevalHandler {
     this.tried = undefined;
     this.failed = false;
     this.recorded = false;
-    this.gameUrl = undefined;
     this.openingUcis = [];
     this.ceval.reset();
     // an empty queue still needs a root, so nothing downstream has to null check
     const fen = this.position?.fen ?? initialFen;
     this.root = completeNode('standard')({ ply: plyOfFen(fen), fen, children: [] });
+    this.playIntro();
     this.askExplorer();
+  }
+
+  /* Dropped into a position cold, the first thing you do is work out what just
+   * happened. So don't drop them into it: start a move back and play the move
+   * that led here, exactly as a puzzle plays its first move (ui/puzzle's
+   * initiate). The board is dead until it lands. */
+  private playIntro(): void {
+    const intro = this.position?.intro && describe(this.position.intro);
+    this.intro = intro;
+    this.arrived = !intro;
+    if (!intro) return;
+    setTimeout(
+      () => {
+        if (this.intro !== intro) return; // moved on while it was waiting
+        this.arrived = true;
+        this.setGround();
+        site.sound.move({ uci: intro.uci, san: intro.san });
+        this.redraw();
+      },
+      this.data.pref?.animation ? 500 : 0,
+    );
   }
 
   /* Retro asks the opening explorer two things of every position it offers
@@ -262,14 +287,11 @@ export default class MistakeCtrl implements CevalHandler {
     }
     this.recorded = true;
     this.redraw();
-    this.pending = xhr.record(result).then(res => {
-      this.gameUrl = res.game;
-      this.redraw();
-    });
+    this.pending = xhr.record(result);
     return this.pending;
   }
 
-  isSolving = (): boolean => ['find', 'fail'].includes(this.feedback());
+  isSolving = (): boolean => this.arrived && ['find', 'fail'].includes(this.feedback());
 
   // forward moves only, as in analyse's jump(): retracting and moving on are silent
   private soundMove(): void {
@@ -295,13 +317,16 @@ export default class MistakeCtrl implements CevalHandler {
   cgConfig = (): CgConfig => {
     const pos = this.position;
     const node = this.node;
+    // set while the move that led here has not been played in yet
+    const intro = this.arrived ? undefined : this.intro;
     const solving = this.isSolving();
+    const turnColor: Color = node.ply % 2 === 0 ? 'white' : 'black';
     return {
-      fen: node.fen,
+      fen: intro?.fen ?? node.fen,
       orientation: this.orientation,
-      turnColor: node.ply % 2 === 0 ? 'white' : 'black',
-      check: node.check(),
-      lastMove: node.uci ? uciToMove(node.uci) : undefined,
+      turnColor: intro ? opposite(turnColor) : turnColor,
+      check: intro ? undefined : node.check(),
+      lastMove: intro ? undefined : uciToMove(node.uci ?? this.intro?.uci),
       movable: {
         color: solving ? pos?.color : undefined,
         dests: solving ? node.dests() : new Map(),
@@ -316,7 +341,8 @@ export default class MistakeCtrl implements CevalHandler {
    * Here it is the whole question rather than an annotation. */
   autoShapes = (): DrawShape[] => {
     const pos = this.position;
-    if (!pos || this.tried) return [];
+    // the arrow is the question, so it waits for the move that sets it up
+    if (!pos || this.tried || !this.arrived) return [];
     return makeShapesFromUci(pos.color, pos.played.uci, playedMoveBrush, playedMoveModifiers);
   };
 
@@ -348,6 +374,18 @@ export default class MistakeCtrl implements CevalHandler {
 }
 
 const initialFen: FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+
+/* The server sends the intro as a position and a uci. The san is only wanted so
+ * the move sounds like a capture when it is one, so a broken one is not worth
+ * failing over - drop the intro and the board just starts at the position. */
+const describe = (intro: Intro): { fen: FEN; uci: Uci; san: San } | undefined => {
+  const setup = parseFen(intro.fen);
+  const move = parseUci(intro.uci);
+  if (!setup.isOk || !move) return undefined;
+  const chess = Chess.fromSetup(setup.unwrap());
+  if (!chess.isOk) return undefined;
+  return { ...intro, san: makeSanAndPlay(chess.unwrap(), move) };
+};
 
 /* Derived from the FEN rather than sent separately. The move number is visible
  * in the FEN anyway, and it is not what the exercise is hiding. */

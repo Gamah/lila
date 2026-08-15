@@ -10,12 +10,11 @@ final class MistakeJson:
 
   import MistakeJson.given
 
-  /* Note what is NOT in here: game id, opponent, date, result, and no
-   * evaluation of the move that was played. `prevEval` is, because the client
-   * judges against it exactly as retro does - it just isn't rendered.
+  /* `prevEval` is here because the client judges against it exactly as retro
+   * does - it just isn't rendered.
    *
-   * The counts aren't here either any more. They belong to the landing page,
-   * which can render them without consuming a position to do it. */
+   * The counts aren't here. They belong to the landing page, which can render
+   * them without consuming a position to do it. */
   def next(mistake: Option[Mistake], pref: Option[Pref] = none): JsObject =
     Json
       .obj()
@@ -31,8 +30,12 @@ final class MistakeJson:
           "uci" -> m.played.uci.uci,
           "san" -> m.played.san
         ),
-        "solution" -> m.solution
+        "solution" -> m.solution,
+        // where it came from, given up front: the shuffle is the exercise, not
+        // hiding the game
+        "game" -> m.gameUrl
       )
+      .add("intro" -> m.intro.map(i => Json.obj("fen" -> i.fen, "uci" -> i.uci.uci)))
       .add("prevEval" -> m.prevEval)
       .add("divisionMiddle" -> m.divisionMiddle)
 

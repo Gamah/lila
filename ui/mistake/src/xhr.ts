@@ -11,7 +11,8 @@ const qs = (window: string) => `?window=${encodeURIComponent(window)}`;
 
 export const next = (window: string): Promise<MistakeData> => json(`${base}/next${qs(window)}`);
 
-export const record = (result: Result): Promise<{ game?: string }> =>
+// nothing comes back: the server already told us which position this was
+export const record = (result: Result): Promise<void> =>
   json(`${base}/record/${result}`, { method: 'post' });
 
 export const reset = (window: string): Promise<MistakeData> =>

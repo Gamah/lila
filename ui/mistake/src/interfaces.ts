@@ -1,6 +1,4 @@
-/* The payload is deliberately thin. There is no game id, no opponent, no date
- * and no result in here: the server hands the game back only once the position
- * has been answered. See modules/mistake/src/main/MistakeJson.scala. */
+/* See modules/mistake/src/main/MistakeJson.scala. */
 
 export interface MistakePrefs {
   coords: number;
@@ -17,9 +15,20 @@ export interface Played {
   san: San;
 }
 
+/* The move that led into the position, and where it was played from. The board
+ * starts there and plays it in, the way a puzzle plays its first move. Absent
+ * when the mistake is the very first move of the game. */
+export interface Intro {
+  fen: FEN;
+  uci: Uci;
+}
+
 export interface MistakePosition {
   fen: FEN;
   color: Color;
+  // the game it came from, deep linked at the ply. Known from the start
+  game: string;
+  intro?: Intro;
   played: Played;
   // eval of the position before the mistake, ie of the best move: the baseline
   prevEval?: EvalScore;
