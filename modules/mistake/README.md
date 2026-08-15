@@ -69,6 +69,10 @@ is a bug in this module.
   Widening `since` is the half that costs fishnet, which is why it has the
   shorter list; narrowing `until` is free, being a subset of a window we
   already pay for.
+
+  That rule is **contested** - see Gamah/lila#5. A heavy player who empties
+  their queue has nowhere left to draw from, and "play more games" is no answer
+  when their recent games are the excluded ones. Don't treat it as settled.
 - **Supply**: `MistakeFishnet` hands unanalysed games in the window to fishnet
   with `Origin.autoMistake` (100k nodes/move, `slowOk`) so its metrics separate
   from tutor's. Unlike `TutorFishnet` it never awaits. It is asked by
