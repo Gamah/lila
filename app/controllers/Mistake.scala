@@ -22,14 +22,6 @@ final class Mistake(env: Env) extends LilaController(env):
     }
   }
 
-  /* The half of "what is in the deck" that is already stored. Also a read, and
-   * also idempotent: it lists what has been answered, and derives nothing. */
-  def answered(page: Int, window: Option[String]) = Auth { ctx ?=> me ?=>
-    api.answered(me.userId, page).flatMap { pager =>
-      Ok.page(views.mistake.answered(pager, window))
-    }
-  }
-
   def board(window: Option[String]) = Auth { ctx ?=> me ?=>
     val w = windowOf(window)
     api.next(me.userId, w).flatMap { mistake =>
@@ -59,8 +51,9 @@ final class Mistake(env: Env) extends LilaController(env):
     }
   }
 
-  /* Posted from two places: the board, which wants the next position back, and
-   * the landing page, which wants to look at its own stats again. */
+  /* Posted from the board only, which wants the next position back. The landing
+   * had a Reset button and lost it: there it was a bare red button under a
+   * table, saying nothing about what it destroys. */
   def reset(window: Option[String]) = AuthBody { ctx ?=> me ?=>
     val w = windowOf(window)
     for

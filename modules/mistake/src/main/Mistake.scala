@@ -127,22 +127,3 @@ case class MistakeStats(byResult: Map[MistakeResult, Int], recent: List[MistakeR
 
 object MistakeStats:
   val recentSize = 20
-
-/* One answered position, read back out of `mistake_solve`.
- *
- * This is the half of "what is in the deck" that is already stored, and the
- * only half that can be shown honestly: what remains means deriving candidates
- * for every game in the window, and the answer moves as analysis deepens.
- *
- * The game id is not withheld here. It stops being a secret the moment the
- * position is answered - the board hands back this same link in the reply - so
- * the list costs one indexed query and no new derivation. */
-case class MistakeSolve(
-    gameId: GameId,
-    ply: Ply,
-    color: Option[Color], // absent on documents recorded before the list existed
-    result: MistakeResult,
-    date: Instant
-):
-  // same deep link the board hands back; without a color it opens white's side
-  def gameUrl = s"/$gameId${color.so(c => s"/${c.name}")}#$ply"

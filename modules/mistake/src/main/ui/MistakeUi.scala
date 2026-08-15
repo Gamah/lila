@@ -2,7 +2,6 @@ package lila.mistake
 package ui
 
 import play.api.libs.json.{ JsObject, Json }
-import scalalib.paginator.Paginator
 
 import lila.ui.*
 
@@ -62,46 +61,7 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             case MistakeHome.State.Warming => warming(home)
             case MistakeHome.State.Ready => ready(home)
           ,
-          (home.stats.total > 0).option(stats(home)),
-          (home.stats.total > 0).option(reset(home))
-        )
-
-  /* What is in the deck, as far as it can honestly be said: the cards already
-   * turned over, newest first. There is no "positions remaining" here either,
-   * and for the same reason as on the landing - see modules/mistake/README.md.
-   *
-   * The game id is not withheld on this page. It stops being one the moment a
-   * position is answered: the board hands back this same link in the reply. */
-  def answered(pager: Paginator[MistakeSolve], window: Option[String])(using Context) =
-    Page(s"$name • Answered")
-      .css("mistake.home"):
-        main(cls := "box box-pad page-small blindspot")(
-          boxTop(
-            // the title is the way back: two pages does not earn a subnav
-            h1(a(href := routes.Mistake.home(window), dataIcon := Icon.LessThan, cls := "text")("Answered"))
-          ),
-          if pager.nbResults == 0 then p("Nothing answered yet.")
-          else
-            frag(
-              table(cls := "blindspot__answered slist slist-pad")(
-                tbody(
-                  pager.currentPageResults.map: solve =>
-                    tr(
-                      td(resultName(solve.result)),
-                      td(momentFromNow(solve.date)),
-                      td(a(href := solve.gameUrl)(trans.site.seeTheGameItCameFrom()))
-                    )
-                )
-              ),
-              pager.hasToPaginate.option(
-                pagination(
-                  page => routes.Mistake.answered(page, window).url,
-                  pager.currentPage,
-                  pager.nbPages,
-                  showPost = true
-                )
-              )
-            )
+          (home.stats.total > 0).option(stats(home.stats))
         )
 
   private def beta = strong(cls := "blindspot__beta")("BETA")
@@ -172,29 +132,18 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
 
   /* Read off mistake_solve and nothing else. Same shape as the perf stat page's
    * counter: the total, then the breakdown under it with a percent column. */
-  private def stats(home: MistakeHome)(using Context) =
-    val s = home.stats
+  private def stats(s: MistakeStats)(using Context) =
     st.section(cls := "blindspot__stats")(
       table(
         tbody(
-          tr(
-            // the only thing here that is a list rather than a number
-            th(a(href := routes.Mistake.answered(1, home.window.key.some))("Answered")),
-            td(s.total.toString),
-            td
-          ),
-          row(resultName(MistakeResult.win), s.nb(MistakeResult.win), s.total),
-          row(resultName(MistakeResult.fail), s.nb(MistakeResult.fail), s.total),
-          row(resultName(MistakeResult.skip), s.nb(MistakeResult.skip), s.total),
+          tr(th("Answered"), td(s.total.toString), td),
+          row("Solved", s.nb(MistakeResult.win), s.total),
+          row("Gave up", s.nb(MistakeResult.fail), s.total),
+          row("Skipped", s.nb(MistakeResult.skip), s.total),
           row(s"Solved, last ${s.recent.size}", s.nbRecent(MistakeResult.win), s.recent.size)
         )
       )
     )
-
-  private def resultName(r: MistakeResult) = r match
-    case MistakeResult.win => "Solved"
-    case MistakeResult.fail => "Gave up"
-    case MistakeResult.skip => "Skipped"
 
   private def row(label: String, nb: Int, total: Int) =
     tr(cls := "full")(
@@ -234,8 +183,3 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       href := routes.Mistake.home(to.key.some),
       cls := (to == current).option("current")
     )(label(to))
-
-  private def reset(home: MistakeHome)(using Context) =
-    postForm(cls := "blindspot__reset", action := routes.Mistake.reset(home.window.key.some))(
-      submitButton(cls := "button button-red button-empty yes-no-confirm")("Reset")
-    )

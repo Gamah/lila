@@ -63,21 +63,4 @@
     gap: 0.7em;
   }
 
-  /* the answered list: result, when, and the way back into the game */
-  &__answered {
-    margin-top: 1em;
-
-    td:first-child {
-      width: 6em;
-    }
-
-    td:last-child {
-      text-align: end;
-    }
-  }
-
-  &__reset {
-    margin-top: 3em;
-    text-align: center;
-  }
 }

@@ -7,8 +7,7 @@ change. Everything below uses the code token.
 Shows a player one of their own past mistakes at a time, at random, cold: a
 board, the move they played drawn on it, "find something better".
 
-`/mistakes` is the landing page, `/mistakes/answered` is the list of what you
-have already answered, and `/mistakes/play` is the board. The split is
+`/mistakes` is the landing page and `/mistakes/play` is the board. The split is
 not cosmetic: the board is not idempotent - arriving there hands out a position
 and spends it - so it cannot also be the page you land on, get linked to, or
 open in a background tab. Everything that spends something is a POST or lives
@@ -49,6 +48,13 @@ is a bug in this module.
   (`ui/lib/src/game/masterOpening.ts`); the page carries the explorer endpoint,
   and each deal carries the game's `divisionMiddle` so the client knows when it
   has left the opening.
+- **Sound** is the site's board sound, from the same call analyse makes on a
+  forward step in `jump()`: `site.sound.move(node)`, plus `saySan`, plus
+  `preloadBoardSounds()` on boot. It fires when the tried move lands and when
+  the solution is played, and not when a move is retracted or a new position
+  dealt - analyse is silent for jumps that aren't a forward step, and so is
+  retro. There is no win or fail jingle: retro has none either, and puzzles are
+  the wrong thing to copy here.
 - `MistakeApi.extract` builds the ordinary analyse tree with `TreeBuilder` and
   pulls one node out of it, rather than replaying the game by hand. The
   engine's line is already hanging off the pre-mistake node as a `comp` child,
@@ -81,9 +87,9 @@ is a bug in this module.
   document holds the game ids of the batch, which is the only way the warming
   state knows how far along it is: fishnet tells us nothing when it finishes.
 - **Memory**: one document per `(userId, gameId, ply)` in `mistake_solve`.
-  Result, date and which side you were, nothing else. Solving, failing then
-  moving on, and skipping all retire a position, exactly as retro's `skip()`
-  and `viewSolution()` both call `solveCurrent()`.
+  Result and date, nothing else. Solving, failing then moving on, and skipping
+  all retire a position, exactly as retro's `skip()` and `viewSolution()` both
+  call `solveCurrent()`.
 - **Withholding**: the client is never sent the game id. `MistakeCurrentStore`
   remembers which position each user is looking at, so answering says only
   *how it went*, and the server hands back the game link in reply.
@@ -93,27 +99,12 @@ is a bug in this module.
   it, so the page links there instead. There is deliberately no "positions
   remaining": knowing it means deriving candidates for every game in the
   window, which is exactly the work the board does one game at a time.
-- **The answered list** (`/mistakes/answered`) is the only view into the deck,
-  and it is the discard pile rather than the deck: what you have turned over,
-  newest first, with the result, the date and a link into the game at that ply.
-  It is one indexed query on `mistake_solve` - the `u:1, d:-1` index the
-  landing's recent form already needs - and derives nothing. The landing's
-  "Answered" row is the link to it.
 
-  It does not withhold the game id, because there is nothing left to withhold:
-  the id stops being a secret the moment the position is answered, and the
-  board hands back that same link in its reply. Colour is stored on the
-  document rather than looked up, so the deep link costs no extra read;
-  documents written before that field exists link to white's side.
-
-  It carries `?window=` only so its links land back on the window you came
-  from. The list itself is not window scoped - `mistake_solve` has no window in
-  it - and pretending otherwise would mean filtering by game date, which is
-  another read per row.
-
-  What *remains* stays out for the reason above and one more: a game's
-  candidate set grows as analysis deepens, so any stored count would go stale
-  with nothing to invalidate it.
+  There is no list of what you *have* answered either. One was built and cut:
+  `mistake_solve` makes it cheap, but a table of "Solved / 45 minutes ago / see
+  the game" told you nothing you wanted at a glance, and reading your own
+  history is not why anyone opens this. Reconsider it as a real page - grouped,
+  or with the positions drawn - or not at all.
 
 ## The two names
 
@@ -130,7 +121,7 @@ nothing user visible:
 
 | what | where |
 | --- | --- |
-| route path | `conf/routes` - the seven `/mistakes*` lines |
+| route path | `conf/routes` - the six `/mistakes*` lines |
 | client's copy of the path | `ui/mistake/src/xhr.ts`, the `base` constant |
 | module | `modules/mistake/`, package `lila.mistake`, `build.sbt` |
 | controller | `app/controllers/Mistake.scala`, wired in `app/Lila.scala` |
@@ -157,14 +148,15 @@ above are independent.
 - **Variants.** Candidates are standard games only (`Query.variantStandard`).
 - **Entry point.** The profile page links to it, beside the Chess Insights
   card. There is nothing in the nav yet, same as `/tutor`.
-- **A subnav.** Tutor and insights both have one; two pages does not earn one,
-  so the landing links to the answered list from its "Answered" row and the
-  answered list links back from its title. Revisit at the third page.
 - **A "deck spent" state on the landing.** The landing cannot know the deck is
   empty without dealing a position to find out, which is the one thing it must
-  not do, so that state lives on the board. Its two real actions - draw from
-  further back, put the deck back - are on the landing, and the board links
-  there.
+  not do, so that state lives on the board.
+- **A reset button on the landing.** `POST /mistakes/reset` is still there and
+  the board still calls it, because on the board it follows "Nothing left to
+  shuffle" and "Do it again" is then self explanatory. Sat on the landing under
+  a stats table it was a bare red button that explained nothing, and it is a
+  thing you want on a dev instance rather than in production. If it comes back
+  it needs to say what it destroys.
 - **Landing copy is hardcoded English**, as tutor's and insights' empty page
   both are. Only the two strings the board inherited from retro are in
   `site.xml`.
