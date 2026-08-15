@@ -235,7 +235,9 @@ object header:
                 a(cls := "blindspot", href := routes.Mistake.home(none), dataIcon := Icon.ChasingArrows):
                   span(
                     strong("Blindspot"),
-                    em(trans.site.learnFromYourMistakes(), ", shuffled")
+                    // site's own key: one line is not worth loading blindspot's
+                    // translations onto every profile page
+                    em(trans.site.learnFromYourMistakes())
                   )
               )
             )

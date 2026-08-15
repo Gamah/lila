@@ -16,15 +16,15 @@ const skipOrViewSolution = (ctrl: MistakeCtrl): VNode =>
 const jumpToNext = (ctrl: MistakeCtrl): VNode =>
   hl('a.half.continue', { hook: bind('click', ctrl.next) }, [icon(licon.PlayTriangle)(), i18n.site.next]);
 
-/* The only thing the position gives up once it has been answered. There is no
- * reveal beyond this: knowing which game it came from tells you nothing you
- * needed while you were solving. */
+/* Offered once the position has been answered, and not before - not to keep the
+ * game a secret, but because the link lands on the replay page, which shows the
+ * computer's verdict on this very move. It is the solution with extra steps. */
 const gameLink = (ctrl: MistakeCtrl): VNode | false =>
   !!ctrl.gameUrl &&
   hl(
     'a.mistake__game-link',
     { attrs: { href: ctrl.gameUrl, target: '_blank', rel: 'noopener' } },
-    i18n.site.seeTheGameItCameFrom,
+    i18n.blindspot.seeTheGameItCameFrom,
   );
 
 const played = (ctrl: MistakeCtrl): VNode[] => [
@@ -116,10 +116,10 @@ const empty = (ctrl: MistakeCtrl): VNode[] => [
   hl('div.player', [
     hl('div.no-square', hl('piece.king.white')),
     hl('div.instruction', [
-      hl('em', i18n.site.queueIsEmpty),
+      hl('em', i18n.blindspot.queueIsEmpty),
       hl('div.choices.end', [
         hl('a', { hook: bind('click', ctrl.reset) }, i18n.site.doItAgain),
-        hl('a', { attrs: { href: ctrl.homeUrl() } }, 'Older games'),
+        hl('a', { attrs: { href: ctrl.homeUrl() } }, i18n.blindspot.olderGames),
       ]),
     ]),
   ]),

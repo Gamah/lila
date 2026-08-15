@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="tagline">Learn from your mistakes, shuffled</string>
+  <string name="mascotIntro">Every position here is a move you played, and got wrong.</string>
+  <string name="mascotIntroMore">They are torn out of your own finished games and handed to you one at a time, in no particular order and old enough that you have stopped remembering them. The move that led into the position is played for you, and then it is your turn.</string>
+
+  <string name="noAnalysedGamesFrom">No analysed games from %s.</string>
+  <string name="noGamesFrom">No games from %s.</string>
+  <string name="nbOfNbGamesAnalysed">%1$s of %2$s games analysed.</string>
+  <string name="comeBackLater">Come back later.</string>
+  <string name="nbAnalysedGamesFrom">%1$s analysed games from %2$s.</string>
+  <plurals name="youHaveAnsweredNbPositionsFromThem">
+    <item quantity="one">You have answered %s position from them.</item>
+    <item quantity="other">You have answered %s positions from them.</item>
+  </plurals>
+  <plurals name="analyseNbGames">
+    <item quantity="one">Analyse %s game</item>
+    <item quantity="other">Analyse %s games</item>
+  </plurals>
+  <string name="alreadyRequested">Already requested. Try again in an hour.</string>
+  <string name="onceAnHour">Once an hour.</string>
+
+  <plurals name="theLastNbMonths">
+    <item quantity="one">the last month</item>
+    <item quantity="other">the last %s months</item>
+  </plurals>
+  <string name="nbToNbMonthsAgo">%1$s to %2$s months ago</string>
+  <plurals name="fromNbMonthsAgo">
+    <item quantity="one">from 1 month ago</item>
+    <item quantity="other">from %s months ago</item>
+  </plurals>
+  <plurals name="toNbMonthsAgo">
+    <item quantity="one">to 1 month ago</item>
+    <item quantity="other">to %s months ago</item>
+  </plurals>
+  <string name="toToday">to today</string>
+
+  <string name="yourRecord">Your record</string>
+  <string name="answered">Answered</string>
+  <string name="solved">Solved</string>
+  <string name="gaveUp">Gave up</string>
+  <string name="skipped">Skipped</string>
+  <string name="solveRate">Solve rate</string>
+  <plurals name="theLastNbAnswered">
+    <item quantity="one">The last one answered</item>
+    <item quantity="other">The last %s answered</item>
+  </plurals>
+  <string name="nothingAnsweredYet">Nothing answered yet.</string>
+
+  <string name="overview">Overview</string>
+  <string name="answeredPositions">Answered positions</string>
+  <string name="seeThemAll">See them all</string>
+  <plurals name="nbPositionsAnswered">
+    <item quantity="one">%s position answered</item>
+    <item quantity="other">%s positions answered</item>
+  </plurals>
+  <string name="all">All</string>
+  <string name="noPositionsAnsweredYet">You have not answered a position yet.</string>
+  <string name="nothingMatchesThisFilter">Nothing matches this filter.</string>
+  <string name="positionNotKept">This one was answered before Blindspot started keeping the position.</string>
+
+  <string name="putPositionsBack">Put positions back in the queue</string>
+  <string name="putPositionsBackExplanation">A position you have answered is retired and is not handed to you again. Putting it back makes it available to the queue once more.</string>
+  <string name="scopeAllTime">All time</string>
+  <string name="scopeWindow">Only from %s</string>
+  <string name="putBackTheOnesYouGaveUpOn">Put back the ones you gave up on</string>
+  <string name="putBackTheOnesYouSkipped">Put back the ones you skipped</string>
+  <plurals name="putBackTheseNbPositions">
+    <item quantity="one">Put back this position</item>
+    <item quantity="other">Put back these %s positions</item>
+  </plurals>
+
+  <string name="whatThisIs">What this is</string>
+  <string name="whatCountsAsAMistake">What counts as a mistake here?</string>
+  <string name="whatCountsAsAMistakeAnswer">A move where the computer evaluation of the game swung against you, and where the computer had a better move to show you. It is the same selection the analysis board's "Learn from your mistakes" makes at the end of a game, applied across every analysed game in your window rather than one game at a time.</string>
+  <string name="howIsThisDifferentFromPuzzles">How is this different from my puzzle history?</string>
+  <string name="howIsThisDifferentFromPuzzlesAnswer">Puzzles are positions from other people's games, chosen because they have a clean tactical solution. These are your own positions, chosen because you got them wrong. There is no rating here, and nothing is trying to be fair to you.</string>
+  <string name="whyAreMyRecentGamesMissing">Why are my recent games missing?</string>
+  <string name="whyAreMyRecentGamesMissingAnswer">By default the queue leaves out anything from the last month. A game you played last week is still in your memory, and remembering the move is exactly what this is trying to avoid. You can move that boundary all the way to today with the controls at the top of the page.</string>
+  <string name="whyCantISeeWhichGame">Why is the link to the game only there afterwards?</string>
+  <string name="whyCantISeeWhichGameAnswer">The link opens the game at that exact move, and that page has the computer's opinion of the move written on it. Opening it while you are still thinking is the solution by another route, so it waits until you have answered.</string>
+
+  <string name="queueIsEmpty">Your queue is empty. Play some more games.</string>
+  <string name="seeTheGameItCameFrom">See the game it came from</string>
+  <string name="olderGames">Older games</string>
+</resources>
