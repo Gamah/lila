@@ -5,13 +5,14 @@ import { Chess, normalizeMove } from 'chessops/chess';
 import { makeFen } from 'chessops/fen';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import type { Move, Role } from 'chessops/types';
-import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
+import { parseSquare, makeUci, opposite } from 'chessops/util';
 
 import { prop, type Prop, type Toggle, toggle } from 'lib';
 import { beatsBaseline, CevalCtrl, isCevalReady, playedMoveMargin } from 'lib/ceval';
 import type { CevalHandler, ExternalEngineInfo } from 'lib/ceval/types';
 import { type WithGround } from 'lib/game/ground';
 import { PromotionCtrl } from 'lib/game/promotion';
+import { makeShapesFromUci, playedMoveBrush, playedMoveModifiers } from 'lib/game/shapes';
 import { pubsub } from 'lib/pubsub';
 import { completeNode } from 'lib/tree/node';
 import type { TreeNode } from 'lib/tree/types';
@@ -264,21 +265,13 @@ export default class MistakeCtrl implements CevalHandler {
     };
   };
 
-  /* The move that was played, drawn in red on the board - the same red arrow
-   * the analyse board draws for a mistake (analyse/src/autoShape.ts). Here it
-   * is the whole question rather than an annotation. */
+  /* The move that was played, drawn exactly as the analyse board draws it for
+   * "learn from your mistakes" - same helper, same brush, same line width.
+   * Here it is the whole question rather than an annotation. */
   autoShapes = (): DrawShape[] => {
     const pos = this.position;
     if (!pos || this.tried) return [];
-    const move = parseUci(pos.played.uci);
-    if (!move || !('from' in move)) return [];
-    return [
-      {
-        orig: makeSquare(move.from),
-        dest: makeSquare(move.to),
-        brush: 'red',
-      },
-    ];
+    return makeShapesFromUci(pos.color, pos.played.uci, playedMoveBrush, playedMoveModifiers);
   };
 
   private rootPosition(): Chess | undefined {

@@ -229,6 +229,14 @@ object header:
                     strong("Chess Insights"),
                     em("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")
                   )
+              ),
+              // your own deck only: solving records against the solver
+              ctx.is(u).option(
+                a(cls := "mistakes-link", href := routes.Mistake.home, dataIcon := Icon.ChasingArrows):
+                  span(
+                    strong(trans.site.shuffledMistakes()),
+                    em(trans.site.learnFromYourMistakes())
+                  )
               )
             )
           )

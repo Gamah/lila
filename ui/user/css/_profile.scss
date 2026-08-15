@@ -57,7 +57,8 @@
     }
   }
 
-  .insight {
+  .insight,
+  .mistakes-link {
     @extend %flex-center-nowrap;
 
     flex: 0 0 auto;
