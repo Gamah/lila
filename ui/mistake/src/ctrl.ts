@@ -41,7 +41,7 @@ export default class MistakeCtrl implements CevalHandler {
   private tried?: TreeNode;
   private failed = false;
   private recorded = false;
-  // the in flight record POST, if any. Dealing again must wait for it.
+  // the in flight record POST, if any. Asking for the next must wait for it.
   private pending: Promise<void> = Promise.resolve();
   // moves masters play in this position, once the explorer has answered
   private openingUcis: Uci[] = [];
@@ -100,19 +100,19 @@ export default class MistakeCtrl implements CevalHandler {
     this.gameUrl = undefined;
     this.openingUcis = [];
     this.ceval.reset();
-    // an empty deck still needs a root, so nothing downstream has to null check
+    // an empty queue still needs a root, so nothing downstream has to null check
     const fen = this.position?.fen ?? initialFen;
     this.root = completeNode('standard')({ ply: plyOfFen(fen), fen, children: [] });
     this.askExplorer();
   }
 
   /* Retro asks the opening explorer two things of every position it offers
-   * (retroCtrl.ts), and so does the deck: a move masters play counts as having
+   * (retroCtrl.ts), and so does this: a move masters play counts as having
    * found something better, and a position whose blunder is itself book is not
    * worth asking about at all. It matters more here, where positions come from
    * anywhere in a game rather than being walked in order.
    *
-   * The deck is standard games only, so retro's variant gate is implicit. */
+   * The queue is standard games only, so retro's variant gate is implicit. */
   private askExplorer(): void {
     const pos = this.position;
     if (!pos) return;
@@ -120,9 +120,9 @@ export default class MistakeCtrl implements CevalHandler {
     if (pos.divisionMiddle !== undefined && faultPly >= pos.divisionMiddle) return;
     fetchMasterOpening(this.explorerEndpoint, pos.fen)
       .then(res => {
-        if (pos !== this.position) return; // dealt again while we were waiting
+        if (pos !== this.position) return; // moved on while we were waiting
         const ucis = playedByMasters(res);
-        // book. Deal again rather than record anything: it was never asked.
+        // book. Move on rather than record anything: it was never asked.
         if (ucis.includes(pos.played.uci)) this.next();
         else this.openingUcis = ucis;
       })
@@ -149,7 +149,7 @@ export default class MistakeCtrl implements CevalHandler {
     xhr.reset(this.window).then(this.load);
   };
 
-  // where to go to widen the window, or just to see how the deck is doing
+  // where to go to widen the window, or just to see how the queue is doing
   homeUrl = (): string => xhr.homeUrl(this.window);
 
   // ------------------------------------------------------------------ solving
@@ -249,8 +249,8 @@ export default class MistakeCtrl implements CevalHandler {
 
   skip = (): void => {
     this.ceval.reset();
-    // record before dealing again: the server resolves "which position" from
-    // the deal it last handed out, so the two must not overlap
+    // record before asking for the next: the server resolves "which position"
+    // from the one it last handed out, so the two must not overlap
     this.finish(this.failed ? 'fail' : 'skip');
     this.next();
   };
@@ -271,7 +271,7 @@ export default class MistakeCtrl implements CevalHandler {
 
   isSolving = (): boolean => ['find', 'fail'].includes(this.feedback());
 
-  // forward moves only, as in analyse's jump(): retracting and dealing are silent
+  // forward moves only, as in analyse's jump(): retracting and moving on are silent
   private soundMove(): void {
     if (!this.tried) return;
     site.sound.move(this.tried);

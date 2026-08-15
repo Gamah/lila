@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 
 /* One document per (user, game, ply). That's the whole schema.
- * It is what turns the shuffle into a deck rather than a random draw with
+ * It is what makes the queue deplete rather than being a random draw with
  * repeats, and what lets the page say how many are left. */
 final private class MistakeSolveRepo(coll: Coll)(using Executor):
 
@@ -43,7 +43,7 @@ final private class MistakeSolveRepo(coll: Coll)(using Executor):
       )
       .void
 
-  // "do it again": puts the whole deck back
+  // "do it again": puts every position back in the queue
   def clear(userId: UserId): Funit = coll.delete.one($doc("u" -> userId)).void
 
   def count(userId: UserId): Fu[Int] = coll.countSel($doc("u" -> userId))

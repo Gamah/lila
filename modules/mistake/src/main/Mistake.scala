@@ -6,7 +6,7 @@ import chess.format.pgn.SanStr
 
 import lila.tree.Eval
 
-/* One card of the deck: a move this player got wrong, torn out of its game.
+/* One position in the queue: a move this player got wrong, torn out of its game.
  *
  * Everything that would say *where* it comes from - opponent, date, game id -
  * is deliberately absent. `key` is the only link back, it stays server side

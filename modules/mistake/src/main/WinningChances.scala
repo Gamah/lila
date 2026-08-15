@@ -6,7 +6,7 @@ import lila.tree.Eval
 
 /* Port of `ui/lib/src/ceval/winningChances.ts`.
  *
- * The deck offers exactly the positions retro offers, and retro selects them in
+ * This offers exactly the positions retro offers, and retro selects them in
  * the browser (`ui/analyse/src/nodeFinder.ts`), so the same measure has to
  * exist here. scalachess `WinPercent` is a different function: it returns a
  * 0-100 percent, and it flattens every mate to the centipawn ceiling instead of

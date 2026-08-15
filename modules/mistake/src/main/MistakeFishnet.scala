@@ -12,7 +12,7 @@ import lila.memo.SettingStore
  *
  * Unlike tutor we never await. Tutor is a background report and can block for
  * five minutes; this is a page someone is looking at. Games queued now show up
- * in the deck on a later visit, and until they do the landing page says so.
+ * in the queue on a later visit, and until they do the landing page says so.
  *
  * Asking is a POST and only a POST. Loading a page must never spend fishnet:
  * that is the whole reason the landing page exists. */

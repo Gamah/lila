@@ -110,13 +110,13 @@ const feedback = {
 };
 
 /* Nothing left in the window we draw from. The two things worth doing about
- * that - drawing from further back, and putting the deck back - both live on
+ * that - drawing from further back, and putting every position back - both live on
  * the landing page, so this offers the reset here and the window there. */
 const empty = (ctrl: MistakeCtrl): VNode[] => [
   hl('div.player', [
     hl('div.no-square', hl('piece.king.white')),
     hl('div.instruction', [
-      hl('em', i18n.site.nothingLeftToShuffle),
+      hl('em', i18n.site.queueIsEmpty),
       hl('div.choices.end', [
         hl('a', { hook: bind('click', ctrl.reset) }, i18n.site.doItAgain),
         hl('a', { attrs: { href: ctrl.homeUrl() } }, 'Older games'),

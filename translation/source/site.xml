@@ -900,7 +900,7 @@
   <string name="doItAgain">Do it again</string>
   <string name="reviewWhiteMistakes">Review white's mistakes</string>
   <string name="reviewBlackMistakes">Review black's mistakes</string>
-  <string name="nothingLeftToShuffle">Nothing left to shuffle. Play some more games, or start the deck again.</string>
+  <string name="queueIsEmpty">Your queue is empty. Play some more games.</string>
   <string name="seeTheGameItCameFrom">See the game it came from</string>
   <string name="advantage">Advantage</string>
   <plurals name="nbSeconds">

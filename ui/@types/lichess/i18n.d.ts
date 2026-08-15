@@ -4127,8 +4127,6 @@ interface I18n {
     notACheckmate: string;
     /** Notes */
     notes: string;
-    /** Nothing left to shuffle. Play some more games, or start the deck again. */
-    nothingLeftToShuffle: string;
     /** Nothing to see here at the moment. */
     nothingToSeeHere: string;
     /** Notifications */
@@ -4301,6 +4299,8 @@ interface I18n {
     puzzleDesc: string;
     /** Puzzles */
     puzzles: string;
+    /** Your queue is empty. Play some more games. */
+    queueIsEmpty: string;
     /** Quick pairing */
     quickPairing: string;
     /** Quote */

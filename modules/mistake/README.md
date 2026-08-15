@@ -46,8 +46,8 @@ is a bug in this module.
   something better, and a position whose mistake is itself a book move is
   dropped rather than asked. The fetch is shared
   (`ui/lib/src/game/masterOpening.ts`); the page carries the explorer endpoint,
-  and each deal carries the game's `divisionMiddle` so the client knows when it
-  has left the opening.
+  and each position carries the game's `divisionMiddle` so the client knows
+  when it has left the opening.
 - `MistakeApi.extract` builds the ordinary analyse tree with `TreeBuilder` and
   pulls one node out of it, rather than replaying the game by hand. The
   engine's line is already hanging off the pre-mistake node as a `comp` child,
@@ -125,14 +125,14 @@ nothing user visible:
 | collections | `mistake_solve`, `mistake_request` in `modules/mistake/src/main/Env.scala` |
 | setting | `mistakeNbAnalysis` |
 | fishnet origin | `Work.Origin.autoMistake` |
-| i18n | `site.xml`: `nothingLeftToShuffle`, `seeTheGameItCameFrom` - the two strings the board inherited from retro |
+| i18n | `site.xml`: `queueIsEmpty`, `seeTheGameItCameFrom` - the board's only two translated strings |
 
 No user visible string is built out of the token, which is why the two lists
 above are independent.
 
 ## Not done here
 
-- **Access for someone else's deck.** `/mistakes` is your own only. The issue
+- **Access for someone else's queue.** `/mistakes` is your own only. The issue
   suggested `Tutor.WithUser` (you, a `SeeInsight` mod, or your class teacher),
   but solving is interactive and records against the solver, so what a teacher
   would be looking at needs deciding before it's built.
@@ -141,18 +141,19 @@ above are independent.
 - **Variants.** Candidates are standard games only (`Query.variantStandard`).
 - **Entry point.** The profile page links to it, beside the Chess Insights
   card. There is nothing in the nav yet, same as `/tutor`.
-- **A "deck spent" state on the landing.** The landing cannot know the deck is
-  empty without dealing a position to find out, which is the one thing it must
-  not do, so that state lives on the board.
+- **An "empty queue" state on the landing.** The landing cannot know the queue
+  is empty without handing out a position to find out, which is the one thing it
+  must not do, so that state lives on the board. Having nothing to play is a
+  valid state and not a problem to engineer around: the board says so and tells
+  you to go and play some games.
 - **A reset button on the landing.** `POST /mistakes/reset` is still there and
-  the board still calls it, because on the board it follows "Nothing left to
-  shuffle" and "Do it again" is then self explanatory. Sat on the landing under
+  the board still calls it, because on the board it follows "Your queue is
+  empty" and "Do it again" is then self explanatory. Sat on the landing under
   a stats table it was a bare red button that explained nothing, and it is a
   thing you want on a dev instance rather than in production. If it comes back
   it needs to say what it destroys.
 - **Landing copy is hardcoded English**, as tutor's and insights' empty page
-  both are. Only the two strings the board inherited from retro are in
-  `site.xml`.
+  both are. Only the board's two strings are in `site.xml`.
 - **Any kind of warming progress indicator.** There is no live progress bar
   anywhere on lila - tutor reloads its waiting page once a minute, insights
   spins and reloads - and `bar-glider`, the site's one waiting notice, means

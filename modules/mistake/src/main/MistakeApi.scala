@@ -61,7 +61,7 @@ final class MistakeApi(
   def clear(userId: UserId): Funit = solveRepo.clear(userId)
 
   /* Walks the shuffled games one at a time and stops at the first that still
-   * has something to offer. Bounded, so a user whose whole deck is spent
+   * has something to offer. Bounded, so a user with an empty queue
    * doesn't cost us a hundred round trips. */
   private def pick(userId: UserId, ids: List[GameId], solved: Set[Mistake.Key]): Fu[Option[Mistake]] =
     ids match
@@ -103,8 +103,8 @@ final class MistakeApi(
   /* Retro's own selector, ported: `evalSwings` in ui/analyse/src/nodeFinder.ts.
    *
    * Not `analysis.advices`, which casts a wider net - it also has Inaccuracy,
-   * at half this swing, and a broader set of mate sequences. The deck deals the
-   * positions retro deals, so it has to select them the way retro does.
+   * at half this swing, and a broader set of mate sequences. The queue holds the
+   * positions retro offers, so it has to select them the way retro does.
    */
   private def swings(root: Root, color: Color): List[(Node, Node)] =
     val nodes = root.mainlineNodeList

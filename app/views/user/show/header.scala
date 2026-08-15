@@ -230,7 +230,7 @@ object header:
                     em("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")
                   )
               ),
-              // your own deck only: solving records against the solver
+              // your own queue only: solving records against the solver
               ctx.is(u).option(
                 a(cls := "blindspot", href := routes.Mistake.home(none), dataIcon := Icon.ChasingArrows):
                   span(

@@ -28,7 +28,7 @@ export interface MistakePosition {
   divisionMiddle?: Ply;
 }
 
-/* No counts in here. How much of the deck is left and how you have been doing
+/* No counts in here. How much of the queue is left and how you have been doing
  * are the landing page's job, and it can say them without spending a position
  * to find out. */
 export interface MistakeData {
