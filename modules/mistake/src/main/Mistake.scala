@@ -50,25 +50,44 @@ case class MistakeWindow(sinceMonths: Int, untilMonths: Int):
   def until = nowInstant.minusMonths(untilMonths)
   // what the URL carries, and the only form of it the client ever sees
   def key = s"$sinceMonths-$untilMonths"
-  def name =
-    if untilMonths == 0 then s"the last $sinceMonths months"
-    else s"$untilMonths to $sinceMonths months ago"
+  def name = s"$untilMonths to $sinceMonths months ago"
+  // the two halves, named for the two selects that set them
+  def fromName = s"from ${MistakeWindow.months(sinceMonths)} ago"
+  def toName = s"to ${MistakeWindow.months(untilMonths)} ago"
 
 object MistakeWindow:
   val default = MistakeWindow(sinceMonths = 3, untilMonths = 1)
 
-  /* A fixed list rather than free numbers. Every widening costs fishnet, and a
-   * window nobody picked is a window we never have analysis for. */
-  val choices: List[MistakeWindow] = List(
-    default,
-    MistakeWindow(sinceMonths = 6, untilMonths = 1),
-    MistakeWindow(sinceMonths = 12, untilMonths = 1),
-    MistakeWindow(sinceMonths = 12, untilMonths = 0)
-  )
+  /* Set by two selects, so the whitelist is per half rather than per pair. Both
+   * halves stay bounded lists rather than free numbers: every widening of
+   * `since` costs fishnet, and a window nobody picked is a window we never have
+   * analysis for. Narrowing `until` costs nothing - it is a subset of a window
+   * we already pay for - which is why it has more choices than `since`.
+   *
+   * 0 is not among them. `until` is not decoration: it is what makes the
+   * position cold, and a control that can switch it off has broken the feature. */
+  val sinceChoices: List[Int] = List(3, 6, 12)
+  val untilChoices: List[Int] = List(1, 2, 3)
 
-  def byKey(key: String): Option[MistakeWindow] = choices.find(_.key == key)
+  // what byKey's flat list of pairs used to give us for free
+  def valid(w: MistakeWindow): Boolean =
+    sinceChoices.contains(w.sinceMonths) &&
+      untilChoices.contains(w.untilMonths) &&
+      w.sinceMonths > w.untilMonths
+
+  def byKey(key: String): Option[MistakeWindow] = key.split('-') match
+    case Array(since, until) =>
+      for
+        s <- since.toIntOption
+        u <- until.toIntOption
+        w = MistakeWindow(s, u)
+        if valid(w)
+      yield w
+    case _ => none
 
   def orDefault(key: Option[String]): MistakeWindow = key.flatMap(byKey) | default
+
+  private def months(n: Int) = if n == 1 then "1 month" else s"$n months"
 
 /* Everything the landing page knows, and nothing it doesn't. There is no
  * "positions remaining": finding that out means deriving candidates for every
@@ -95,8 +114,7 @@ object MistakeHome:
     case Cold, Warming, Ready
 
 /* Games this user handed to fishnet that have not come back yet. */
-case class MistakeWarming(nbDone: Int, nbTotal: Int, since: Instant):
-  def percent = if nbTotal > 0 then 100 * nbDone / nbTotal else 0
+case class MistakeWarming(nbDone: Int, nbTotal: Int)
 
 /* Read straight off `mistake_solve`, which stores a result and a date and
  * nothing else. Solved-first-try is the number this feature knows and tutor
@@ -104,11 +122,27 @@ case class MistakeWarming(nbDone: Int, nbTotal: Int, since: Instant):
  * can't find the refutation". */
 case class MistakeStats(byResult: Map[MistakeResult, Int], recent: List[MistakeResult]):
   def nb(r: MistakeResult) = byResult.getOrElse(r, 0)
+  def nbRecent(r: MistakeResult) = recent.count(_ == r)
   def total = byResult.values.sum
-  def hitRate: Option[Int] = (total > 0).option(100 * nb(MistakeResult.win) / total)
-  def recentHitRate: Option[Int] =
-    recent.nonEmpty.option(100 * recent.count(_ == MistakeResult.win) / recent.size)
 
 object MistakeStats:
-  val empty = MistakeStats(Map.empty, Nil)
   val recentSize = 20
+
+/* One answered position, read back out of `mistake_solve`.
+ *
+ * This is the half of "what is in the deck" that is already stored, and the
+ * only half that can be shown honestly: what remains means deriving candidates
+ * for every game in the window, and the answer moves as analysis deepens.
+ *
+ * The game id is not withheld here. It stops being a secret the moment the
+ * position is answered - the board hands back this same link in the reply - so
+ * the list costs one indexed query and no new derivation. */
+case class MistakeSolve(
+    gameId: GameId,
+    ply: Ply,
+    color: Option[Color], // absent on documents recorded before the list existed
+    result: MistakeResult,
+    date: Instant
+):
+  // same deep link the board hands back; without a color it opens white's side
+  def gameUrl = s"/$gameId${color.so(c => s"/${c.name}")}#$ply"

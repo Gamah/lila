@@ -119,7 +119,7 @@ const empty = (ctrl: MistakeCtrl): VNode[] => [
       hl('em', i18n.site.nothingLeftToShuffle),
       hl('div.choices.end', [
         hl('a', { hook: bind('click', ctrl.reset) }, i18n.site.doItAgain),
-        hl('a', { attrs: { href: ctrl.homeUrl() } }, 'Draw from further back'),
+        hl('a', { attrs: { href: ctrl.homeUrl() } }, 'Older games'),
       ]),
     ]),
   ]),

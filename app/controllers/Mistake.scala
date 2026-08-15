@@ -22,6 +22,14 @@ final class Mistake(env: Env) extends LilaController(env):
     }
   }
 
+  /* The half of "what is in the deck" that is already stored. Also a read, and
+   * also idempotent: it lists what has been answered, and derives nothing. */
+  def answered(page: Int, window: Option[String]) = Auth { ctx ?=> me ?=>
+    api.answered(me.userId, page).flatMap { pager =>
+      Ok.page(views.mistake.answered(pager, window))
+    }
+  }
+
   def board(window: Option[String]) = Auth { ctx ?=> me ?=>
     val w = windowOf(window)
     api.next(me.userId, w).flatMap { mistake =>

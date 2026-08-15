@@ -876,6 +876,9 @@ GET   /tutor/:user/:range/:perf/opening/:color/:opening controllers.Tutor.openin
 # /mistakes only reads. Everything that spends a position, or fishnet time, is
 # behind /mistakes/play or a POST.
 GET   /mistakes                        controllers.Mistake.home(window: Option[String] ?= None)
+# the answered list is not window scoped - mistake_solve has no window in it.
+# `window` is carried only so the links back land on the one you came from.
+GET   /mistakes/answered               controllers.Mistake.answered(page: Int ?= 1, window: Option[String] ?= None)
 # `board`, not `play`: a route action named play shadows the play package
 # inside the generated reverse router, and every queryString call in it breaks
 GET   /mistakes/play                   controllers.Mistake.board(window: Option[String] ?= None)

@@ -1,3 +1,6 @@
 @import '../../../lib/css/plugin';
-@import '../../../lib/css/form/form3';
+@import '../../../lib/css/component/mselect';
+// the answered list is a slist with a pager under it
+@import '../../../lib/css/component/slist';
+@import '../../../lib/css/component/pagination';
 @import '../home';

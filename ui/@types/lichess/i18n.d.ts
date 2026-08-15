@@ -4485,8 +4485,6 @@ interface I18n {
     showUnreadLichessMessage: string;
     /** Show variation arrows */
     showVariationArrows: string;
-    /** Shuffled mistakes */
-    shuffledMistakes: string;
     /** Side */
     side: string;
     /** Sign in */

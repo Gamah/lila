@@ -1,110 +1,83 @@
-/* The landing page: plain boxes, no board. Everything here is a read, so it
- * reads like a page rather than an app. */
+/* The Blindspot landing. Same shape as the Chess Insights empty page - one
+ * small box - and the same table-of-numbers idiom as the perf stat page. */
 
-.mistake-home {
-  display: flex;
-  flex-flow: column;
-  gap: $block-gap;
-
-  p {
-    margin-bottom: 1em;
+.blindspot {
+  &__beta {
+    color: $c-brag;
+    font-size: 0.75em;
+    margin-inline-start: 0.5em;
   }
 
-  h2 {
-    font-size: 1.3em;
-    margin-bottom: 0.6em;
+  /* the perf stat page puts its subtitle in a span inside the h1 */
+  &__tagline {
+    display: block;
+    font-size: 0.5em;
+    font-weight: normal;
+    color: $c-font-dim;
   }
 
   &__hint {
     color: $c-font-dimmer;
-    font-size: 0.9em;
+    margin-top: 0.7em;
   }
 
-  &__play,
+  &__start,
   &__request {
-    margin-top: 1em;
-  }
-
-  &__request .mistake-home__hint {
-    margin-top: 0.5em;
-  }
-
-  /* Tutor shows the games it is analysing while you wait. We withhold those on
-   * purpose, so all that is left is how far along it is. */
-  &__progress {
-    background: $c-bg-zebra;
-    border-radius: $box-radius-size;
-    height: 0.8em;
-    overflow: hidden;
-    margin-bottom: 1em;
-
-    &__bar {
-      background: $c-secondary;
-      height: 100%;
-      transition: width 0.4s;
-    }
-  }
-
-  &__hit-rate {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5em;
-    margin-bottom: 0.8em;
-  }
-
-  &__big {
-    font-size: 3em;
-    line-height: 1;
-    color: $c-good;
-  }
-
-  &__counts {
-    display: flex;
-    gap: $block-gap;
-    margin-bottom: 1em;
-  }
-
-  &__tile {
-    flex: 1 1 0;
-    background: $c-bg-zebra;
-    border-radius: $box-radius-size;
-    padding: 0.8em;
+    margin-top: 2em;
     text-align: center;
-    display: flex;
-    flex-flow: column;
+  }
 
-    strong {
-      font-size: 1.6em;
+  /* the .perf-stat .counter table, verbatim: total row, then the breakdown */
+  &__stats {
+    margin-top: 3em;
+
+    table {
+      width: 100%;
     }
 
-    span {
-      color: $c-font-dimmer;
-      font-size: 0.9em;
+    th {
+      font-weight: normal;
+      padding-inline-start: 1.5em;
     }
 
-    &--win strong {
-      color: $c-good;
+    td {
+      text-align: right;
+      padding: 0.8em 1.2em;
+      font-weight: bold;
+      font-size: 1.2em;
     }
 
-    &--fail strong {
-      color: $c-bad;
+    tr.full td:last-child {
+      background: $c-bg-zebra;
+      width: 5em;
+    }
+
+    tr:first-child {
+      border-bottom: $border;
     }
   }
 
-  &__window {
-    form {
-      display: flex;
-      gap: 1em;
-      align-items: center;
-      flex-wrap: wrap;
+  /* two selects now, from and to, so they need to sit next to each other */
+  .box__top__actions {
+    display: flex;
+    gap: 0.7em;
+  }
+
+  /* the answered list: result, when, and the way back into the game */
+  &__answered {
+    margin-top: 1em;
+
+    td:first-child {
+      width: 6em;
     }
 
-    select {
-      flex: 1 1 14em;
+    td:last-child {
+      text-align: end;
     }
   }
 
   &__reset {
-    margin-top: 1.5em;
+    margin-top: 3em;
+    text-align: center;
   }
 }

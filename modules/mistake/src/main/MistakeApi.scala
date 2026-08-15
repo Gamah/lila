@@ -2,6 +2,7 @@ package lila.mistake
 
 import chess.{ Color, Division }
 import scalalib.ThreadLocalRandom
+import scalalib.paginator.Paginator
 
 import lila.analyse.AnalysisRepo
 import lila.game.{ Divider, GameRepo }
@@ -56,7 +57,12 @@ final class MistakeApi(
   def record(userId: UserId, result: MistakeResult): Fu[Option[Mistake.Current]] =
     currentStore.take(userId) match
       case None => fuccess(none)
-      case Some(current) => solveRepo.record(userId, current.key, result).inject(current.some)
+      case Some(current) => solveRepo.record(userId, current, result).inject(current.some)
+
+  /* What is in the deck, as far as it can honestly be said: the cards already
+   * turned over. What remains stays out - see MistakeSolve. */
+  def answered(userId: UserId, page: Int): Fu[Paginator[MistakeSolve]] =
+    solveRepo.answered(userId, page)
 
   def clear(userId: UserId): Funit = solveRepo.clear(userId)
 

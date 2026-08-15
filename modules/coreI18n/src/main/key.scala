@@ -2354,7 +2354,6 @@ object I18nKey:
     val `doItAgain`: I18nKey = "doItAgain"
     val `reviewWhiteMistakes`: I18nKey = "reviewWhiteMistakes"
     val `reviewBlackMistakes`: I18nKey = "reviewBlackMistakes"
-    val `shuffledMistakes`: I18nKey = "shuffledMistakes"
     val `nothingLeftToShuffle`: I18nKey = "nothingLeftToShuffle"
     val `seeTheGameItCameFrom`: I18nKey = "seeTheGameItCameFrom"
     val `advantage`: I18nKey = "advantage"

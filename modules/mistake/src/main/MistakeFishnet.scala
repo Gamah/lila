@@ -41,11 +41,7 @@ final private class MistakeFishnet(
           .unanalysedGames(req.gameIds, Max(req.gameIds.size))
           .map: pending =>
             (pending.nonEmpty).option:
-              MistakeWarming(
-                nbDone = req.gameIds.size - pending.size,
-                nbTotal = req.gameIds.size,
-                since = req.at
-              )
+              MistakeWarming(nbDone = req.gameIds.size - pending.size, nbTotal = req.gameIds.size)
 
   /* Returns how many games were sent, or none if the request was refused for
    * being inside the cooldown. The caller says which, out loud. */
