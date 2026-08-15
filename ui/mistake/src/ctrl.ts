@@ -45,7 +45,6 @@ export default class MistakeCtrl implements CevalHandler {
   private pending: Promise<void> = Promise.resolve();
   // moves masters play in this position, once the explorer has answered
   private openingUcis: Uci[] = [];
-  private bookSkips = 0;
   private readonly explorerEndpoint: string;
 
   constructor(
@@ -120,14 +119,9 @@ export default class MistakeCtrl implements CevalHandler {
       .then(res => {
         if (pos !== this.position) return; // dealt again while we were waiting
         const ucis = playedByMasters(res);
-        if (ucis.includes(pos.played.uci) && this.bookSkips < maxBookSkips) {
-          // book. Deal again rather than record anything: it was never asked.
-          this.bookSkips++;
-          this.next();
-        } else {
-          this.bookSkips = 0;
-          this.openingUcis = ucis;
-        }
+        // book. Deal again rather than record anything: it was never asked.
+        if (ucis.includes(pos.played.uci)) this.next();
+        else this.openingUcis = ucis;
       })
       .catch(() => {});
   }
@@ -339,10 +333,6 @@ export default class MistakeCtrl implements CevalHandler {
 }
 
 const initialFen: FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-
-/* A deck of nothing but book positions would otherwise deal forever. Retro has
- * no such loop: its candidates are a list it can exhaust. */
-const maxBookSkips = 5;
 
 /* Derived from the FEN rather than sent separately. The move number is visible
  * in the FEN anyway, and it is not what the exercise is hiding. */
