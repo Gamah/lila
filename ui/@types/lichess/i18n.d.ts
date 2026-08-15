@@ -3525,6 +3525,8 @@ interface I18n {
     database: string;
     /** Days per turn */
     daysPerTurn: string;
+    /** Deal another */
+    dealAnother: string;
     /** Decline */
     decline: string;
     /** Defeat */
@@ -4033,6 +4035,8 @@ interface I18n {
     nbGames: I18nPlural;
     /** %s games in play */
     nbGamesInPlay: I18nPlural;
+    /** %s games sent for computer analysis. Come back in a while for more positions. */
+    nbGamesQueuedForAnalysis: I18nPlural;
     /** %s games with you */
     nbGamesWithYou: I18nPlural;
     /** %s hours */
@@ -4047,6 +4051,8 @@ interface I18n {
     nbMinutes: I18nPlural;
     /** %s mistakes */
     nbMistakes: I18nPlural;
+    /** %s mistakes done */
+    nbMistakesSolved: I18nPlural;
     /** %1$s %2$s players this week. */
     nbPerfTypePlayersThisWeek: I18nPlural;
     /** %s players */
@@ -4127,6 +4133,8 @@ interface I18n {
     notACheckmate: string;
     /** Notes */
     notes: string;
+    /** Nothing left to shuffle. Play some more games, or start the deck again. */
+    nothingLeftToShuffle: string;
     /** Nothing to see here at the moment. */
     nothingToSeeHere: string;
     /** Notifications */
@@ -4147,6 +4155,8 @@ interface I18n {
     ok: string;
     /** One day */
     oneDay: string;
+    /** One of your own mistakes, drawn at random from your games of one to three months ago. */
+    oneOfYourOwnMistakes: string;
     /** One URL per line. */
     oneUrlPerLine: string;
     /** online */
@@ -4455,6 +4465,8 @@ interface I18n {
     security: string;
     /** See best move */
     seeBestMove: string;
+    /** See the game it came from */
+    seeTheGameItCameFrom: string;
     /** Send */
     send: string;
     /** If you can't find your confirmation email, send an email to %s and we'll confirm your account for you. */
@@ -4481,6 +4493,8 @@ interface I18n {
     showUnreadLichessMessage: string;
     /** Show variation arrows */
     showVariationArrows: string;
+    /** Shuffled mistakes */
+    shuffledMistakes: string;
     /** Side */
     side: string;
     /** Sign in */

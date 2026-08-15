@@ -26,12 +26,16 @@ final class Analyser(
 
   private val systemSender = Sender(UserId.lichess, none, mod = false, system = true)
 
-  def tutor(gameId: id.GameId) =
+  def tutor(gameId: id.GameId) = system(gameId, Origin.autoTutor)
+
+  def mistake(gameId: id.GameId) = system(gameId, Origin.autoMistake)
+
+  private def system(gameId: id.GameId, origin: Origin) =
     gameRepo
       .game(gameId)
       .orFail(s"No game $gameId")
       .flatMap:
-        apply(_, systemSender, Origin.autoTutor.some).void
+        apply(_, systemSender, origin.some).void
 
   def apply(
       game: Game,
@@ -49,7 +53,7 @@ final class Analyser(
           limiter(
             sender,
             ignoreConcurrentCheck =
-              sender.system || List(Origin.autoTutor, Origin.autoHunter).contains(origin),
+              sender.system || List(Origin.autoTutor, Origin.autoMistake, Origin.autoHunter).contains(origin),
             ownGame = game.userIds contains sender.userId
           ).flatMap { result =>
             (result.ok && dedup(game.id.value))

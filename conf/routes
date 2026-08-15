@@ -870,6 +870,14 @@ GET   /tutor/:user/:range/:perf        controllers.Tutor.perf(user: UserStr, ran
 GET   /tutor/:user/:range/:perf/:angle controllers.Tutor.angle(user: UserStr, range, perf: PerfKey, angle)
 GET   /tutor/:user/:range/:perf/opening/:color/:opening controllers.Tutor.opening(user: UserStr, range, perf: PerfKey, color: Color, opening: String)
 
+# Mistakes
+# the /mistakes path is the only place the name is user visible;
+# everything behind it is the `mistake` token, see modules/mistake/README.md
+GET   /mistakes                        controllers.Mistake.home
+GET   /mistakes/next                   controllers.Mistake.next
+POST  /mistakes/record/:result         controllers.Mistake.record(result)
+POST  /mistakes/reset                  controllers.Mistake.reset
+
 # Recap
 GET   /recap                           controllers.Recap.home
 GET   /recap/:username                 controllers.Recap.user(username: UserStr)

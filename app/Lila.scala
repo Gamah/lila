@@ -175,6 +175,7 @@ final class LilaComponents(
   lazy val racer: Racer = wire[Racer]
   lazy val ublog: Ublog = wire[Ublog]
   lazy val tutor: Tutor = wire[Tutor]
+  lazy val mistake: Mistake = wire[Mistake]
   lazy val recap: Recap = wire[Recap]
   lazy val bulkPairing: BulkPairing = wire[BulkPairing]
   lazy val opening: Opening = wire[Opening]

@@ -1,8 +1,7 @@
 import { opposite } from '@lichess-org/chessground/util';
 
 import { isEmpty, type Prop, prop } from 'lib';
-import { api } from 'lib/api';
-import { winningChances } from 'lib/ceval';
+import { beatsBaseline, bestMoveMargin, isCevalReady } from 'lib/ceval';
 import { path as treePath } from 'lib/tree/tree';
 import type { TreeNode } from 'lib/tree/types';
 
@@ -153,21 +152,13 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     root.setAutoShapes();
   }
 
-  const isCevalReady = (node: TreeNode): boolean => {
-    if (!node.ceval) return false;
-    return (
-      api.overrides.learnFromMistakesEvalReady?.(structuredClone(node.ceval)) ??
-      Boolean(node.ceval.bestmove || node.ceval.nodes >= 1_000_000 || (node.ceval.millis ?? 0) > 3000)
-    );
-  };
-
   function checkCeval(): void {
     const node = root.node,
       cur = current();
     if (!cur || feedback() !== 'eval' || cur.fault.node.ply !== node.ply) return;
-    if (isCevalReady(node)) {
-      const diff = winningChances.povDiff(color, node.ceval!, cur.prev.node.eval!);
-      if (diff > -0.04) onWin();
+    if (isCevalReady(node.ceval)) {
+      // measured against the best move, so falling slightly short still passes
+      if (beatsBaseline(color, node.ceval!, cur.prev.node.eval!, bestMoveMargin)) onWin();
       else onFail();
     }
   }

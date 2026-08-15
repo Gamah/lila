@@ -1,0 +1,77 @@
+$mistake-block-gap: $block-gap;
+
+#main-wrap {
+  ---main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+
+  @include mq-at-least-col2 {
+    ---main-max-width: auto;
+  }
+}
+
+.mistake {
+  grid-area: main;
+  display: grid;
+  row-gap: $mistake-block-gap;
+  grid-template-areas: 'board' 'side';
+
+  &__board {
+    grid-area: board;
+  }
+
+  &__side {
+    @extend %zen;
+    @extend %box-neat;
+
+    grid-area: side;
+    display: flex;
+    flex-flow: column;
+    background: $c-bg-box;
+    padding: 1.5em;
+    gap: 1em;
+  }
+
+  &__intro {
+    color: $c-font-dim;
+    font-size: 0.9em;
+  }
+
+  &__loading {
+    display: flex;
+    justify-content: center;
+    flex: 1 1 auto;
+  }
+
+  &__game-link {
+    display: block;
+    margin-top: 0.6em;
+  }
+
+  &--empty {
+    grid-template-areas: 'side';
+    max-width: 60ch;
+  }
+
+  @include mq-at-least-col2 {
+    grid-template-columns: var(---col2-uniboard-width) $mistake-block-gap $col2-uniboard-table;
+    grid-template-rows: fit-content(0);
+    grid-template-areas: 'board . side';
+
+    &.mistake--empty {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'side';
+    }
+
+    &__side {
+      height: var(---cg-height, 100%);
+    }
+  }
+
+  @include mq-is-col2-squeeze {
+    grid-template-columns: $col2-uniboard-squeeze-width $mistake-block-gap $col2-uniboard-squeeze-table;
+  }
+}
+
+// the retro box lives in a flex column here rather than in the analyse tools
+.mistake-box {
+  flex: 1 1 auto;
+}

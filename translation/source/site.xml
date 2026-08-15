@@ -900,6 +900,19 @@
   <string name="doItAgain">Do it again</string>
   <string name="reviewWhiteMistakes">Review white's mistakes</string>
   <string name="reviewBlackMistakes">Review black's mistakes</string>
+  <string name="shuffledMistakes">Shuffled mistakes</string>
+  <string name="oneOfYourOwnMistakes">One of your own mistakes, drawn at random from your games of one to three months ago.</string>
+  <string name="nothingLeftToShuffle">Nothing left to shuffle. Play some more games, or start the deck again.</string>
+  <string name="seeTheGameItCameFrom">See the game it came from</string>
+  <string name="dealAnother">Deal another</string>
+  <plurals name="nbGamesQueuedForAnalysis">
+    <item quantity="one">%s game sent for computer analysis. Come back in a while for more positions.</item>
+    <item quantity="other">%s games sent for computer analysis. Come back in a while for more positions.</item>
+  </plurals>
+  <plurals name="nbMistakesSolved">
+    <item quantity="one">%s mistake done</item>
+    <item quantity="other">%s mistakes done</item>
+  </plurals>
   <string name="advantage">Advantage</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s second</item>

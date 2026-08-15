@@ -1,0 +1,17 @@
+%zen {
+  .zen & {
+    display: none;
+  }
+}
+
+body.zenable.zen {
+  #top {
+    justify-content: center;
+  }
+}
+
+#friend_box,
+.site-title-nav,
+.site-buttons {
+  @extend %zen;
+}

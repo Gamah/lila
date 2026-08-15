@@ -84,7 +84,7 @@ lazy val modules = Seq(
   insight, evaluation, storm,
   // level 7
   // everything else is free from deps; do the big ones first
-  relay, tutor, security, tournament, plan, round,
+  relay, tutor, mistake, security, tournament, plan, round,
   swiss, insight, fishnet, mod, challenge, web,
   team, forum, streamer, simul, activity, msg, ublog,
   notifyModule, clas, perfStat, opening, timeline,
@@ -317,6 +317,11 @@ lazy val insight = module("insight",
 lazy val tutor = module("tutor",
   Seq(insight),
   tests.bundle
+)
+
+lazy val mistake = module("mistake",
+  Seq(analyse, game, ui),
+  Seq()
 )
 
 lazy val opening = module("opening",
