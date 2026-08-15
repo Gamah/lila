@@ -58,8 +58,7 @@ is a bug in this module.
   there is no per-user setting behind it, so a window nobody picked is one we
   never spend fishnet on.
 
-  The landing sets it with two selects, a from and a to, the way tutor's date
-  range is two fields (`TutorConfig.form.dates`). Each half is its own
+  The landing sets it with two selects, a from and a to. Each half is its own
   whitelist - `sinceChoices` and `untilChoices` - rather than a free number,
   and `MistakeWindow.valid` checks both halves and that the range is not
   inverted. That check is what the old flat list of four pairs got for free.
@@ -92,10 +91,10 @@ is a bug in this module.
   *how it went*, and the server hands back the game link in reply.
 - **Stats** on the landing come from `mistake_solve` and nothing else: how many
   you solved, gave up on and skipped, and the same over the last twenty. By
-  phase, by piece and by opening are tutor's job and would be a worse copy of
-  it, so the page links there instead. There is deliberately no "positions
-  remaining": knowing it means deriving candidates for every game in the
-  window, which is exactly the work the board does one game at a time.
+  phase, by piece and by opening belong elsewhere and would be a worse copy of
+  what already exists. There is deliberately no "positions remaining": knowing
+  it means deriving candidates for every game in the window, which is exactly
+  the work the board does one game at a time.
 
   There is no list of what you *have* answered either. One was built and cut:
   `mistake_solve` makes it cheap, but a table of "Solved / 45 minutes ago / see
@@ -108,9 +107,9 @@ is a bug in this module.
 The **displayed** name is Blindspot, and it is hardcoded English in exactly
 three places - `MistakeUi.name`, the profile card in
 `app/views/user/show/header.scala`, and the `.blindspot` block in
-`ui/user/css/_profile.scss`. It is not in `site.xml`, because "Lichess Tutor"
-and "Chess Insights" aren't either: a product name is not a translatable
-string. Renaming the feature is those three edits.
+`ui/user/css/_profile.scss`. It is not in `site.xml`, because "Chess Insights"
+isn't either: a product name is not a translatable string. Renaming the feature
+is those three edits.
 
 The **code** token is `mistake` and appears in these places, all of them the
 single word (or the path `mistakes`). Renaming *that* is a bigger job and buys
@@ -137,14 +136,14 @@ above are independent.
 ## Not done here
 
 - **Access for someone else's queue.** `/mistakes` is your own only. The issue
-  suggested `Tutor.WithUser` (you, a `SeeInsight` mod, or your class teacher),
-  but solving is interactive and records against the solver, so what a teacher
-  would be looking at needs deciding before it's built.
+  suggested opening it to a `SeeInsight` mod or your class teacher, but solving
+  is interactive and records against the solver, so what a teacher would be
+  looking at needs deciding before it's built.
 - **Rank gate** ("your move must be in the engine's top 5"). Out by default and
   not implemented.
 - **Variants.** Candidates are standard games only (`Query.variantStandard`).
 - **Entry point.** The profile page links to it, beside the Chess Insights
-  card. There is nothing in the nav yet, same as `/tutor`.
+  card. There is nothing in the nav yet.
 - **An "empty queue" state on the landing.** The landing cannot know the queue
   is empty without handing out a position to find out, which is the one thing it
   must not do, so that state lives on the board. Having nothing to play is a
@@ -156,11 +155,11 @@ above are independent.
   a stats table it was a bare red button that explained nothing, and it is a
   thing you want on a dev instance rather than in production. If it comes back
   it needs to say what it destroys.
-- **Landing copy is hardcoded English**, as tutor's and insights' empty page
-  both are. Only the board's two strings are in `site.xml`.
+- **Landing copy is hardcoded English**, as the Chess Insights empty page is.
+  Only the board's two strings are in `site.xml`.
 - **Any kind of warming progress indicator.** There is no live progress bar
-  anywhere on lila - tutor reloads its waiting page once a minute, insights
-  spins and reloads - and `bar-glider`, the site's one waiting notice, means
+  anywhere on lila - insights spins and reloads - and `bar-glider`, the site's
+  one waiting notice, means
   "any second now" (tournament pairing, round clock expiry). This does not. So
   the warming state is a sentence and a count, and the count has moved when you
   come back.

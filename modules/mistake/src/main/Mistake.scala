@@ -117,9 +117,9 @@ object MistakeHome:
 case class MistakeWarming(nbDone: Int, nbTotal: Int)
 
 /* Read straight off `mistake_solve`, which stores a result and a date and
- * nothing else. Solved-first-try is the number this feature knows and tutor
- * doesn't: not "you blunder in the middlegame" but "shown it cold, you still
- * can't find the refutation". */
+ * nothing else. Solved-first-try is the number this feature exists for: not
+ * "you blunder in the middlegame" but "shown it cold, you still can't find the
+ * refutation". */
 case class MistakeStats(byResult: Map[MistakeResult, Int], recent: List[MistakeResult]):
   def nb(r: MistakeResult) = byResult.getOrElse(r, 0)
   def nbRecent(r: MistakeResult) = recent.count(_ == r)

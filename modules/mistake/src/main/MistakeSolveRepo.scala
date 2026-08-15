@@ -49,8 +49,8 @@ final private class MistakeSolveRepo(coll: Coll)(using Executor):
   def count(userId: UserId): Fu[Int] = coll.countSel($doc("u" -> userId))
 
   /* The whole of the stats page, in two reads. Deliberately not a second
-   * insights: by phase, by piece and by opening are tutor's job and would be a
-   * worse copy of it. */
+   * insights: by phase, by piece and by opening belong elsewhere and would be a
+   * worse copy of what already exists. */
   def stats(userId: UserId): Fu[MistakeStats] =
     for
       byResult <- countByResult(userId)

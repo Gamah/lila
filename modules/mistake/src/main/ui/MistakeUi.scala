@@ -82,11 +82,10 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
     (home.nbUnanalysed > 0).option(requestForm(home))
   )
 
-  /* Tutor shows the games it is analysing while you wait, and we cannot: those
-   * are exactly the games we withhold. No waiting notice either: `bar-glider`
-   * means "any second now" - tournament pairing, a clock running out - and
-   * this is minutes away. A sentence and a count that has moved when you
-   * come back. */
+  /* We cannot show the games being analysed while you wait: those are exactly
+   * the games we withhold. No waiting notice either: `bar-glider` means "any
+   * second now" - tournament pairing, a clock running out - and this is minutes
+   * away. A sentence and a count that has moved when you come back. */
   private def warming(home: MistakeHome)(using Context) =
     home.warming.map: w =>
       frag(
@@ -152,11 +151,11 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       td(if total > 0 then s"${100 * nb / total}%" else "")
     )
 
-  /* Where to draw from, as a from and a to - tutor's date range is the same two
-   * fields. Both halves are whitelists rather than free numbers: every widening
-   * of `from` costs fishnet, and `to` is what keeps the position cold, so
-   * neither is a box you can type any month into. Setting one holds the other,
-   * and a combination that would invert the range is simply not offered. */
+  /* Where to draw from, as a from and a to. Both halves are whitelists rather
+   * than free numbers: every widening of `from` costs fishnet, and `to` is what
+   * keeps the position cold, so neither is a box you can type any month into.
+   * Setting one holds the other, and a combination that would invert the range
+   * is simply not offered. */
   private def windowSelect(home: MistakeHome)(using Context) =
     val w = home.window
     frag(
