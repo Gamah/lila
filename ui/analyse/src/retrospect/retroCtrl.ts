@@ -2,11 +2,11 @@ import { opposite } from '@lichess-org/chessground/util';
 
 import { isEmpty, type Prop, prop } from 'lib';
 import { beatsBaseline, bestMoveMargin, isCevalReady } from 'lib/ceval';
+import { playedByMasters } from 'lib/game/masterOpening';
 import { path as treePath } from 'lib/tree/tree';
 import type { TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from '../ctrl';
-import type { OpeningData } from '../explorer/interfaces';
 import { evalSwings } from '../nodeFinder';
 
 export interface RetroCtrl {
@@ -106,12 +106,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     ) {
       root.explorer
         .fetchMasterOpening(prev.node.fen)
-        .then((res: OpeningData) => {
+        .then(res => {
           const cur = current()!;
-          const ucis: Uci[] = [];
-          res.moves.forEach(m => {
-            if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
-          });
+          const ucis = playedByMasters(res);
           if (ucis.includes(fault.node.uci!)) {
             explorerCancelPlies.push(fault.node.ply);
             setTimeout(jumpToNext, 100);

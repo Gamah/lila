@@ -1,9 +1,10 @@
 import { opposite } from '@lichess-org/chessground/util';
 
 import { type Prop, prop, defined, myUserId } from 'lib';
-import { debounce, defer, sync, type Sync } from 'lib/async';
+import { debounce, sync, type Sync } from 'lib/async';
 import { replayable } from 'lib/game';
 import { pieceCount, fenColor } from 'lib/game/chess';
+import { fetchMasterOpening, type MasterOpening } from 'lib/game/masterOpening';
 import { storedBooleanProp } from 'lib/storage';
 
 import type AnalyseCtrl from '@/ctrl';
@@ -200,19 +201,13 @@ export default class ExplorerCtrl {
     }
   };
   isIndexing = () => !!this.lastStream && !defined(this.lastStream.sync);
-  fetchMasterOpening = async (fen: FEN): Promise<OpeningData> => {
-    const deferred = defer<OpeningData>();
-    await xhr.opening(
-      {
-        ...this.baseXhrOpening(),
-        db: 'masters',
-        rootFen: fen,
-        play: [],
-        fen,
-      },
-      deferred.resolve,
-    );
-    return await deferred.promise;
+  // the whole of it lives in lib: the /mistakes deck asks the same question
+  fetchMasterOpening = (fen: FEN): Promise<MasterOpening> => {
+    const masters = this.config.data.byDb();
+    return fetchMasterOpening(this.opts.endpoint, fen, {
+      since: masters.since().split('-')[0],
+      until: masters.until().split('-')[0],
+    });
   };
   fetchTablebaseHit = async (fen: FEN): Promise<SimpleTablebaseHit> => {
     const res = await xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen);

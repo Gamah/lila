@@ -10,6 +10,7 @@ import lila.core.fishnet.FishnetRequest
 final class Env(
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
+    divider: lila.game.Divider,
     analysisRepo: lila.analyse.AnalysisRepo,
     fishnetRequest: FishnetRequest,
     settingStore: lila.memo.SettingStore.Builder,

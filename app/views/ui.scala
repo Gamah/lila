@@ -94,4 +94,4 @@ def mobile(p: lila.cms.CmsPage.Render)(using Context) =
 
 val recap = lila.recap.ui.RecapUi(helpers)
 
-val mistake = lila.mistake.ui.MistakeUi(helpers)
+val mistake = lila.mistake.ui.MistakeUi(helpers)(analyseEndpoints)

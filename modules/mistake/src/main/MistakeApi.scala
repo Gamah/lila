@@ -1,15 +1,16 @@
 package lila.mistake
 
-import chess.{ Color, Ply }
+import chess.{ Color, Division }
 import scalalib.ThreadLocalRandom
 
 import lila.analyse.AnalysisRepo
-import lila.game.GameRepo
-import lila.tree.{ ExportOptions, Root, TreeBuilder }
+import lila.game.{ Divider, GameRepo }
+import lila.tree.{ ExportOptions, Node, Root, TreeBuilder }
 
 final class MistakeApi(
     gameRepo: GameRepo,
     analysisRepo: AnalysisRepo,
+    divider: Divider,
     solveRepo: MistakeSolveRepo,
     dealStore: MistakeDealStore,
     fishnet: MistakeFishnet
@@ -62,43 +63,67 @@ final class MistakeApi(
             analysisRepo.byGame(game).flatMap:
               case None => fuccess(Nil)
               case Some(analysis) =>
-                val plies = analysis.advices.collect:
-                  case advice if advice.color == color && !solved(Mistake.Key(gameId, advice.ply)) =>
-                    advice.ply
-                if plies.isEmpty then fuccess(Nil)
-                else
-                  gameRepo
-                    .initialFen(game)
-                    .map: initialFen =>
-                      val root = TreeBuilder(
-                        game = game,
-                        analysis = analysis.some,
-                        initialFen = initialFen | game.variant.initialFen,
-                        withFlags = ExportOptions.default,
-                        logChessError = logger.warn
-                      )
-                      plies.flatMap(extract(gameId, color, root, _))
+                gameRepo
+                  .initialFen(game)
+                  .map: initialFen =>
+                    val root = TreeBuilder(
+                      game = game,
+                      analysis = analysis.some,
+                      initialFen = initialFen | game.variant.initialFen,
+                      withFlags = ExportOptions.default,
+                      logChessError = logger.warn
+                    )
+                    val division = divider(game, initialFen)
+                    swings(root, color)
+                      .filterNot((_, fault) => solved(Mistake.Key(gameId, fault.ply)))
+                      .flatMap((prev, fault) => extract(gameId, color, division, prev, fault))
 
-  /* The analyse tree already holds everything we need, and holds it in exactly
-   * the shape retro reads: the engine's line hangs off the position BEFORE the
-   * mistake as a `comp` child (see TreeBuilder.withAnalysisChild). So rather
-   * than replaying the game ourselves, build the tree and pull one node out. */
-  private def extract(gameId: GameId, color: Color, root: Root, ply: Ply): Option[Mistake] =
+  /* Retro's own selector, ported: `evalSwings` in ui/analyse/src/nodeFinder.ts.
+   *
+   * Not `analysis.advices`, which casts a wider net - it also has Inaccuracy,
+   * at half this swing, and a broader set of mate sequences. The deck deals the
+   * positions retro deals, so it has to select them the way retro does.
+   */
+  private def swings(root: Root, color: Color): List[(Node, Node)] =
     val nodes = root.mainlineNodeList
-    val faultIndex = (ply - root.ply).value
+    nodes
+      .zip(nodes.drop(1))
+      .filter: (prev, fault) =>
+        (fault.ply - 1).turn == color && isSwing(prev, fault)
+
+  private def isSwing(prev: Node, fault: Node): Boolean = (prev.eval, fault.eval) match
+    case (Some(p), Some(f)) =>
+      hasCompChild(prev) && (
+        WinningChances.povDiff(chess.White, p, f).exists(_.abs > 0.1) ||
+          (p.mate.exists(_.value.abs <= 3) && f.mate.isEmpty)
+      )
+    case _ => false
+
+  // retro only offers a position that has a computer line to compare against
+  private def hasCompChild(node: Node): Boolean = node.children.toList.exists(_.comp)
+
+  /* The engine's line hangs off the position BEFORE the mistake as a `comp`
+   * child (see TreeBuilder.withAnalysisChild), which is what retro reads too.
+   * So rather than replaying the game ourselves, we build the tree and pull the
+   * two nodes out of it. */
+  private def extract(
+      gameId: GameId,
+      color: Color,
+      division: Division,
+      parent: Node,
+      fault: Node
+  ): Option[Mistake] =
     for
-      parent <- nodes.lift(faultIndex - 1)
-      fault <- nodes.lift(faultIndex)
       move <- fault.moveOption
-      // retro only offers a position that has a computer line to compare against
       solution <- parent.children.toList.find(_.comp)
     yield Mistake(
-      key = Mistake.Key(gameId, ply),
+      key = Mistake.Key(gameId, fault.ply),
       color = color,
       fen = parent.fen,
-      played = Mistake.Played(move.uci, move.san, fault.eval),
+      played = Mistake.Played(move.uci, move.san),
       prevEval = parent.eval,
-      solution = solution.mainline.map(_.move.san)
+      solution = solution.mainline.map(_.move.san),
+      divisionMiddle = division.middle
     )
 
 object MistakeApi:

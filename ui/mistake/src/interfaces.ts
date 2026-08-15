@@ -15,15 +15,17 @@ export interface MistakePrefs {
 export interface Played {
   uci: Uci;
   san: San;
-  eval?: EvalScore;
 }
 
 export interface MistakePosition {
   fen: FEN;
   color: Color;
   played: Played;
+  // eval of the position before the mistake, ie of the best move: the baseline
   prevEval?: EvalScore;
   solution: San[];
+  // ply the opening ends at, if the game had one
+  divisionMiddle?: Ply;
 }
 
 export interface MistakeData {
@@ -34,7 +36,11 @@ export interface MistakeData {
   pref: MistakePrefs;
 }
 
-export type MistakeOpts = MistakeData;
+/* The page carries one thing the later deals don't: where to ask the opening
+ * explorer. It never changes, so it is not part of a deal. */
+export interface MistakeOpts extends MistakeData {
+  explorerEndpoint: string;
+}
 
 /* Same states as retro, minus 'offTrack' - there is nowhere to browse away to. */
 export type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';

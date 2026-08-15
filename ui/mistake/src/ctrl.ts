@@ -8,9 +8,10 @@ import type { Move, Role } from 'chessops/types';
 import { parseSquare, makeUci, opposite } from 'chessops/util';
 
 import { prop, type Prop, type Toggle, toggle } from 'lib';
-import { beatsBaseline, CevalCtrl, isCevalReady, playedMoveMargin } from 'lib/ceval';
+import { beatsBaseline, bestMoveMargin, CevalCtrl, isCevalReady } from 'lib/ceval';
 import type { CevalHandler, ExternalEngineInfo } from 'lib/ceval/types';
 import { type WithGround } from 'lib/game/ground';
+import { fetchMasterOpening, playedByMasters } from 'lib/game/masterOpening';
 import { PromotionCtrl } from 'lib/game/promotion';
 import { makeShapesFromUci, playedMoveBrush, playedMoveModifiers } from 'lib/game/shapes';
 import { pubsub } from 'lib/pubsub';
@@ -42,12 +43,17 @@ export default class MistakeCtrl implements CevalHandler {
   private recorded = false;
   // the in flight record POST, if any. Dealing again must wait for it.
   private pending: Promise<void> = Promise.resolve();
+  // moves masters play in this position, once the explorer has answered
+  private openingUcis: Uci[] = [];
+  private bookSkips = 0;
+  private readonly explorerEndpoint: string;
 
   constructor(
     opts: MistakeOpts,
     readonly redraw: Redraw,
   ) {
     this.data = opts;
+    this.explorerEndpoint = opts.explorerEndpoint;
     this.flipped = toggle(false, redraw);
     this.promotion = new PromotionCtrl(this.withGround, () => this.setGround(), redraw);
     this.ceval = new CevalCtrl({
@@ -90,10 +96,40 @@ export default class MistakeCtrl implements CevalHandler {
     this.failed = false;
     this.recorded = false;
     this.gameUrl = undefined;
+    this.openingUcis = [];
     this.ceval.reset();
     // an empty deck still needs a root, so nothing downstream has to null check
     const fen = this.position?.fen ?? initialFen;
     this.root = completeNode('standard')({ ply: plyOfFen(fen), fen, children: [] });
+    this.askExplorer();
+  }
+
+  /* Retro asks the opening explorer two things of every position it offers
+   * (retroCtrl.ts), and so does the deck: a move masters play counts as having
+   * found something better, and a position whose blunder is itself book is not
+   * worth asking about at all. It matters more here, where positions come from
+   * anywhere in a game rather than being walked in order.
+   *
+   * The deck is standard games only, so retro's variant gate is implicit. */
+  private askExplorer(): void {
+    const pos = this.position;
+    if (!pos) return;
+    const faultPly = this.root.ply + 1; // retro gates on the ply of the mistake
+    if (pos.divisionMiddle !== undefined && faultPly >= pos.divisionMiddle) return;
+    fetchMasterOpening(this.explorerEndpoint, pos.fen)
+      .then(res => {
+        if (pos !== this.position) return; // dealt again while we were waiting
+        const ucis = playedByMasters(res);
+        if (ucis.includes(pos.played.uci) && this.bookSkips < maxBookSkips) {
+          // book. Deal again rather than record anything: it was never asked.
+          this.bookSkips++;
+          this.next();
+        } else {
+          this.bookSkips = 0;
+          this.openingUcis = ucis;
+        }
+      })
+      .catch(() => {});
   }
 
   private load = (data: MistakeData): void => {
@@ -147,8 +183,9 @@ export default class MistakeCtrl implements CevalHandler {
     // the move that was actually played in the game. Retro spots this the same
     // way: the node it walks onto already carries a server eval.
     if (uci === pos.played.uci) return this.onFail();
-    // mate ends the game, and the engine's own move needs no second opinion
-    if (san.endsWith('#') || san === pos.solution[0]) return this.onWin();
+    // mate ends the game, the engine's own move needs no second opinion, and
+    // neither does a move masters play here
+    if (san.endsWith('#') || san === pos.solution[0] || this.openingUcis.includes(uci)) return this.onWin();
 
     this.feedback('eval');
     this.startCeval();
@@ -159,12 +196,12 @@ export default class MistakeCtrl implements CevalHandler {
     const pos = this.position;
     if (!pos || this.feedback() !== 'eval' || !this.tried) return;
     if (!isCevalReady(this.tried.ceval)) return;
-    /* The baseline is the move that was played, not the best move. See
-     * lib/ceval/judge.ts - against the mistake you have to beat it by more
-     * than noise, or a position with one saving move refuses every answer. */
-    const baseline = pos.played.eval;
+    /* Measured against the best move - the eval of the position before the
+     * mistake - so falling slightly short still passes. Exactly retro's test,
+     * exactly retro's slack (lib/ceval/judge.ts). */
+    const baseline = pos.prevEval;
     if (!baseline) return this.onWin(); // nothing to measure against, be generous
-    if (beatsBaseline(pos.color, this.tried.ceval!, baseline, playedMoveMargin)) this.onWin();
+    if (beatsBaseline(pos.color, this.tried.ceval!, baseline, bestMoveMargin)) this.onWin();
     else this.onFail();
   };
 
@@ -302,6 +339,10 @@ export default class MistakeCtrl implements CevalHandler {
 }
 
 const initialFen: FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
+
+/* A deck of nothing but book positions would otherwise deal forever. Retro has
+ * no such loop: its candidates are a list it can exhaust. */
+const maxBookSkips = 5;
 
 /* Derived from the FEN rather than sent separately. The move number is visible
  * in the FEN anyway, and it is not what the exercise is hiding. */

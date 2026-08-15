@@ -10,9 +10,9 @@ final class MistakeJson:
 
   import MistakeJson.given
 
-  /* Note what is NOT in here: game id, opponent, date, result.
-   * The eval of the played move is, because the client needs it as the
-   * baseline to judge against - it just isn't rendered. */
+  /* Note what is NOT in here: game id, opponent, date, result, and no
+   * evaluation of the move that was played. `prevEval` is, because the client
+   * judges against it exactly as retro does - it just isn't rendered. */
   def deal(deal: MistakeApi.Deal, pref: Option[Pref] = none): JsObject =
     Json
       .obj(
@@ -28,15 +28,14 @@ final class MistakeJson:
       .obj(
         "fen" -> m.fen,
         "color" -> m.color.name,
-        "played" -> Json
-          .obj(
-            "uci" -> m.played.uci.uci,
-            "san" -> m.played.san
-          )
-          .add("eval" -> m.played.eval),
+        "played" -> Json.obj(
+          "uci" -> m.played.uci.uci,
+          "san" -> m.played.san
+        ),
         "solution" -> m.solution
       )
       .add("prevEval" -> m.prevEval)
+      .add("divisionMiddle" -> m.divisionMiddle)
 
 object MistakeJson:
 

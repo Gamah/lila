@@ -14,19 +14,31 @@ Retro (`ui/analyse/src/retrospect/`) walks the mistakes of **one game, in
 order, immediately after you've been looking at that game**. You often remember
 the move.
 
-Shuffled, you meet the position cold. That changes one thing in the judging:
-retro measures your move against the position *before* the mistake, ie against
-the best move, and lets you fall 0.04 short of it. Here the move that was
-played is on the board from the first second, so the baseline is the eval
-*after* that move, and the tolerance flips to +0.04. Both constants and the
-"is ceval ready" test live in one place, `ui/lib/src/ceval/judge.ts`, and both
-features call it.
+This is the same exercise, shuffled: the only things that differ are *which
+games* positions are drawn from, and the order. **Nothing about how a position
+is found or judged differs from retro**, and anywhere the two would drift apart
+is a bug in this module.
 
 ## Shape
 
-- **Positions** are derived on every request, never stored. A candidate is a
-  `(gameId, ply)` where `Analysis.advices` has an `Advice` for your colour -
-  the existing thresholds in `modules/tree/src/main/Advice.scala`.
+- **Positions** are derived on every request, never stored. A candidate is the
+  same eval swing retro looks for, `evalSwings` in
+  `ui/analyse/src/nodeFinder.ts`, ported to `MistakeApi.swings`. Not
+  `Analysis.advices`: that is a wider net, catching inaccuracies at half this
+  swing and a broader set of mate sequences.
+- **Winning chances** therefore need a Scala copy of
+  `ui/lib/src/ceval/winningChances.ts` - see `WinningChances.scala` for why
+  scalachess `WinPercent` is not that function.
+- **Judging** is retro's: your move is measured against the eval of the
+  position *before* the mistake, with the same 0.04 of slack. That test and the
+  "is ceval ready" one live in `ui/lib/src/ceval/judge.ts`, and both features
+  call it. The eval of the move that was played is never sent to the client.
+- **Opening explorer**, as in retro: a move masters play counts as finding
+  something better, and a position whose mistake is itself a book move is
+  dropped rather than asked. The fetch is shared
+  (`ui/lib/src/game/masterOpening.ts`); the page carries the explorer endpoint,
+  and each deal carries the game's `divisionMiddle` so the client knows when it
+  has left the opening.
 - `MistakeApi.extract` builds the ordinary analyse tree with `TreeBuilder` and
   pulls one node out of it, rather than replaying the game by hand. The
   engine's line is already hanging off the pre-mistake node as a `comp` child,
@@ -77,5 +89,7 @@ it out of the token, so a rename is a rename of that list.
 - **Rank gate** ("your move must be in the engine's top 5"). Out by default and
   not implemented.
 - **Variants.** Candidates are standard games only (`Query.variantStandard`).
-- **Entry point.** There is no link to `/mistakes` in the nav yet, same as
-  `/tutor`.
+- **Entry point.** The profile page links to it, beside the Chess Insights
+  card. There is nothing in the nav yet, same as `/tutor`.
+- **Landing page, deck stats and a window control.** `nbGames`, `nbSolved` and
+  `MistakeWindow` are all in place but the page barely shows them.

@@ -18,14 +18,16 @@ case class Mistake(
     fen: Fen.Full, // the position BEFORE the mistake was played
     played: Mistake.Played,
     prevEval: Option[Eval], // eval of the position before, ie of the best move
-    solution: List[SanStr] // engine line from `fen`
+    solution: List[SanStr], // engine line from `fen`
+    // where the opening ends, so the client knows whether to ask the explorer
+    divisionMiddle: Option[Ply]
 )
 
 object Mistake:
 
   case class Key(gameId: GameId, ply: Ply)
 
-  case class Played(uci: Uci, san: SanStr, eval: Option[Eval])
+  case class Played(uci: Uci, san: SanStr)
 
   // what the server remembers about the position a user is currently looking at
   case class Dealt(key: Mistake.Key, color: Color):
