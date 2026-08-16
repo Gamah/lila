@@ -1856,6 +1856,112 @@ interface I18n {
     /** You will lose all your progress! */
     youWillLoseAllYourProgress: string;
   };
+  mistake: {
+    /** All */
+    all: string;
+    /** Already requested. Try again in an hour. */
+    alreadyRequested: string;
+    /** Analyse %s games */
+    analyseNbGames: I18nPlural;
+    /** Answered */
+    answered: string;
+    /** Answered positions */
+    answeredPositions: string;
+    /** Come back later! */
+    comeBackLater: string;
+    /** from %s months ago */
+    fromNbMonthsAgo: I18nPlural;
+    /** Gave up */
+    gaveUp: string;
+    /** How is this different from puzzles? */
+    howIsThisDifferentFromPuzzles: string;
+    /** Puzzles come from other people's games and have a clean solution. These are your own positions, and you already got them wrong once. Nothing here is rated. */
+    howIsThisDifferentFromPuzzlesAnswer: string;
+    /** Positions from your own games, where you went wrong. */
+    mascotIntro: string;
+    /** They come one at a time, in a random order. The move before is played for you, then it is your turn to find something better. */
+    mascotIntroMore: string;
+    /** %1$s analysed games from %2$s. */
+    nbAnalysedGamesFrom: I18nFormat;
+    /** %1$s of %2$s games analysed. */
+    nbOfNbGamesAnalysed: I18nFormat;
+    /** %s positions answered */
+    nbPositionsAnswered: I18nPlural;
+    /** %1$s to %2$s months ago */
+    nbToNbMonthsAgo: I18nFormat;
+    /** No analysed games from %s. */
+    noAnalysedGamesFrom: I18nFormat;
+    /** No games from %s. */
+    noGamesFrom: I18nFormat;
+    /** Nothing here yet, go and play some positions! */
+    noPositionsAnsweredYet: string;
+    /** Nothing answered yet. */
+    nothingAnsweredYet: string;
+    /** Nothing matches this filter. */
+    nothingMatchesThisFilter: string;
+    /** Older games */
+    olderGames: string;
+    /** Once an hour. */
+    onceAnHour: string;
+    /** Overview */
+    overview: string;
+    /** Answered before positions were kept. */
+    positionNotKept: string;
+    /** Put back everything you have answered */
+    putBackEverythingYouHaveAnswered: string;
+    /** Put back the ones you gave up on */
+    putBackTheOnesYouGaveUpOn: string;
+    /** Put back the ones you skipped */
+    putBackTheOnesYouSkipped: string;
+    /** Put positions back in the queue */
+    putPositionsBack: string;
+    /** Answered positions are not handed to you again. Put them back to see them once more. */
+    putPositionsBackExplanation: string;
+    /** Your queue is empty. Play some more games. */
+    queueIsEmpty: string;
+    /** All time */
+    scopeAllTime: string;
+    /** Only from %s */
+    scopeWindow: I18nFormat;
+    /** See the game it came from */
+    seeTheGameItCameFrom: string;
+    /** See them all */
+    seeThemAll: string;
+    /** Skipped */
+    skipped: string;
+    /** Solved */
+    solved: string;
+    /** Solve rate */
+    solveRate: string;
+    /** From your own games, shuffled */
+    tagline: string;
+    /** The last %s answered */
+    theLastNbAnswered: I18nPlural;
+    /** the last %s months */
+    theLastNbMonths: I18nPlural;
+    /** to %s months ago */
+    toNbMonthsAgo: I18nPlural;
+    /** to today */
+    toToday: string;
+    /** What counts as a mistake here? */
+    whatCountsAsAMistake: string;
+    /** A move where the computer evaluation swung against you, and the computer has a better move to show. It is the same selection as "Learn from your mistakes" on the analysis board, over every analysed game instead of one. */
+    whatCountsAsAMistakeAnswer: string;
+    /** What this is */
+    whatThisIs: string;
+    /** Why are my recent games missing? */
+    whyAreMyRecentGamesMissing: string;
+    /** Games from the last month are left out by default: you probably still remember the move. Use the controls at the top to include them. */
+    whyAreMyRecentGamesMissingAnswer: string;
+    /** Why is the link to the game only there afterwards? */
+    whyCantISeeWhichGame: string;
+    /** The link opens the game at that move, where the computer analysis is already shown. So it waits until you have answered. */
+    whyCantISeeWhichGameAnswer: string;
+    /** You have answered %s positions from them. */
+    youHaveAnsweredNbPositionsFromThem: I18nPlural;
+    /** Your record */
+    yourRecord: string;
+  };
   msg: {
     /** There is a new Lichess mobile app available! */
     lichobileNewAppAvailable: string;

@@ -4,4 +4,5 @@ import * as winningChances from './winningChances';
 
 export type * from './types';
 export { isFirstEvalBetter, renderEval, sanIrreversible } from './util';
+export { bestMoveMargin, isCevalReady, beatsBaseline } from './judge';
 export { CevalCtrl, view, winningChances };

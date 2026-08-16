@@ -103,6 +103,7 @@ final class Env(
   val jsBot: lila.jsBot.Env = wire[lila.jsBot.Env]
   val opening: lila.opening.Env = wire[lila.opening.Env]
   val tutor: lila.tutor.Env = wire[lila.tutor.Env]
+  val mistake: lila.mistake.Env = wire[lila.mistake.Env]
   val recap: lila.recap.Env = wire[lila.recap.Env]
   val cms: lila.cms.Env = wire[lila.cms.Env]
   val web: lila.web.Env = wire[lila.web.Env]

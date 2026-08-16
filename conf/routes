@@ -869,6 +869,25 @@ GET   /tutor/:user/:range/:perf        controllers.Tutor.perf(user: UserStr, ran
 GET   /tutor/:user/:range/:perf/:angle controllers.Tutor.angle(user: UserStr, range, perf: PerfKey, angle)
 GET   /tutor/:user/:range/:perf/opening/:color/:opening controllers.Tutor.opening(user: UserStr, range, perf: PerfKey, color: Color, opening: String)
 
+# Mistakes
+# the /mistakes path is the only place the name is user visible;
+# everything behind it is the `mistake` token, see modules/mistake/README.md
+# /mistakes only reads. Everything that spends a position, or fishnet time, is
+# behind /mistakes/play or a POST.
+GET   /mistakes                        controllers.Mistake.home(window: Option[String] ?= None)
+# `board`, not `play`: a route action named play shadows the play package
+# inside the generated reverse router, and every queryString call in it breaks
+GET   /mistakes/play                   controllers.Mistake.board(window: Option[String] ?= None)
+GET   /mistakes/next                   controllers.Mistake.next(window: Option[String] ?= None)
+# every position ever answered, newest first. `window` is not a filter here -
+# it is what the put-back controls on the page offer to narrow themselves to
+GET   /mistakes/answered               controllers.Mistake.answered(page: Int ?= 1, result: Option[String] ?= None, window: Option[String] ?= None)
+# which positions, and how wide, arrive in the form body: one form, three buttons
+POST  /mistakes/put-back               controllers.Mistake.putBack
+POST  /mistakes/analyse                controllers.Mistake.analyse(window: Option[String] ?= None)
+POST  /mistakes/record/:result         controllers.Mistake.record(result)
+POST  /mistakes/reset                  controllers.Mistake.reset(window: Option[String] ?= None)
+
 # Recap
 GET   /recap                           controllers.Recap.home
 GET   /recap/:username                 controllers.Recap.user(username: UserStr)

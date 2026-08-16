@@ -1,0 +1,80 @@
+/* The answered list. Boards rather than rows: the list this replaces was three
+ * columns of words repeated down the page, and the words were the problem. */
+
+.mistake {
+  &__list {
+    padding-bottom: $box-padding;
+  }
+
+  &__filters {
+    border-bottom: $border;
+    margin-bottom: $box-padding;
+
+    &__nb {
+      display: block;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+  }
+
+  &__none {
+    padding: 3em $box-padding;
+    text-align: center;
+    color: $c-font-dim;
+  }
+}
+
+.mistake-cards--positions {
+  padding: 0 $box-padding;
+
+  /* pagerNext appends into the scroll container, so without this the "Next"
+   * link takes a card's worth of grid */
+  .pager {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 1.5em 0;
+  }
+}
+
+.mistake-position {
+  padding: 0.6em;
+
+  &__board {
+    &--gone {
+      @extend %flex-center;
+
+      aspect-ratio: 1;
+      padding: 0.5em;
+      text-align: center;
+      font-size: 0.8em;
+      color: $c-font-dimmer;
+      background: $c-bg-low;
+      border-radius: 3px;
+    }
+  }
+
+  &__meta {
+    @extend %flex-between-nowrap;
+
+    margin-top: 0.5em;
+    font-size: 0.85em;
+    color: $c-font-dim;
+    gap: 0.5em;
+  }
+
+  &__result {
+    font-weight: bold;
+
+    &--win {
+      color: $c-grade-good;
+    }
+
+    &--fail {
+      color: $c-grade-bad;
+    }
+
+    &--skip {
+      color: $c-grade-avg;
+    }
+  }
+}

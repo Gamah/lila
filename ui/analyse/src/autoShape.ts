@@ -1,4 +1,4 @@
-import type { DrawModifiers, DrawShape } from '@lichess-org/chessground/draw';
+import type { DrawShape } from '@lichess-org/chessground/draw';
 import { opposite } from '@lichess-org/chessground/util';
 import { between, ray, knightAttacks } from 'chessops/attacks';
 import { parseFen } from 'chessops/fen';
@@ -9,19 +9,12 @@ import { winningChances } from 'lib/ceval';
 import { fenColor } from 'lib/game';
 import { isUci } from 'lib/game/chess';
 import { annotationShapes, analysisGlyphs } from 'lib/game/glyphs';
+import { makeShapesFromUci, playedMoveBrush, playedMoveModifiers } from 'lib/game/shapes';
 import type { ServerEval, TreeNode } from 'lib/tree/types';
 
 import type AnalyseCtrl from './ctrl';
 
-const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
-  orig: key,
-  piece: {
-    color,
-    role,
-    scale: 0.8,
-  },
-  brush: 'green',
-});
+export { makeShapesFromUci };
 
 const MAX_MANEUVER_ARROWS = 3;
 
@@ -76,22 +69,6 @@ function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: stri
   } else if (moves[0]) makeShapesFromUci(color, moves[0], brush).forEach(s => shapes.push(s));
 }
 
-export function makeShapesFromUci(
-  color: Color,
-  uci: Uci | undefined,
-  brush: string,
-  modifiers?: DrawModifiers,
-): DrawShape[] {
-  if (!uci || uci === 'Current Position') return [];
-  const move = parseUci(uci)!;
-  const to = makeSquare(move.to);
-  if (isDrop(move)) return [{ orig: to, brush }, pieceDrop(to, move.role, color)];
-
-  const shapes: DrawShape[] = [{ orig: makeSquare(move.from), dest: to, brush, modifiers }];
-  if (move.promotion) shapes.push(pieceDrop(to, move.promotion, color));
-  return shapes;
-}
-
 export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const color = fenColor(ctrl.node.fen);
   const rcolor = opposite(color);
@@ -123,7 +100,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   let shapes: DrawShape[] = [];
   let badNode: TreeNode | undefined;
   if ((badNode = ctrl.retro?.showBadNode()) && badNode.uci) {
-    return makeShapesFromUci(color, badNode.uci, 'paleRed', { lineWidth: 8 });
+    return makeShapesFromUci(color, badNode.uci, playedMoveBrush, playedMoveModifiers);
   }
   if (hovering?.fen === nFen) shapes = shapes.concat(makeShapesFromUci(color, hovering.uci, 'paleBlue'));
   ctrl.fork.hover(hovering?.uci);

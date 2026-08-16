@@ -152,6 +152,45 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .cursor[Game](ReadPref.sec)
       .list(nb)
 
+  // standard games of a user, finished and computer analysed, created within a time window
+  def analysedIdsBetween(
+      userId: UserId,
+      since: Instant,
+      until: Instant,
+      max: Max
+  ): Fu[List[GameId]] =
+    coll
+      .find(betweenSelector(userId, since, until, true), $id(true).some)
+      .sort(Query.sortCreated)
+      .cursor[Bdoc](ReadPref.sec)
+      .list(max.value)
+      .dmap(_.flatMap(_.getAsOpt[GameId](F.id)))
+
+  private def betweenSelector(userId: UserId, since: Instant, until: Instant, analysed: Boolean) =
+    Query.user(userId) ++ Query.finished ++ Query.analysed(analysed)
+      ++ Query.variantStandard
+      ++ Query.createdBetween(since.some, until.some)
+
+  // how big the window is, without paying to read it
+  def countAnalysedBetween(userId: UserId, since: Instant, until: Instant): Fu[Int] =
+    coll.secondary.countSel(betweenSelector(userId, since, until, true))
+
+  def countUnanalysedBetween(userId: UserId, since: Instant, until: Instant): Fu[Int] =
+    coll.secondary.countSel(betweenSelector(userId, since, until, false) ++ Query.turns(30 -> 160))
+
+  // same window, but the games we could still send to fishnet
+  def unanalysedBetween(
+      userId: UserId,
+      since: Instant,
+      until: Instant,
+      max: Max
+  ): Fu[List[Game]] =
+    coll
+      .find(betweenSelector(userId, since, until, false) ++ Query.turns(30 -> 160))
+      .sort(Query.sortCreated)
+      .cursor[Game](ReadPref.sec)
+      .list(max.value)
+
   def unanalysedGames(gameIds: Seq[GameId], max: Max = Max(100)): Fu[List[Game]] =
     coll
       .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 -> 160))

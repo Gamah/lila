@@ -1,0 +1,13 @@
+@import '../../../lib/css/plugin';
+@import '../../../lib/css/theme/board/coords';
+@import '../../../lib/css/layout/uniboard';
+@import '../../../lib/css/component/board-resize';
+@import '../../../lib/css/component/zen-toggle';
+@import '../../../lib/css/component/fbt';
+@import '../../../lib/css/chess/promotion';
+
+// the retro box, verbatim. Same exercise, same furniture.
+@import '../../../analyse/css/training';
+@import '../../../analyse/css/retro';
+@import '../zen';
+@import '../mistake';

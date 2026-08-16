@@ -229,7 +229,16 @@ object header:
                     strong("Chess Insights"),
                     em("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")
                   )
-              )
+              ),
+              // your own queue only: solving records against the solver
+              Option.when(ctx.is(u)):
+                a(cls := "mistake", href := routes.Mistake.home(none), dataIcon := Icon.ChasingArrows):
+                  span(
+                    strong("Mistakes"),
+                    // site's own key: one line is not worth loading mistake's
+                    // translations onto every profile page
+                    em(trans.site.learnFromYourMistakes())
+                  )
             )
           )
       ,

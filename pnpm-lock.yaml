@@ -427,6 +427,15 @@ importers:
         specifier: workspace:*
         version: link:../lib
 
+  ui/mistake:
+    dependencies:
+      '@badrap/result':
+        specifier: ^0.3.1
+        version: 0.3.1
+      lib:
+        specifier: workspace:*
+        version: link:../lib
+
   ui/mod:
     dependencies:
       '@types/debounce-promise':

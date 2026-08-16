@@ -28,5 +28,6 @@ type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Fu[Int]
 
 trait FishnetRequest:
   def tutor(gameId: GameId): Funit
+  def mistake(gameId: GameId): Funit
 
 case class FishnetMoveRequest(game: lila.core.game.Game)

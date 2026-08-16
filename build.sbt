@@ -84,7 +84,7 @@ lazy val modules = Seq(
   insight, evaluation, storm,
   // level 7
   // everything else is free from deps; do the big ones first
-  relay, tutor, security, tournament, plan, round,
+  relay, tutor, mistake, security, tournament, plan, round,
   swiss, insight, fishnet, mod, challenge, web,
   team, forum, streamer, simul, activity, msg, ublog,
   notifyModule, clas, perfStat, opening, timeline,
@@ -142,7 +142,7 @@ lazy val i18n = module("i18n",
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "activity app appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn nvui oauthScope onboarding patron perfStat preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg".split(' ').toList,
+      dbs = "activity app appeal arena broadcast challenge class coach contact coordinates dgt emails faq features insight keyboardMove lag learn mistake nvui oauthScope onboarding patron perfStat preferences puzzle puzzleTheme recap search settings site streamer storm study swiss team timeago tfa tourname ublog variant video voiceCommands msg".split(' ').toList,
       outputDir = (Compile / resourceManaged).value
     )
   }.taskValue
@@ -317,6 +317,11 @@ lazy val insight = module("insight",
 lazy val tutor = module("tutor",
   Seq(insight),
   tests.bundle
+)
+
+lazy val mistake = module("mistake",
+  Seq(analyse, game, ui),
+  Seq()
 )
 
 lazy val opening = module("opening",
