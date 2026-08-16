@@ -102,29 +102,25 @@ final class MistakeApi(
       gameId: GameId,
       solved: Set[Mistake.Key]
   ): Fu[List[Mistake]] =
-    gameRepo.game(gameId).flatMap:
-      case None => fuccess(Nil)
-      case Some(game) =>
-        game.player(userId).map(_.color) match
-          case None => fuccess(Nil)
-          case Some(color) =>
-            analysisRepo.byGame(game).flatMap:
-              case None => fuccess(Nil)
-              case Some(analysis) =>
-                gameRepo
-                  .initialFen(game)
-                  .map: initialFen =>
-                    val root = TreeBuilder(
-                      game = game,
-                      analysis = analysis.some,
-                      initialFen = initialFen | game.variant.initialFen,
-                      withFlags = ExportOptions.default,
-                      logChessError = logger.warn
-                    )
-                    val division = divider(game, initialFen)
-                    swings(root, color)
-                      .filterNot((_, _, fault) => solved(Mistake.Key(gameId, fault.ply)))
-                      .flatMap(extract(gameId, color, division, _, _, _))
+    gameRepo.game(gameId).flatMapz { game =>
+      game.player(userId).map(_.color).so { color =>
+        analysisRepo.byGame(game).flatMapz { analysis =>
+          gameRepo.initialFen(game).map { initialFen =>
+            val root = TreeBuilder(
+              game = game,
+              analysis = analysis.some,
+              initialFen = initialFen | game.variant.initialFen,
+              withFlags = ExportOptions.default,
+              logChessError = logger.warn
+            )
+            val division = divider(game, initialFen)
+            swings(root, color)
+              .filterNot((_, _, fault) => solved(Mistake.Key(gameId, fault.ply)))
+              .flatMap(extract(gameId, color, division, _, _, _))
+          }
+        }
+      }
+    }
 
   /* Retro's own selector, ported: `evalSwings` in ui/analyse/src/nodeFinder.ts.
    *

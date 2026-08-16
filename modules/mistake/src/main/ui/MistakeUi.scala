@@ -109,7 +109,10 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             else
               div(cls := "mistake-cards mistake-cards--positions infinite-scroll")(
                 ans.pager.currentPageResults.map(solveCard),
-                pagerNext(ans.pager, np => routes.Mistake.answered(np, ans.filter.key, ans.window.key.some).url)
+                pagerNext(
+                  ans.pager,
+                  np => routes.Mistake.answered(np, ans.filter.key, ans.window.key.some).url
+                )
               )
           ),
           putBack(ans)

@@ -106,4 +106,3 @@ final class Mistake(env: Env) extends LilaController(env):
       )
     yield res
   }
-

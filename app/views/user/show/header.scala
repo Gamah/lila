@@ -231,7 +231,7 @@ object header:
                   )
               ),
               // your own queue only: solving records against the solver
-              ctx.is(u).option(
+              Option.when(ctx.is(u)):
                 a(cls := "mistake", href := routes.Mistake.home(none), dataIcon := Icon.ChasingArrows):
                   span(
                     strong("Mistakes"),
@@ -239,7 +239,6 @@ object header:
                     // translations onto every profile page
                     em(trans.site.learnFromYourMistakes())
                   )
-              )
             )
           )
       ,

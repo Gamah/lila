@@ -154,7 +154,7 @@ export default class MistakeCtrl implements CevalHandler {
       .catch(() => {});
   }
 
-  private load = (data: MistakeData): void => {
+  private readonly load = (data: MistakeData): void => {
     this.data = data;
     this.loading = false;
     this.initiate();
@@ -184,7 +184,7 @@ export default class MistakeCtrl implements CevalHandler {
     if (!this.promotion.start(orig, dest, { submit: this.playUserMove })) this.playUserMove(orig, dest);
   };
 
-  private playUserMove = (orig: Key, dest: Key, promotion?: Role): void =>
+  private readonly playUserMove = (orig: Key, dest: Key, promotion?: Role): void =>
     this.tryMove({ from: parseSquare(orig)!, to: parseSquare(dest)!, promotion });
 
   private tryMove(move: Move): void {
@@ -218,7 +218,7 @@ export default class MistakeCtrl implements CevalHandler {
     this.redraw();
   }
 
-  private checkCeval = (): void => {
+  private readonly checkCeval = (): void => {
     const pos = this.position;
     if (!pos || this.feedback() !== 'eval' || !this.tried) return;
     if (!isCevalReady(this.tried.ceval)) return;
@@ -348,7 +348,7 @@ export default class MistakeCtrl implements CevalHandler {
 
   private rootPosition(): Chess | undefined {
     const res = this.root.pos();
-    return res.isOk ? (res.unwrap() as Chess).clone() : undefined;
+    return res.isOk ? res.unwrap().clone() : undefined;
   }
 
   // ------------------------------------------------------- CevalHandler

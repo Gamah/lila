@@ -7,6 +7,8 @@
     "lib": "workspace:*"
   },
   "build": {
-    "bundle": ["src/mistake.ts"]
+    "bundle": [
+      "src/mistake.ts"
+    ]
   }
 }

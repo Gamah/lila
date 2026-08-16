@@ -69,7 +69,6 @@ function drawManeuver(ctrl: AnalyseCtrl, color: Color, moves: Uci[], brush: stri
   } else if (moves[0]) makeShapesFromUci(color, moves[0], brush).forEach(s => shapes.push(s));
 }
 
-
 export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const color = fenColor(ctrl.node.fen);
   const rcolor = opposite(color);

@@ -12,8 +12,7 @@ const qs = (window: string) => `?window=${encodeURIComponent(window)}`;
 export const next = (window: string): Promise<MistakeData> => json(`${base}/next${qs(window)}`);
 
 // nothing comes back: the server already told us which position this was
-export const record = (result: Result): Promise<void> =>
-  json(`${base}/record/${result}`, { method: 'post' });
+export const record = (result: Result): Promise<void> => json(`${base}/record/${result}`, { method: 'post' });
 
 export const reset = (window: string): Promise<MistakeData> =>
   json(`${base}/reset${qs(window)}`, { method: 'post' });

@@ -117,12 +117,13 @@ final private class MistakeSolveRepo(coll: Coll)(using Executor):
         import framework.*
         Match($doc("u" -> userId)) -> List(GroupField("r")("nb" -> SumAll))
       .map: docs =>
-        docs.flatMap: doc =>
-          for
-            result <- doc.string("_id").flatMap(MistakeResult.apply)
-            nb <- doc.int("nb")
-          yield result -> nb
-        .toMap
+        docs
+          .flatMap: doc =>
+            for
+              result <- doc.string("_id").flatMap(MistakeResult.apply)
+              nb <- doc.int("nb")
+            yield result -> nb
+          .toMap
 
   private def recentResults(userId: UserId): Fu[List[MistakeResult]] =
     coll
