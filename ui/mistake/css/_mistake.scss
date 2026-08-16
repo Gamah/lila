@@ -74,4 +74,20 @@ $mistake-block-gap: $block-gap;
 // the retro box lives in a flex column here rather than in the analyse tools
 .mistake-box {
   flex: 1 1 auto;
+
+  /* Retro turns the answered states into a row at col1, where its box is a wide
+   * strip beside the analyse tools. Ours is not that shape: at col1 the side
+   * panel is the same narrow column as the rest of the page, so a row leaves
+   * the instruction around 100px of 353px, and "Good move" breaks over two
+   * lines with the game link under it over three.
+   *
+   * Column is what every other width already does here, so this restores the
+   * one that fits rather than inventing a third layout. The furniture is still
+   * retro's - only the direction its own container no longer justifies. */
+  @include mq-is-col1 {
+    .feedback.view,
+    .feedback.win {
+      flex-flow: column;
+    }
+  }
 }
