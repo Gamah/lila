@@ -65,10 +65,7 @@
   <string name="scopeWindow">Only from %s</string>
   <string name="putBackTheOnesYouGaveUpOn">Put back the ones you gave up on</string>
   <string name="putBackTheOnesYouSkipped">Put back the ones you skipped</string>
-  <plurals name="putBackTheseNbPositions">
-    <item quantity="one">Put back this position</item>
-    <item quantity="other">Put back these %s positions</item>
-  </plurals>
+  <string name="putBackEverythingYouHaveAnswered">Put back everything you have answered</string>
 
   <string name="whatThisIs">What this is</string>
   <string name="whatCountsAsAMistake">What counts as a mistake here?</string>

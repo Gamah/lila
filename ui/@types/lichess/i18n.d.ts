@@ -1907,12 +1907,12 @@ interface I18n {
     overview: string;
     /** Answered before positions were kept. */
     positionNotKept: string;
+    /** Put back everything you have answered */
+    putBackEverythingYouHaveAnswered: string;
     /** Put back the ones you gave up on */
     putBackTheOnesYouGaveUpOn: string;
     /** Put back the ones you skipped */
     putBackTheOnesYouSkipped: string;
-    /** Put back these %s positions */
-    putBackTheseNbPositions: I18nPlural;
     /** Put positions back in the queue */
     putPositionsBack: string;
     /** Answered positions are not handed to you again. Put them back to see them once more. */

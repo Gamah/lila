@@ -135,8 +135,21 @@ is a bug in this module.
   It is **not** scoped to the window. The window governs what the queue draws
   from; what you have already answered is a different question, and the two
   being the same control would be an accident rather than a decision. The
-  window is still carried in that page's URL, but only so the put-back controls
-  can offer to narrow themselves to it and name it while doing so.
+  window is still carried in that page's URL, so the tab back to the overview
+  returns to the window you set there.
+- **Putting positions back is on the landing**, the last box before the
+  glossary. It was at the end of the answered list until Gamah/lila#9: that
+  list is an `infinite-scroll`, so the only undo the feature has got further
+  away with every position answered, and scrolling towards it loaded another
+  page of them. It belongs to the queue rather than to the record, and the
+  landing is the page about the queue - the record bar it changes is directly
+  above it, and the window it can narrow to is set at the top of the same page.
+
+  Never a bare wipe: three named buttons (the ones you gave up on, the ones you
+  skipped, everything you have answered) over a scope of the window or all
+  time. The filter-driven fourth form of it - "put back these N", whatever cut
+  of the list was showing - went with the move; the three that are left are the
+  cuts anyone asked for.
 
 - **Nothing on the landing spends fishnet on its own.** The cold state used to
   submit the request form on load; that is gone (Gamah/lila#5). The condition

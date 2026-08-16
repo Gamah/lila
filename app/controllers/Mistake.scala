@@ -76,10 +76,11 @@ final class Mistake(env: Env) extends LilaController(env):
 
   /* Puts answered positions back in the queue. Narrow by result, and by the
    * window if that is the scope asked for; with neither it is everything.
-   * Lands back on the list, which is where you can see what it did. */
+   * Lands back on the overview, where the form is and where the record it just
+   * changed is drawn. */
   def putBack = AuthBody { ctx ?=> me ?=>
     bindForm(putBackForm)(
-      _ => Redirect(routes.Mistake.answered(1, none, none)),
+      _ => Redirect(routes.Mistake.home(none)),
       { case (result, scope, window) =>
         val w = windowOf(window)
         api
@@ -88,8 +89,8 @@ final class Mistake(env: Env) extends LilaController(env):
             result.flatMap(MistakeResult.apply),
             (MistakeScope.orAllTime(scope) == MistakeScope.window).option(w)
           )
-          // back to the unfiltered list: what just changed is what is left in it
-          .inject(Redirect(routes.Mistake.answered(1, none, w.key.some)))
+          // back to the overview: the record bar above the form is what changed
+          .inject(Redirect(routes.Mistake.home(w.key.some)))
       }
     )
   }

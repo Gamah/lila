@@ -74,7 +74,7 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
             )
           ),
           tabs(answered = false, home.window),
-          (home.stats.total > 0).option(cards(home)),
+          (home.stats.total > 0).option(frag(cards(home), putBack(home))),
           glossary
         )
 
@@ -114,8 +114,7 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
                   np => routes.Mistake.answered(np, ans.filter.key, ans.window.key.some).url
                 )
               )
-          ),
-          putBack(ans)
+          )
         )
 
   private def beta = strong(cls := "mistake__beta")("BETA")
@@ -354,36 +353,34 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
 
   // -------------------------------------------------------------- putting back
 
-  /* Under the list, where what it will do is in view. The landing had a bare
-   * red button under a table of numbers and it said nothing about what it
-   * destroyed; here the thing it destroys is the page you are on.
+  /* On the overview, under the record it acts on and above the glossary. It
+   * used to sit at the end of the answered list, which is an infinite scroll:
+   * the more positions you had answered the further away the only undo the
+   * feature has got, and scrolling towards it loaded another page. Gamah/lila#9.
    *
-   * Wiping everything is the last option rather than the only one: the answer
-   * carries its result, so "the ones I gave up on" is a selector rather than a
-   * schema change. */
-  private def putBack(ans: MistakeAnswered)(using Context) =
-    (ans.stats.total > 0).option(
-      div(cls := "box box-pad mistake__put-back")(
-        h2(trans.mistake.putPositionsBack()),
-        p(cls := "mistake__hint")(trans.mistake.putPositionsBackExplanation()),
-        postForm(cls := "mistake__put-back__form", action := routes.Mistake.putBack.url)(
-          input(tpe := "hidden", st.name := "window", value := ans.window.key),
-          div(cls := "mistake__put-back__scope")(
-            scopeRadio(ans, MistakeScope.window, trans.mistake.scopeWindow.txt(windowName(ans.window))),
-            scopeRadio(ans, MistakeScope.allTime, trans.mistake.scopeAllTime.txt())
-          ),
-          div(cls := "mistake__put-back__actions")(
-            putBackButton(MistakeResult.fail.some, trans.mistake.putBackTheOnesYouGaveUpOn.txt()),
-            putBackButton(MistakeResult.skip.some, trans.mistake.putBackTheOnesYouSkipped.txt()),
-            /* The filter-driven one: whatever cut is showing above is what this
-             * puts back, so narrowing the list is how you narrow the reset. On
-             * the unfiltered list it is the wipe, and it is last for that
-             * reason. */
-            putBackButton(
-              ans.filter.result,
-              trans.mistake.putBackTheseNbPositions.pluralSameTxt(showing(ans))
-            )
-          )
+   * Here the numbers it will change are the bar directly above it, and putting
+   * a position back is an action on the queue, which is what this page is
+   * about.
+   *
+   * Putting everything back is the last option rather than the only one: the
+   * answer carries its result, so "the ones I gave up on" is a selector rather
+   * than a schema change. */
+  private def putBack(home: MistakeHome)(using Context) =
+    div(cls := "box box-pad mistake__put-back")(
+      h2(trans.mistake.putPositionsBack()),
+      p(cls := "mistake__hint")(trans.mistake.putPositionsBackExplanation()),
+      postForm(cls := "mistake__put-back__form", action := routes.Mistake.putBack.url)(
+        input(tpe := "hidden", st.name := "window", value := home.window.key),
+        div(cls := "mistake__put-back__scope")(
+          scopeRadio(MistakeScope.window, trans.mistake.scopeWindow.txt(windowName(home.window))),
+          scopeRadio(MistakeScope.allTime, trans.mistake.scopeAllTime.txt())
+        ),
+        div(cls := "mistake__put-back__actions")(
+          putBackButton(MistakeResult.fail.some, trans.mistake.putBackTheOnesYouGaveUpOn.txt()),
+          putBackButton(MistakeResult.skip.some, trans.mistake.putBackTheOnesYouSkipped.txt()),
+          /* Never a bare wipe: what it takes is named, and the scope above says
+           * how far back it reaches. Last, because it is the widest. */
+          putBackButton(none, trans.mistake.putBackEverythingYouHaveAnswered.txt())
         )
       )
     )
@@ -391,7 +388,7 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
   /* All time is the default because it is what the narrow buttons mean without
    * a window in hand, and because a scope nobody chose should be the one that
    * does not depend on a control further up the page. */
-  private def scopeRadio(ans: MistakeAnswered, scope: MistakeScope, label: String) =
+  private def scopeRadio(scope: MistakeScope, label: String) =
     st.label(cls := "mistake__put-back__scope__choice")(
       input(
         tpe := "radio",
@@ -401,9 +398,6 @@ final class MistakeUi(helpers: Helpers)(endpoints: AnalyseEndpoints):
       ),
       label
     )
-
-  private def showing(ans: MistakeAnswered): Int =
-    ans.filter.result.fold(ans.stats.total)(ans.stats.nb)
 
   private def putBackButton(result: Option[MistakeResult], label: String) =
     submitButton(

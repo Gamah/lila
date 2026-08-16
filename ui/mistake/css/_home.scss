@@ -80,6 +80,32 @@
     margin-bottom: -$block-gap;
   }
 
+  /* the last box before the glossary, under the record it puts back into */
+  &__put-back {
+    h2 {
+      font-size: 1.2em;
+    }
+
+    &__scope {
+      display: flex;
+      gap: 1.5em;
+      margin: 1em 0;
+
+      &__choice {
+        @extend %flex-center-nowrap;
+
+        gap: 0.4em;
+        cursor: pointer;
+      }
+    }
+
+    &__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7em;
+    }
+  }
+
   &__glossary {
     &__entry {
       &:not(:last-child) {

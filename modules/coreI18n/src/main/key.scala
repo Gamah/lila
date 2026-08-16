@@ -995,6 +995,7 @@ object I18nKey:
     val `scopeWindow`: I18nKey = "mistake:scopeWindow"
     val `putBackTheOnesYouGaveUpOn`: I18nKey = "mistake:putBackTheOnesYouGaveUpOn"
     val `putBackTheOnesYouSkipped`: I18nKey = "mistake:putBackTheOnesYouSkipped"
+    val `putBackEverythingYouHaveAnswered`: I18nKey = "mistake:putBackEverythingYouHaveAnswered"
     val `whatThisIs`: I18nKey = "mistake:whatThisIs"
     val `whatCountsAsAMistake`: I18nKey = "mistake:whatCountsAsAMistake"
     val `whatCountsAsAMistakeAnswer`: I18nKey = "mistake:whatCountsAsAMistakeAnswer"
@@ -1014,7 +1015,6 @@ object I18nKey:
     val `toNbMonthsAgo`: I18nKey = "mistake:toNbMonthsAgo"
     val `theLastNbAnswered`: I18nKey = "mistake:theLastNbAnswered"
     val `nbPositionsAnswered`: I18nKey = "mistake:nbPositionsAnswered"
-    val `putBackTheseNbPositions`: I18nKey = "mistake:putBackTheseNbPositions"
 
   object msg:
     val `lichobileNewAppAvailable`: I18nKey = "msg:lichobileNewAppAvailable"
