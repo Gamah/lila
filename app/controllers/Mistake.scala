@@ -4,7 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.mvc.*
 
-import lila.app.{ *, given }
+import lila.app.*
 import lila.mistake.{ MistakeAnswered, MistakeFilter, MistakeResult, MistakeScope, MistakeWindow }
 
 final class Mistake(env: Env) extends LilaController(env):
