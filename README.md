@@ -30,7 +30,7 @@ Outside the lila tree, on the box that runs the stack: `~/lila-testdata/tools/`.
 | `warming.sh` | the one state that needs fishnet stopped to photograph |
 | `cold.js`, `signup.mjs` | two fixtures the imported corpus does not give you |
 
-States are built over HTTP — `/mistakes/reset`, `/mistakes/next`,
+States are built over HTTP: `/mistakes/reset`, `/mistakes/next`,
 `/mistakes/record/:result`. Nothing is written into `mistake_solve` by hand.
 `manifest.json` records what each run saw: account, paths, image sizes, and the
 game and ply of every position shown. Regenerating replaces `shots/`.
