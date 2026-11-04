@@ -1,5 +1,5 @@
 {
- "takenAt": "2026-11-04T15:40:11.550Z",
+ "takenAt": "2026-11-04T15:46:14.982Z",
  "base": "http://ai.lan:9999",
  "users": {
   "main": "vanforeest",
@@ -133,8 +133,8 @@
     "desktop": {
      "file": "landing-one-answered.desktop.png",
      "size": {
-      "width": 2000,
-      "height": 424
+      "width": 2560,
+      "height": 1440
      },
      "url": "/mistakes",
      "positions": []
@@ -143,7 +143,7 @@
      "file": "landing-one-answered.mobile.png",
      "size": {
       "width": 780,
-      "height": 676
+      "height": 1688
      },
      "url": "/mistakes",
      "positions": []
@@ -155,19 +155,19 @@
    "note": "Whole queue answered: win, fail, skip.",
    "answered": [
     {
-     "game": "/s1RQMoxU/black#132",
-     "result": "win"
-    },
-    {
-     "game": "/rXfwJH9k/white#95",
-     "result": "fail"
-    },
-    {
      "game": "/GoeBJsY4/black#78",
      "result": "win"
     },
     {
      "game": "/s1RQMoxU/black#134",
+     "result": "fail"
+    },
+    {
+     "game": "/kfF4HNjh/black#100",
+     "result": "win"
+    },
+    {
+     "game": "/s1RQMoxU/black#132",
      "result": "skip"
     },
     {
@@ -175,7 +175,7 @@
      "result": "win"
     },
     {
-     "game": "/kfF4HNjh/black#100",
+     "game": "/rXfwJH9k/white#95",
      "result": "fail"
     }
    ],
@@ -183,8 +183,8 @@
     "desktop": {
      "file": "landing-heavy.desktop.png",
      "size": {
-      "width": 2000,
-      "height": 2262
+      "width": 2560,
+      "height": 2324
      },
      "url": "/mistakes",
      "positions": []
@@ -193,7 +193,7 @@
      "file": "landing-heavy.mobile.png",
      "size": {
       "width": 780,
-      "height": 2426
+      "height": 2488
      },
      "url": "/mistakes",
      "positions": []
@@ -205,15 +205,15 @@
    "note": "The undo. Sits under the numbers it changes.",
    "answered": [
     {
-     "game": "/kfF4HNjh/black#100",
+     "game": "/GoeBJsY4/black#78",
      "result": "win"
     },
     {
-     "game": "/GoeBJsY4/black#78",
+     "game": "/kfF4HNjh/black#96",
      "result": "fail"
     },
     {
-     "game": "/rXfwJH9k/white#95",
+     "game": "/s1RQMoxU/black#132",
      "result": "win"
     },
     {
@@ -221,11 +221,11 @@
      "result": "skip"
     },
     {
-     "game": "/kfF4HNjh/black#96",
+     "game": "/rXfwJH9k/white#95",
      "result": "win"
     },
     {
-     "game": "/s1RQMoxU/black#132",
+     "game": "/kfF4HNjh/black#100",
      "result": "fail"
     }
    ],
@@ -233,8 +233,8 @@
     "desktop": {
      "file": "landing-put-back.desktop.png",
      "size": {
-      "width": 2000,
-      "height": 384
+      "width": 2560,
+      "height": 1440
      },
      "url": "/mistakes",
      "positions": []
@@ -243,7 +243,7 @@
      "file": "landing-put-back.mobile.png",
      "size": {
       "width": 780,
-      "height": 576
+      "height": 1688
      },
      "url": "/mistakes",
      "positions": []
@@ -255,27 +255,27 @@
    "note": "What got picked, and why it is not your puzzle history.",
    "answered": [
     {
-     "game": "/rXfwJH9k/white#95",
-     "result": "win"
-    },
-    {
-     "game": "/kfF4HNjh/black#100",
-     "result": "fail"
-    },
-    {
-     "game": "/kfF4HNjh/black#96",
-     "result": "win"
-    },
-    {
      "game": "/s1RQMoxU/black#132",
-     "result": "skip"
+     "result": "win"
+    },
+    {
+     "game": "/s1RQMoxU/black#134",
+     "result": "fail"
     },
     {
      "game": "/GoeBJsY4/black#78",
      "result": "win"
     },
     {
-     "game": "/s1RQMoxU/black#134",
+     "game": "/kfF4HNjh/black#100",
+     "result": "skip"
+    },
+    {
+     "game": "/kfF4HNjh/black#96",
+     "result": "win"
+    },
+    {
+     "game": "/rXfwJH9k/white#95",
      "result": "fail"
     }
    ],
@@ -283,8 +283,8 @@
     "desktop": {
      "file": "landing-glossary.desktop.png",
      "size": {
-      "width": 2000,
-      "height": 752
+      "width": 2560,
+      "height": 1440
      },
      "url": "/mistakes",
      "positions": []
@@ -293,7 +293,7 @@
      "file": "landing-glossary.mobile.png",
      "size": {
       "width": 780,
-      "height": 832
+      "height": 1688
      },
      "url": "/mistakes",
      "positions": []
@@ -304,24 +304,25 @@
    "user": "vanforeest",
    "note": "Nothing answered yet.",
    "mistake": {
-    "fen": "6k1/8/6p1/3P1R2/1K6/4r1P1/8/8 w - - 0 48",
-    "color": "white",
+    "fen": "8/6kp/8/2PR4/1K6/8/8/7r b - - 3 48",
+    "color": "black",
     "played": {
-     "uci": "f5f1",
-     "san": "Rf1"
+     "uci": "h1c1",
+     "san": "Rc1"
     },
     "solution": [
-     "Rg5"
+     "Kf7",
+     "c6"
     ],
-    "game": "/rXfwJH9k/white#95",
+    "game": "/kfF4HNjh/black#96",
     "intro": {
-     "fen": "6k1/6p1/8/3P1R2/1K6/4r1P1/8/8 b - - 0 47",
-     "uci": "g7g6"
+     "fen": "8/6kp/8/2PR4/8/2K5/8/7r w - - 2 48",
+     "uci": "c3b4"
     },
     "prevEval": {
-     "cp": 177
+     "cp": 63
     },
-    "divisionMiddle": 23
+    "divisionMiddle": 11
    },
    "pref": {
     "coords": 1,
@@ -336,8 +337,8 @@
     "desktop": {
      "file": "answered-empty.desktop.png",
      "size": {
-      "width": 2000,
-      "height": 926
+      "width": 2560,
+      "height": 1440
      },
      "url": "/mistakes/answered",
      "positions": []
@@ -346,7 +347,7 @@
      "file": "answered-empty.mobile.png",
      "size": {
       "width": 780,
-      "height": 570
+      "height": 1688
      },
      "url": "/mistakes/answered",
      "positions": []
@@ -358,11 +359,11 @@
    "note": "Every answer, as a board.",
    "answered": [
     {
-     "game": "/kfF4HNjh/black#96",
+     "game": "/GoeBJsY4/black#78",
      "result": "win"
     },
     {
-     "game": "/rXfwJH9k/white#95",
+     "game": "/kfF4HNjh/black#96",
      "result": "fail"
     },
     {
@@ -370,15 +371,15 @@
      "result": "win"
     },
     {
-     "game": "/s1RQMoxU/black#132",
+     "game": "/s1RQMoxU/black#134",
      "result": "skip"
     },
     {
-     "game": "/GoeBJsY4/black#78",
+     "game": "/s1RQMoxU/black#132",
      "result": "win"
     },
     {
-     "game": "/s1RQMoxU/black#134",
+     "game": "/rXfwJH9k/white#95",
      "result": "fail"
     }
    ],
@@ -386,20 +387,15 @@
     "desktop": {
      "file": "answered-list.desktop.png",
      "size": {
-      "width": 2000,
-      "height": 1502
+      "width": 2560,
+      "height": 1564
      },
      "url": "/mistakes/answered",
      "positions": [
       {
-       "gameId": "s1RQMoxU",
-       "color": "black",
-       "ply": 134
-      },
-      {
-       "gameId": "GoeBJsY4",
-       "color": "black",
-       "ply": 78
+       "gameId": "rXfwJH9k",
+       "color": "white",
+       "ply": 95
       },
       {
        "gameId": "s1RQMoxU",
@@ -407,19 +403,24 @@
        "ply": 132
       },
       {
+       "gameId": "s1RQMoxU",
+       "color": "black",
+       "ply": 134
+      },
+      {
        "gameId": "kfF4HNjh",
        "color": "black",
        "ply": 100
       },
       {
-       "gameId": "rXfwJH9k",
-       "color": "white",
-       "ply": 95
-      },
-      {
        "gameId": "kfF4HNjh",
        "color": "black",
        "ply": 96
+      },
+      {
+       "gameId": "GoeBJsY4",
+       "color": "black",
+       "ply": 78
       }
      ]
     },
@@ -427,19 +428,14 @@
      "file": "answered-list.mobile.png",
      "size": {
       "width": 780,
-      "height": 1614
+      "height": 1688
      },
      "url": "/mistakes/answered",
      "positions": [
       {
-       "gameId": "s1RQMoxU",
-       "color": "black",
-       "ply": 134
-      },
-      {
-       "gameId": "GoeBJsY4",
-       "color": "black",
-       "ply": 78
+       "gameId": "rXfwJH9k",
+       "color": "white",
+       "ply": 95
       },
       {
        "gameId": "s1RQMoxU",
@@ -447,19 +443,24 @@
        "ply": 132
       },
       {
+       "gameId": "s1RQMoxU",
+       "color": "black",
+       "ply": 134
+      },
+      {
        "gameId": "kfF4HNjh",
        "color": "black",
        "ply": 100
       },
       {
-       "gameId": "rXfwJH9k",
-       "color": "white",
-       "ply": 95
-      },
-      {
        "gameId": "kfF4HNjh",
        "color": "black",
        "ply": 96
+      },
+      {
+       "gameId": "GoeBJsY4",
+       "color": "black",
+       "ply": 78
       }
      ]
     }
@@ -470,27 +471,27 @@
    "note": "?result=fail.",
    "answered": [
     {
-     "game": "/rXfwJH9k/white#95",
-     "result": "win"
-    },
-    {
-     "game": "/kfF4HNjh/black#96",
-     "result": "fail"
-    },
-    {
-     "game": "/kfF4HNjh/black#100",
-     "result": "win"
-    },
-    {
      "game": "/GoeBJsY4/black#78",
-     "result": "skip"
+     "result": "win"
+    },
+    {
+     "game": "/s1RQMoxU/black#134",
+     "result": "fail"
     },
     {
      "game": "/s1RQMoxU/black#132",
      "result": "win"
     },
     {
-     "game": "/s1RQMoxU/black#134",
+     "game": "/kfF4HNjh/black#100",
+     "result": "skip"
+    },
+    {
+     "game": "/rXfwJH9k/white#95",
+     "result": "win"
+    },
+    {
+     "game": "/kfF4HNjh/black#96",
      "result": "fail"
     }
    ],
@@ -498,20 +499,20 @@
     "desktop": {
      "file": "answered-filter-fail.desktop.png",
      "size": {
-      "width": 2000,
-      "height": 1090
+      "width": 2560,
+      "height": 1440
      },
      "url": "/mistakes/answered?result=fail",
      "positions": [
       {
-       "gameId": "s1RQMoxU",
-       "color": "black",
-       "ply": 134
-      },
-      {
        "gameId": "kfF4HNjh",
        "color": "black",
        "ply": 96
+      },
+      {
+       "gameId": "s1RQMoxU",
+       "color": "black",
+       "ply": 134
       }
      ]
     },
@@ -519,19 +520,19 @@
      "file": "answered-filter-fail.mobile.png",
      "size": {
       "width": 780,
-      "height": 774
+      "height": 1688
      },
      "url": "/mistakes/answered?result=fail",
      "positions": [
       {
-       "gameId": "s1RQMoxU",
-       "color": "black",
-       "ply": 134
-      },
-      {
        "gameId": "kfF4HNjh",
        "color": "black",
        "ply": 96
+      },
+      {
+       "gameId": "s1RQMoxU",
+       "color": "black",
+       "ply": 134
       }
      ]
     }
