@@ -1,0 +1,1003 @@
+{
+ "takenAt": "2026-11-04T15:26:15.098Z",
+ "base": "http://ai.lan:9999",
+ "users": {
+  "main": "vanforeest",
+  "board": "keymer",
+  "empty": "mvl",
+  "cold": "aaron",
+  "fresh": "freshaccount"
+ },
+ "shots": {
+  "entry-profile": {
+   "user": "vanforeest",
+   "note": "the link into the feature, on your own profile",
+   "views": {
+    "desktop": {
+     "file": "entry-profile.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/@/vanforeest",
+     "positions": []
+    },
+    "mobile": {
+     "file": "entry-profile.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/@/vanforeest",
+     "positions": []
+    }
+   }
+  },
+  "landing-ready": {
+   "user": "vanforeest",
+   "note": "analysed games in the window, nothing answered yet",
+   "mistake": {
+    "fen": "8/6kp/K7/2PR4/8/8/8/1r6 b - - 7 50",
+    "color": "black",
+    "played": {
+     "uci": "b1a1",
+     "san": "Ra1+"
+    },
+    "solution": [
+     "Kf6",
+     "c6",
+     "Ke6",
+     "Rc5",
+     "Kd6",
+     "c7",
+     "Kxc5",
+     "c8=Q+",
+     "Kd4",
+     "Qc2",
+     "Rb8",
+     "Qc7"
+    ],
+    "game": "/kfF4HNjh/black#100",
+    "intro": {
+     "fen": "8/6kp/8/1KPR4/8/8/8/1r6 w - - 6 50",
+     "uci": "b5a6"
+    },
+    "prevEval": {
+     "cp": 276
+    },
+    "divisionMiddle": 11
+   },
+   "pref": {
+    "coords": 1,
+    "rookCastle": 1,
+    "destination": true,
+    "moveEvent": 2,
+    "highlight": true,
+    "is3d": false,
+    "animation": 70
+   },
+   "views": {
+    "desktop": {
+     "file": "landing-ready.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes",
+     "positions": []
+    },
+    "mobile": {
+     "file": "landing-ready.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes",
+     "positions": []
+    }
+   }
+  },
+  "landing-window-to-today": {
+   "user": "vanforeest",
+   "note": "the window widened to reach today (?window=3-0)",
+   "mistake": {
+    "fen": "8/6kp/8/2PR4/1K6/8/8/7r b - - 3 48",
+    "color": "black",
+    "played": {
+     "uci": "h1c1",
+     "san": "Rc1"
+    },
+    "solution": [
+     "Kf7",
+     "c6"
+    ],
+    "game": "/kfF4HNjh/black#96",
+    "intro": {
+     "fen": "8/6kp/8/2PR4/8/2K5/8/7r w - - 2 48",
+     "uci": "c3b4"
+    },
+    "prevEval": {
+     "cp": 63
+    },
+    "divisionMiddle": 11
+   },
+   "pref": {
+    "coords": 1,
+    "rookCastle": 1,
+    "destination": true,
+    "moveEvent": 2,
+    "highlight": true,
+    "is3d": false,
+    "animation": 70
+   },
+   "views": {
+    "desktop": {
+     "file": "landing-window-to-today.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes?window=3-0",
+     "positions": []
+    },
+    "mobile": {
+     "file": "landing-window-to-today.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes?window=3-0",
+     "positions": []
+    }
+   }
+  },
+  "landing-one-answered": {
+   "user": "vanforeest",
+   "note": "one position answered: the record appears",
+   "answered": [
+    {
+     "game": "/s1RQMoxU/black#134",
+     "result": "win"
+    }
+   ],
+   "views": {
+    "desktop": {
+     "file": "landing-one-answered.desktop.png",
+     "size": {
+      "width": 2000,
+      "height": 424
+     },
+     "url": "/mistakes",
+     "positions": []
+    },
+    "mobile": {
+     "file": "landing-one-answered.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 676
+     },
+     "url": "/mistakes",
+     "positions": []
+    }
+   }
+  },
+  "landing-heavy": {
+   "user": "vanforeest",
+   "note": "the whole queue answered, win and fail and skip",
+   "answered": [
+    {
+     "game": "/GoeBJsY4/black#78",
+     "result": "win"
+    },
+    {
+     "game": "/rXfwJH9k/white#95",
+     "result": "fail"
+    },
+    {
+     "game": "/s1RQMoxU/black#134",
+     "result": "win"
+    },
+    {
+     "game": "/s1RQMoxU/black#132",
+     "result": "skip"
+    },
+    {
+     "game": "/kfF4HNjh/black#100",
+     "result": "win"
+    },
+    {
+     "game": "/kfF4HNjh/black#96",
+     "result": "fail"
+    }
+   ],
+   "views": {
+    "desktop": {
+     "file": "landing-heavy.desktop.png",
+     "size": {
+      "width": 2000,
+      "height": 2262
+     },
+     "url": "/mistakes",
+     "positions": []
+    },
+    "mobile": {
+     "file": "landing-heavy.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 2426
+     },
+     "url": "/mistakes",
+     "positions": []
+    }
+   }
+  },
+  "landing-put-back": {
+   "user": "vanforeest",
+   "note": "the only undo the feature has, under the record it acts on",
+   "answered": [
+    {
+     "game": "/kfF4HNjh/black#100",
+     "result": "win"
+    },
+    {
+     "game": "/GoeBJsY4/black#78",
+     "result": "fail"
+    },
+    {
+     "game": "/rXfwJH9k/white#95",
+     "result": "win"
+    },
+    {
+     "game": "/kfF4HNjh/black#96",
+     "result": "skip"
+    },
+    {
+     "game": "/s1RQMoxU/black#134",
+     "result": "win"
+    },
+    {
+     "game": "/s1RQMoxU/black#132",
+     "result": "fail"
+    }
+   ],
+   "views": {
+    "desktop": {
+     "file": "landing-put-back.desktop.png",
+     "size": {
+      "width": 2000,
+      "height": 384
+     },
+     "url": "/mistakes",
+     "positions": []
+    },
+    "mobile": {
+     "file": "landing-put-back.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 576
+     },
+     "url": "/mistakes",
+     "positions": []
+    }
+   }
+  },
+  "landing-glossary": {
+   "user": "vanforeest",
+   "note": "what got selected, and why this is not your puzzle history",
+   "answered": [
+    {
+     "game": "/GoeBJsY4/black#78",
+     "result": "win"
+    },
+    {
+     "game": "/kfF4HNjh/black#100",
+     "result": "fail"
+    },
+    {
+     "game": "/rXfwJH9k/white#95",
+     "result": "win"
+    },
+    {
+     "game": "/s1RQMoxU/black#134",
+     "result": "skip"
+    },
+    {
+     "game": "/kfF4HNjh/black#96",
+     "result": "win"
+    },
+    {
+     "game": "/s1RQMoxU/black#132",
+     "result": "fail"
+    }
+   ],
+   "views": {
+    "desktop": {
+     "file": "landing-glossary.desktop.png",
+     "size": {
+      "width": 2000,
+      "height": 752
+     },
+     "url": "/mistakes",
+     "positions": []
+    },
+    "mobile": {
+     "file": "landing-glossary.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 832
+     },
+     "url": "/mistakes",
+     "positions": []
+    }
+   }
+  },
+  "answered-empty": {
+   "user": "vanforeest",
+   "note": "the list before anything has been answered",
+   "mistake": {
+    "fen": "3k4/5Q2/1r6/3K4/8/8/8/8 b - - 12 66",
+    "color": "black",
+    "played": {
+     "uci": "b6a6",
+     "san": "Ra6"
+    },
+    "solution": [
+     "Kc8",
+     "Kc5",
+     "Rb7",
+     "Qe8+",
+     "Kc7",
+     "Qc6+",
+     "Kb8",
+     "Kd6",
+     "Ka7",
+     "Qa4+",
+     "Kb8",
+     "Qa3"
+    ],
+    "game": "/s1RQMoxU/black#132",
+    "intro": {
+     "fen": "3k4/5Q2/1r6/4K3/8/8/8/8 w - - 11 66",
+     "uci": "e5d5"
+    },
+    "prevEval": {
+     "cp": 265
+    },
+    "divisionMiddle": 18
+   },
+   "pref": {
+    "coords": 1,
+    "rookCastle": 1,
+    "destination": true,
+    "moveEvent": 2,
+    "highlight": true,
+    "is3d": false,
+    "animation": 70
+   },
+   "views": {
+    "desktop": {
+     "file": "answered-empty.desktop.png",
+     "size": {
+      "width": 2000,
+      "height": 926
+     },
+     "url": "/mistakes/answered",
+     "positions": []
+    },
+    "mobile": {
+     "file": "answered-empty.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 570
+     },
+     "url": "/mistakes/answered",
+     "positions": []
+    }
+   }
+  },
+  "answered-list": {
+   "user": "vanforeest",
+   "note": "every position answered, drawn rather than described",
+   "answered": [
+    {
+     "game": "/GoeBJsY4/black#78",
+     "result": "win"
+    },
+    {
+     "game": "/kfF4HNjh/black#100",
+     "result": "fail"
+    },
+    {
+     "game": "/s1RQMoxU/black#134",
+     "result": "win"
+    },
+    {
+     "game": "/s1RQMoxU/black#132",
+     "result": "skip"
+    },
+    {
+     "game": "/rXfwJH9k/white#95",
+     "result": "win"
+    },
+    {
+     "game": "/kfF4HNjh/black#96",
+     "result": "fail"
+    }
+   ],
+   "views": {
+    "desktop": {
+     "file": "answered-list.desktop.png",
+     "size": {
+      "width": 2000,
+      "height": 1502
+     },
+     "url": "/mistakes/answered",
+     "positions": [
+      {
+       "gameId": "kfF4HNjh",
+       "color": "black",
+       "ply": 96
+      },
+      {
+       "gameId": "rXfwJH9k",
+       "color": "white",
+       "ply": 95
+      },
+      {
+       "gameId": "s1RQMoxU",
+       "color": "black",
+       "ply": 132
+      },
+      {
+       "gameId": "s1RQMoxU",
+       "color": "black",
+       "ply": 134
+      },
+      {
+       "gameId": "kfF4HNjh",
+       "color": "black",
+       "ply": 100
+      },
+      {
+       "gameId": "GoeBJsY4",
+       "color": "black",
+       "ply": 78
+      }
+     ]
+    },
+    "mobile": {
+     "file": "answered-list.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1614
+     },
+     "url": "/mistakes/answered",
+     "positions": [
+      {
+       "gameId": "kfF4HNjh",
+       "color": "black",
+       "ply": 96
+      },
+      {
+       "gameId": "rXfwJH9k",
+       "color": "white",
+       "ply": 95
+      },
+      {
+       "gameId": "s1RQMoxU",
+       "color": "black",
+       "ply": 132
+      },
+      {
+       "gameId": "s1RQMoxU",
+       "color": "black",
+       "ply": 134
+      },
+      {
+       "gameId": "kfF4HNjh",
+       "color": "black",
+       "ply": 100
+      },
+      {
+       "gameId": "GoeBJsY4",
+       "color": "black",
+       "ply": 78
+      }
+     ]
+    }
+   }
+  },
+  "answered-filter-fail": {
+   "user": "vanforeest",
+   "note": "the same list cut to the ones given up on",
+   "answered": [
+    {
+     "game": "/s1RQMoxU/black#134",
+     "result": "win"
+    },
+    {
+     "game": "/rXfwJH9k/white#95",
+     "result": "fail"
+    },
+    {
+     "game": "/s1RQMoxU/black#132",
+     "result": "win"
+    },
+    {
+     "game": "/GoeBJsY4/black#78",
+     "result": "skip"
+    },
+    {
+     "game": "/kfF4HNjh/black#100",
+     "result": "win"
+    },
+    {
+     "game": "/kfF4HNjh/black#96",
+     "result": "fail"
+    }
+   ],
+   "views": {
+    "desktop": {
+     "file": "answered-filter-fail.desktop.png",
+     "size": {
+      "width": 2000,
+      "height": 1090
+     },
+     "url": "/mistakes/answered?result=fail",
+     "positions": [
+      {
+       "gameId": "kfF4HNjh",
+       "color": "black",
+       "ply": 96
+      },
+      {
+       "gameId": "rXfwJH9k",
+       "color": "white",
+       "ply": 95
+      }
+     ]
+    },
+    "mobile": {
+     "file": "answered-filter-fail.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 774
+     },
+     "url": "/mistakes/answered?result=fail",
+     "positions": [
+      {
+       "gameId": "kfF4HNjh",
+       "color": "black",
+       "ply": 96
+      },
+      {
+       "gameId": "rXfwJH9k",
+       "color": "white",
+       "ply": 95
+      }
+     ]
+    }
+   }
+  },
+  "board-ask": {
+   "user": "keymer",
+   "note": "the question: this was played, find something better",
+   "mistake": {
+    "fen": "3R4/4r2p/2P1k2P/4Np2/4pP2/2n5/5P2/5K2 w - - 7 52",
+    "color": "white",
+    "played": {
+     "uci": "d8g8",
+     "san": "Rg8"
+    },
+    "solution": [
+     "Nd7",
+     "Kd6",
+     "Nf8+",
+     "Kxc6",
+     "Rc8+",
+     "Kd6",
+     "Rxc3",
+     "Rf7",
+     "Rc8",
+     "Rf6",
+     "Re8",
+     "Rxh6"
+    ],
+    "game": "/JBNimOnH/white#103",
+    "intro": {
+     "fen": "3R4/4r2p/2P1k2P/1n2Np2/4pP2/8/5P2/5K2 b - - 6 51",
+     "uci": "b5c3"
+    },
+    "prevEval": {
+     "cp": 321,
+     "best": "e7a7"
+    },
+    "divisionMiddle": 18
+   },
+   "pref": {
+    "coords": 1,
+    "rookCastle": 1,
+    "destination": true,
+    "moveEvent": 2,
+    "highlight": true,
+    "is3d": false,
+    "animation": 70
+   },
+   "views": {
+    "desktop": {
+     "file": "board-ask.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes/play",
+     "current": {
+      "gameId": "qgAP1CRb",
+      "color": "white",
+      "ply": 45,
+      "played": "Bxe5",
+      "solution": "Qd1"
+     },
+     "positions": []
+    },
+    "mobile": {
+     "file": "board-ask.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes/play",
+     "current": {
+      "gameId": "bj2FSVyh",
+      "color": "black",
+      "ply": 134,
+      "played": "Qc2+",
+      "solution": "Qe6"
+     },
+     "positions": []
+    }
+   }
+  },
+  "board-fail": {
+   "user": "keymer",
+   "note": "playing the move from the game again - judged against the best move",
+   "mistake": {
+    "fen": "3qr1k1/r4pb1/3p1n1p/p1p1n1p1/PpP5/1P1Q1PP1/R3P1BP/B3RNK1 w - - 1 23",
+    "color": "white",
+    "played": {
+     "uci": "a1e5",
+     "san": "Bxe5"
+    },
+    "solution": [
+     "Qd1",
+     "d5"
+    ],
+    "game": "/qgAP1CRb/white#45",
+    "intro": {
+     "fen": "3qr1k1/r2n1pb1/3p1n1p/p1p3p1/PpP5/1P1Q1PP1/R3P1BP/B3RNK1 b - - 0 22",
+     "uci": "d7e5"
+    },
+    "prevEval": {
+     "cp": 104
+    },
+    "divisionMiddle": 20
+   },
+   "pref": {
+    "coords": 1,
+    "rookCastle": 1,
+    "destination": true,
+    "moveEvent": 2,
+    "highlight": true,
+    "is3d": false,
+    "animation": 70
+   },
+   "views": {
+    "desktop": {
+     "file": "board-fail.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes/play",
+     "current": {
+      "gameId": "bj2FSVyh",
+      "color": "black",
+      "ply": 134,
+      "played": "Qc2+",
+      "solution": "Qe6"
+     },
+     "positions": []
+    },
+    "mobile": {
+     "file": "board-fail.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes/play",
+     "current": {
+      "gameId": "bj2FSVyh",
+      "color": "black",
+      "ply": 134,
+      "played": "Qc2+",
+      "solution": "Qe6"
+     },
+     "positions": []
+    }
+   }
+  },
+  "board-win": {
+   "user": "keymer",
+   "note": "finding the move the engine wanted",
+   "mistake": {
+    "fen": "3R4/4r2p/2P1k2P/4Np2/4pP2/2n5/5P2/5K2 w - - 7 52",
+    "color": "white",
+    "played": {
+     "uci": "d8g8",
+     "san": "Rg8"
+    },
+    "solution": [
+     "Nd7",
+     "Kd6",
+     "Nf8+",
+     "Kxc6",
+     "Rc8+",
+     "Kd6",
+     "Rxc3",
+     "Rf7",
+     "Rc8",
+     "Rf6",
+     "Re8",
+     "Rxh6"
+    ],
+    "game": "/JBNimOnH/white#103",
+    "intro": {
+     "fen": "3R4/4r2p/2P1k2P/1n2Np2/4pP2/8/5P2/5K2 b - - 6 51",
+     "uci": "b5c3"
+    },
+    "prevEval": {
+     "cp": 321,
+     "best": "e7a7"
+    },
+    "divisionMiddle": 18
+   },
+   "pref": {
+    "coords": 1,
+    "rookCastle": 1,
+    "destination": true,
+    "moveEvent": 2,
+    "highlight": true,
+    "is3d": false,
+    "animation": 70
+   },
+   "views": {
+    "desktop": {
+     "file": "board-win.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes/play",
+     "current": {
+      "gameId": "bj2FSVyh",
+      "color": "black",
+      "ply": 134,
+      "played": "Qc2+",
+      "solution": "Qe6"
+     },
+     "positions": [
+      {
+       "gameId": "bj2FSVyh",
+       "color": "black",
+       "ply": 134
+      }
+     ]
+    },
+    "mobile": {
+     "file": "board-win.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes/play",
+     "current": {
+      "gameId": "qgAP1CRb",
+      "color": "white",
+      "ply": 45,
+      "played": "Bxe5",
+      "solution": "Qd1"
+     },
+     "positions": [
+      {
+       "gameId": "qgAP1CRb",
+       "color": "white",
+       "ply": 45
+      }
+     ]
+    }
+   }
+  },
+  "board-solution": {
+   "user": "keymer",
+   "note": "giving up on it, which retires the position as a fail",
+   "mistake": {
+    "fen": "3qr1k1/r4pb1/3p1n1p/p1p1n1p1/PpP5/1P1Q1PP1/R3P1BP/B3RNK1 w - - 1 23",
+    "color": "white",
+    "played": {
+     "uci": "a1e5",
+     "san": "Bxe5"
+    },
+    "solution": [
+     "Qd1",
+     "d5"
+    ],
+    "game": "/qgAP1CRb/white#45",
+    "intro": {
+     "fen": "3qr1k1/r2n1pb1/3p1n1p/p1p3p1/PpP5/1P1Q1PP1/R3P1BP/B3RNK1 b - - 0 22",
+     "uci": "d7e5"
+    },
+    "prevEval": {
+     "cp": 104
+    },
+    "divisionMiddle": 20
+   },
+   "pref": {
+    "coords": 1,
+    "rookCastle": 1,
+    "destination": true,
+    "moveEvent": 2,
+    "highlight": true,
+    "is3d": false,
+    "animation": 70
+   },
+   "views": {
+    "desktop": {
+     "file": "board-solution.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes/play",
+     "current": {
+      "gameId": "qgAP1CRb",
+      "color": "white",
+      "ply": 99,
+      "played": "Bf3+",
+      "solution": "Bg6+"
+     },
+     "positions": [
+      {
+       "gameId": "qgAP1CRb",
+       "color": "white",
+       "ply": 99
+      }
+     ]
+    },
+    "mobile": {
+     "file": "board-solution.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes/play",
+     "current": {
+      "gameId": "bj2FSVyh",
+      "color": "black",
+      "ply": 134,
+      "played": "Qc2+",
+      "solution": "Qe6"
+     },
+     "positions": [
+      {
+       "gameId": "bj2FSVyh",
+       "color": "black",
+       "ply": 134
+      }
+     ]
+    }
+   }
+  },
+  "board-empty": {
+   "user": "mvl",
+   "note": "nothing left in the window to draw from",
+   "answered": [
+    {
+     "game": "/ifSPtSWT/black#82",
+     "result": "win"
+    }
+   ],
+   "views": {
+    "desktop": {
+     "file": "board-empty.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes/play",
+     "positions": []
+    },
+    "mobile": {
+     "file": "board-empty.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes/play",
+     "positions": []
+    }
+   }
+  },
+  "landing-cold-unanalysed": {
+   "user": "aaron",
+   "note": "games in the window, none of them analysed yet",
+   "views": {
+    "desktop": {
+     "file": "landing-cold-unanalysed.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes",
+     "positions": []
+    },
+    "mobile": {
+     "file": "landing-cold-unanalysed.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes",
+     "positions": []
+    }
+   }
+  },
+  "landing-cold-no-games": {
+   "user": "freshaccount",
+   "note": "an account with nothing in the window at all",
+   "views": {
+    "desktop": {
+     "file": "landing-cold-no-games.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes",
+     "positions": []
+    },
+    "mobile": {
+     "file": "landing-cold-no-games.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes",
+     "positions": []
+    }
+   }
+  },
+  "landing-warming": {
+   "user": "aaron",
+   "note": "a batch handed to fishnet, nothing back from it yet",
+   "views": {
+    "desktop": {
+     "file": "landing-warming.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes",
+     "positions": []
+    },
+    "mobile": {
+     "file": "landing-warming.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes",
+     "positions": []
+    }
+   }
+  }
+ }
+}
