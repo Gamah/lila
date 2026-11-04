@@ -1,5 +1,5 @@
 {
- "takenAt": "2026-11-04T15:29:21.182Z",
+ "takenAt": "2026-11-04T15:40:11.550Z",
  "base": "http://ai.lan:9999",
  "users": {
   "main": "vanforeest",
@@ -590,11 +590,11 @@
      },
      "url": "/mistakes/play",
      "current": {
-      "gameId": "bj2FSVyh",
-      "color": "black",
-      "ply": 134,
-      "played": "Qc2+",
-      "solution": "Qe6"
+      "gameId": "waf9s60d",
+      "color": "white",
+      "ply": 69,
+      "played": "h7+",
+      "solution": "f4"
      },
      "positions": []
     },
@@ -606,11 +606,11 @@
      },
      "url": "/mistakes/play",
      "current": {
-      "gameId": "JBNimOnH",
+      "gameId": "waf9s60d",
       "color": "white",
-      "ply": 103,
-      "played": "Rg8",
-      "solution": "Nd7"
+      "ply": 69,
+      "played": "h7+",
+      "solution": "f4"
      },
      "positions": []
     }
@@ -620,24 +620,35 @@
    "user": "keymer",
    "note": "Played the game move again. Straight to fail, no engine needed.",
    "mistake": {
-    "fen": "2r2bk1/3bq3/p4p1P/1p1pn1p1/3N4/4P1B1/PP2BP2/1Q3K1R w - - 1 35",
-    "color": "white",
+    "fen": "8/8/2p4k/6p1/1P1QP3/1q3P2/5K2/8 b - - 4 67",
+    "color": "black",
     "played": {
-     "uci": "h6h7",
-     "san": "h7+"
+     "uci": "b3c2",
+     "san": "Qc2+"
     },
     "solution": [
-     "f4"
+     "Qe6",
+     "e5",
+     "Kg6",
+     "Qe4+",
+     "Kg7",
+     "Kg3",
+     "Kh6",
+     "Qd4",
+     "Qf5",
+     "Qe3",
+     "Qe6",
+     "Qe4"
     ],
-    "game": "/waf9s60d/white#69",
+    "game": "/bj2FSVyh/black#134",
     "intro": {
-     "fen": "2r3k1/3bq1b1/p4p1P/1p1pn1p1/3N4/4P1B1/PP2BP2/1Q3K1R b - - 0 34",
-     "uci": "g7f8"
+     "fen": "8/8/2p4k/6p1/1P1QP3/1q2KP2/8/8 w - - 3 67",
+     "uci": "e3f2"
     },
     "prevEval": {
-     "cp": 163
+     "cp": 208
     },
-    "divisionMiddle": 17
+    "divisionMiddle": 24
    },
    "pref": {
     "coords": 1,
@@ -687,23 +698,23 @@
    "user": "keymer",
    "note": "Found it.",
    "mistake": {
-    "fen": "3qr1k1/r4pb1/3p1n1p/p1p1n1p1/PpP5/1P1Q1PP1/R3P1BP/B3RNK1 w - - 1 23",
+    "fen": "8/8/5p2/p1p3pB/PpPbk3/1P4P1/4K3/8 w - - 0 50",
     "color": "white",
     "played": {
-     "uci": "a1e5",
-     "san": "Bxe5"
+     "uci": "h5f3",
+     "san": "Bf3+"
     },
     "solution": [
-     "Qd1",
-     "d5"
+     "Bg6+",
+     "f5"
     ],
-    "game": "/qgAP1CRb/white#45",
+    "game": "/qgAP1CRb/white#99",
     "intro": {
-     "fen": "3qr1k1/r2n1pb1/3p1n1p/p1p3p1/PpP5/1P1Q1PP1/R3P1BP/B3RNK1 b - - 0 22",
-     "uci": "d7e5"
+     "fen": "8/8/5p2/p1p1k1pB/PpPbP3/1P4P1/4K3/8 b - - 1 49",
+     "uci": "e5e4"
     },
     "prevEval": {
-     "cp": 104
+     "cp": -213
     },
     "divisionMiddle": 20
    },
@@ -725,17 +736,17 @@
      },
      "url": "/mistakes/play",
      "current": {
-      "gameId": "bj2FSVyh",
-      "color": "black",
-      "ply": 134,
-      "played": "Qc2+",
-      "solution": "Qe6"
+      "gameId": "qgAP1CRb",
+      "color": "white",
+      "ply": 45,
+      "played": "Bxe5",
+      "solution": "Qd1"
      },
      "positions": [
       {
-       "gameId": "bj2FSVyh",
-       "color": "black",
-       "ply": 134
+       "gameId": "qgAP1CRb",
+       "color": "white",
+       "ply": 45
       }
      ]
     },
@@ -749,15 +760,15 @@
      "current": {
       "gameId": "qgAP1CRb",
       "color": "white",
-      "ply": 99,
-      "played": "Bf3+",
-      "solution": "Bg6+"
+      "ply": 45,
+      "played": "Bxe5",
+      "solution": "Qd1"
      },
      "positions": [
       {
        "gameId": "qgAP1CRb",
        "color": "white",
-       "ply": 99
+       "ply": 45
       }
      ]
     }
@@ -767,24 +778,25 @@
    "user": "keymer",
    "note": "Gave up. Counts as a fail.",
    "mistake": {
-    "fen": "2r2bk1/3bq3/p4p1P/1p1pn1p1/3N4/4P1B1/PP2BP2/1Q3K1R w - - 1 35",
+    "fen": "8/8/5p2/p1p3pB/PpPbk3/1P4P1/4K3/8 w - - 0 50",
     "color": "white",
     "played": {
-     "uci": "h6h7",
-     "san": "h7+"
+     "uci": "h5f3",
+     "san": "Bf3+"
     },
     "solution": [
-     "f4"
+     "Bg6+",
+     "f5"
     ],
-    "game": "/waf9s60d/white#69",
+    "game": "/qgAP1CRb/white#99",
     "intro": {
-     "fen": "2r3k1/3bq1b1/p4p1P/1p1pn1p1/3N4/4P1B1/PP2BP2/1Q3K1R b - - 0 34",
-     "uci": "g7f8"
+     "fen": "8/8/5p2/p1p1k1pB/PpPbP3/1P4P1/4K3/8 b - - 1 49",
+     "uci": "e5e4"
     },
     "prevEval": {
-     "cp": 163
+     "cp": -213
     },
-    "divisionMiddle": 17
+    "divisionMiddle": 20
    },
    "pref": {
     "coords": 1,
@@ -804,17 +816,17 @@
      },
      "url": "/mistakes/play",
      "current": {
-      "gameId": "qgAP1CRb",
+      "gameId": "waf9s60d",
       "color": "white",
-      "ply": 45,
-      "played": "Bxe5",
-      "solution": "Qd1"
+      "ply": 69,
+      "played": "h7+",
+      "solution": "f4"
      },
      "positions": [
       {
-       "gameId": "qgAP1CRb",
+       "gameId": "waf9s60d",
        "color": "white",
-       "ply": 45
+       "ply": 69
       }
      ]
     },
@@ -826,17 +838,17 @@
      },
      "url": "/mistakes/play",
      "current": {
-      "gameId": "qgAP1CRb",
+      "gameId": "waf9s60d",
       "color": "white",
-      "ply": 99,
-      "played": "Bf3+",
-      "solution": "Bg6+"
+      "ply": 69,
+      "played": "h7+",
+      "solution": "f4"
      },
      "positions": [
       {
-       "gameId": "qgAP1CRb",
+       "gameId": "waf9s60d",
        "color": "white",
-       "ply": 99
+       "ply": 69
       }
      ]
     }
