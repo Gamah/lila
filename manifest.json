@@ -11,7 +11,7 @@
  "shots": {
   "entry-profile": {
    "user": "vanforeest",
-   "note": "the link into the feature, on your own profile",
+   "note": "The way in. Own profile only.",
    "views": {
     "desktop": {
      "file": "entry-profile.desktop.png",
@@ -35,7 +35,7 @@
   },
   "landing-ready": {
    "user": "vanforeest",
-   "note": "analysed games in the window, nothing answered yet",
+   "note": "Queue has something. Nothing answered, so no record.",
    "pref": {
     "coords": 1,
     "rookCastle": 1,
@@ -68,7 +68,7 @@
   },
   "landing-window-to-today": {
    "user": "vanforeest",
-   "note": "the window widened to reach today (?window=3-0)",
+   "note": "?window=3-0. Reaches today.",
    "mistake": {
     "fen": "8/6kp/8/2PR4/1K6/8/8/7r b - - 3 48",
     "color": "black",
@@ -122,7 +122,7 @@
   },
   "landing-one-answered": {
    "user": "vanforeest",
-   "note": "one position answered: the record appears",
+   "note": "One answer in.",
    "answered": [
     {
      "game": "/kfF4HNjh/black#96",
@@ -152,7 +152,7 @@
   },
   "landing-heavy": {
    "user": "vanforeest",
-   "note": "the whole queue answered, win and fail and skip",
+   "note": "Whole queue answered: win, fail, skip.",
    "answered": [
     {
      "game": "/s1RQMoxU/black#132",
@@ -202,7 +202,7 @@
   },
   "landing-put-back": {
    "user": "vanforeest",
-   "note": "the only undo the feature has, under the record it acts on",
+   "note": "The undo. Sits under the numbers it changes.",
    "answered": [
     {
      "game": "/kfF4HNjh/black#100",
@@ -252,7 +252,7 @@
   },
   "landing-glossary": {
    "user": "vanforeest",
-   "note": "what got selected, and why this is not your puzzle history",
+   "note": "What got picked, and why it is not your puzzle history.",
    "answered": [
     {
      "game": "/rXfwJH9k/white#95",
@@ -302,7 +302,7 @@
   },
   "answered-empty": {
    "user": "vanforeest",
-   "note": "the list before anything has been answered",
+   "note": "Nothing answered yet.",
    "mistake": {
     "fen": "6k1/8/6p1/3P1R2/1K6/4r1P1/8/8 w - - 0 48",
     "color": "white",
@@ -355,7 +355,7 @@
   },
   "answered-list": {
    "user": "vanforeest",
-   "note": "every position answered, drawn rather than described",
+   "note": "Every answer, as a board.",
    "answered": [
     {
      "game": "/kfF4HNjh/black#96",
@@ -467,7 +467,7 @@
   },
   "answered-filter-fail": {
    "user": "vanforeest",
-   "note": "the same list cut to the ones given up on",
+   "note": "?result=fail.",
    "answered": [
     {
      "game": "/rXfwJH9k/white#95",
@@ -539,7 +539,7 @@
   },
   "board-ask": {
    "user": "keymer",
-   "note": "the question: this was played, find something better",
+   "note": "This was played. Find better.",
    "mistake": {
     "fen": "3R4/4r2p/2P1k2P/4Np2/4pP2/2n5/5P2/5K2 w - - 7 52",
     "color": "white",
@@ -618,7 +618,7 @@
   },
   "board-fail": {
    "user": "keymer",
-   "note": "playing the move from the game again - judged against the best move",
+   "note": "Played the game move again. Straight to fail, no engine needed.",
    "mistake": {
     "fen": "2r2bk1/3bq3/p4p1P/1p1pn1p1/3N4/4P1B1/PP2BP2/1Q3K1R w - - 1 35",
     "color": "white",
@@ -685,7 +685,7 @@
   },
   "board-win": {
    "user": "keymer",
-   "note": "finding the move the engine wanted",
+   "note": "Found it.",
    "mistake": {
     "fen": "3qr1k1/r4pb1/3p1n1p/p1p1n1p1/PpP5/1P1Q1PP1/R3P1BP/B3RNK1 w - - 1 23",
     "color": "white",
@@ -765,7 +765,7 @@
   },
   "board-solution": {
    "user": "keymer",
-   "note": "giving up on it, which retires the position as a fail",
+   "note": "Gave up. Counts as a fail.",
    "mistake": {
     "fen": "2r2bk1/3bq3/p4p1P/1p1pn1p1/3N4/4P1B1/PP2BP2/1Q3K1R w - - 1 35",
     "color": "white",
@@ -844,7 +844,7 @@
   },
   "board-empty": {
    "user": "mvl",
-   "note": "nothing left in the window to draw from",
+   "note": "Window is dry.",
    "answered": [
     {
      "game": "/ifSPtSWT/black#82",
@@ -874,7 +874,7 @@
   },
   "landing-cold-unanalysed": {
    "user": "aaron",
-   "note": "games in the window, none of them analysed yet",
+   "note": "Games in the window, none analysed. The button spends fishnet.",
    "views": {
     "desktop": {
      "file": "landing-cold-unanalysed.desktop.png",
@@ -898,7 +898,7 @@
   },
   "landing-warming": {
    "user": "aaron",
-   "note": "a batch handed to fishnet, nothing back from it yet",
+   "note": "Batch sent. Fishnet reports nothing until it lands, so neither does this.",
    "views": {
     "desktop": {
      "file": "landing-warming.desktop.png",
@@ -922,7 +922,7 @@
   },
   "landing-cold-no-games": {
    "user": "freshaccount",
-   "note": "an account with nothing in the window at all",
+   "note": "Nothing in the window at all.",
    "views": {
     "desktop": {
      "file": "landing-cold-no-games.desktop.png",

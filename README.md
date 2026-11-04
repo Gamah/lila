@@ -1,53 +1,41 @@
 # lila-mistakes-showcase
 
-Screenshots of every state of the `/mistakes` feature, so a pull request body
-can reference them. Nothing here is code and nothing here is meant to be
-merged: this branch is an orphan, shares no history with `master`, and never
-appears in a diff. Delete it once the pull request that uses it is closed.
+Screenshots of `/mistakes`, so a PR body can point at them. Orphan branch: no
+code, no history with `master`, never in a diff. Delete it with the PR.
 
-**The page is [index.html](index.html), which GitHub serves as source. Read it
-through htmlpreview:**
+GitHub serves `.html` as source, so read the page through htmlpreview:
 
 <https://htmlpreview.github.io/?https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/index.html>
 
-The shots are all of the dark theme, and so is the page.
+Dark theme throughout. Each shot that pictures a position links to that
+position in the broadcast game, at the same ply.
 
-Every shot on it links to the lichess broadcast game it came from, and where
-the page named a position, to that position at the same ply.
+## What the games are
 
-## What the shots are of
-
-The games are imports of the public [GCT Sinquefield Cup 2026][broadcast]
-broadcast, claimed to ten local scratch accounts on a development machine and
-analysed there by a local fishnet at 100k nodes/move. **None of them are the
-players' lichess accounts**, and nothing in these pictures reflects anything any
-of those players did on lichess.
+The 2026 [Sinquefield Cup][broadcast] broadcast, imported to ten scratch
+accounts on a dev box and analysed there at 100k nodes/move. None of it is
+production data and none of the accounts are the players' lichess accounts.
 
 [broadcast]: https://lichess.org/broadcast/gct-sinquefield-cup-2026
 
-## How they are taken
+## Generator
 
-The generator lives outside the lila working tree, on the machine that runs it,
-beside the stack it shoots: `~/lila-testdata/tools/`.
+Outside the lila tree, on the box that runs the stack: `~/lila-testdata/tools/`.
 
 | | |
 | --- | --- |
-| `shots.mjs` | the 18 states and the playwright run that takes them; writes `manifest.json` |
+| `shots.mjs` | the 18 states, playwright, writes `manifest.json` |
 | `page.mjs` | `manifest.json` + `gamemap.json` -> `index.html` |
-| `gamemap.py` | local game id -> the broadcast game it was imported from, checked by player name |
-| `warming.sh` | the one state that needs fishnet stopped while it is photographed |
-| `cold.js`, `signup.mjs` | the two fixtures the imported corpus does not provide |
+| `gamemap.py` | local game id -> broadcast game, checked by player name |
+| `warming.sh` | the one state that needs fishnet stopped to photograph |
+| `cold.js`, `signup.mjs` | two fixtures the imported corpus does not give you |
 
-Each state is built through the feature's own HTTP surface - `/mistakes/reset`,
-`/mistakes/next`, `/mistakes/record/:result` - so every shot is of the page the
-server actually serves. Nothing is written into `mistake_solve` by hand.
+States are built over HTTP — `/mistakes/reset`, `/mistakes/next`,
+`/mistakes/record/:result`. Nothing is written into `mistake_solve` by hand.
+`manifest.json` records what each run saw: account, paths, image sizes, and the
+game and ply of every position shown. Regenerating replaces `shots/`.
 
-`manifest.json` here is what the run recorded: for each state, the account, the
-paths, the image sizes, and the game and ply of every position the page showed.
-Regenerating replaces `shots/` wholesale.
+## Dropped name
 
-## A name that went
-
-`landing-none-answered` was in the old set and is not in this one: with nothing
-answered the record section does not exist, which is exactly what
-`landing-ready` already shows. Two names for one page.
+`landing-none-answered` is not in this set. With nothing answered there is no
+record section, which is what `landing-ready` already shows.

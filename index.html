@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mistakes — every state of the feature</title>
-<meta name="description" content="Screenshots of every state of lila's /mistakes feature, each linked to the lichess broadcast game it was taken from.">
+<meta name="description" content="Screenshots of every state of lila's /mistakes feature, linked to the broadcast games they came from.">
 <style>
 /* Dark, like every shot on the page. Not a preference: a light page around
    dark pictures is a worse picture of the feature. */
@@ -70,30 +70,24 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
 <h1>Mistakes, state by state</h1>
 
 <p class="lede">
-  18 named states of the <code>/mistakes</code> feature on branch
-  <code>mistakes</code>, each at desktop 1280×720 and mobile 390×844, both at 2×.
-  Taken 2026-11-04 from a local stack by
-  <a href="https://github.com/Gamah/lila/blob/lila-mistakes-showcase/README.md" rel="noopener">the generator described here</a>.
-  Every state is built through the feature's own HTTP surface — reset, next, record — so each
-  shot is of the page the server actually serves. Click an image for the full-size PNG.
+  18 states of <code>/mistakes</code> on branch <code>mistakes</code>,
+  shot 2026-11-04 off a local stack by
+  <a href="https://github.com/Gamah/lila/blob/lila-mistakes-showcase/README.md" rel="noopener">the generator</a>.
+  Desktop 1280×720, mobile 390×844, 2×. Built by hitting reset/next/record, not mocked.
+  Click for the full PNG.
 </p>
 
 <p class="plain">
-  <strong>These are not the players' lichess accounts.</strong> The games are imports of the
-  public <a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026" rel="noopener">GCT Sinquefield Cup 2026</a> broadcast, taken from
-  <code>/api/broadcast/2sMqschv.pgn</code>, claimed to ten local scratch accounts on a development
-  machine and analysed there by a local fishnet at 100k nodes/move — shallower than a lichess
-  manual request. Nothing here reflects anything any of these players did on lichess, and no
-  lichess account was touched. Each shot below links to the broadcast game, and where the page
-  named a position, to that position at the same ply.
+  Games are from the 2026 <a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026" rel="noopener">Sinquefield Cup</a> broadcast.
+  None of this is production data: imports claimed to ten scratch accounts on a dev box, analysed
+  locally at 100k nodes/move. Not the players' lichess accounts.
 </p>
 
 <section>
-  <h2>Getting in</h2>
-  <p class="blurb">The feature is reached from your own profile, beside Chess Insights.</p>
+  <h2>Entry</h2>
   <article class="card" id="entry-profile">
     <h3><a href="#entry-profile">entry-profile</a></h3>
-    <p class="note">the link into the feature, on your own profile</p>
+    <p class="note">The way in. Own profile only.</p>
     <p class="meta"><span class="who">vanforeest</span><code>/@/vanforeest</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -104,15 +98,14 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/entry-profile.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/entry-profile.mobile.png" alt="entry-profile, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>Drawn from vanforeest’s games</h4><ul class="games"><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-1/YaTYmjqS/9YPwxjEY" rel="noopener">Caruana, Fabiano – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/J9oDdhuj" rel="noopener">Van Foreest, Jorden – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/5HUOordk" rel="noopener">Giri, Anish – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/xAFb1jAe" rel="noopener">Van Foreest, Jorden – Sevian, Samuel, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-8/HSkVW1CT/KqvpMaTC" rel="noopener">Sindarov, Javokhir – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-9/QwsCiTIm/P16K0wBM" rel="noopener">Van Foreest, Jorden – Keymer, Vincent, 1/2-1/2</a></li></ul></div>
+    
   </article>
 </section>
 <section>
-  <h2>The landing page</h2>
-  <p class="blurb">Everything /mistakes shows is a read. Starting, asking for analysis and putting positions back are each a link or a POST away, so opening the page never spends a position or a second of fishnet.</p>
+  <h2>Landing</h2>
   <article class="card" id="landing-cold-no-games">
     <h3><a href="#landing-cold-no-games">landing-cold-no-games</a></h3>
-    <p class="note">an account with nothing in the window at all</p>
+    <p class="note">Nothing in the window at all.</p>
     <p class="meta"><span class="who">freshaccount</span><code>/mistakes</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -127,7 +120,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
   </article>
 <article class="card" id="landing-cold-unanalysed">
     <h3><a href="#landing-cold-unanalysed">landing-cold-unanalysed</a></h3>
-    <p class="note">games in the window, none of them analysed yet</p>
+    <p class="note">Games in the window, none analysed. The button spends fishnet.</p>
     <p class="meta"><span class="who">aaron</span><code>/mistakes</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -142,7 +135,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
   </article>
 <article class="card" id="landing-warming">
     <h3><a href="#landing-warming">landing-warming</a></h3>
-    <p class="note">a batch handed to fishnet, nothing back from it yet</p>
+    <p class="note">Batch sent. Fishnet reports nothing until it lands, so neither does this.</p>
     <p class="meta"><span class="who">aaron</span><code>/mistakes</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -157,7 +150,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
   </article>
 <article class="card" id="landing-ready">
     <h3><a href="#landing-ready">landing-ready</a></h3>
-    <p class="note">analysed games in the window, nothing answered yet</p>
+    <p class="note">Queue has something. Nothing answered, so no record.</p>
     <p class="meta"><span class="who">vanforeest</span><code>/mistakes</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -168,11 +161,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-ready.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-ready.mobile.png" alt="landing-ready, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>Drawn from vanforeest’s games</h4><ul class="games"><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-1/YaTYmjqS/9YPwxjEY" rel="noopener">Caruana, Fabiano – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/J9oDdhuj" rel="noopener">Van Foreest, Jorden – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/5HUOordk" rel="noopener">Giri, Anish – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/xAFb1jAe" rel="noopener">Van Foreest, Jorden – Sevian, Samuel, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-8/HSkVW1CT/KqvpMaTC" rel="noopener">Sindarov, Javokhir – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-9/QwsCiTIm/P16K0wBM" rel="noopener">Van Foreest, Jorden – Keymer, Vincent, 1/2-1/2</a></li></ul></div>
+    
   </article>
 <article class="card" id="landing-one-answered">
     <h3><a href="#landing-one-answered">landing-one-answered</a></h3>
-    <p class="note">one position answered: the record appears</p>
+    <p class="note">One answer in.</p>
     <p class="meta"><span class="who">vanforeest</span><code>/mistakes</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -183,11 +176,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-one-answered.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-one-answered.mobile.png" alt="landing-one-answered, mobile"></a>
         <figcaption>mobile, 390×338 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>Drawn from vanforeest’s games</h4><ul class="games"><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-1/YaTYmjqS/9YPwxjEY" rel="noopener">Caruana, Fabiano – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/J9oDdhuj" rel="noopener">Van Foreest, Jorden – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/5HUOordk" rel="noopener">Giri, Anish – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/xAFb1jAe" rel="noopener">Van Foreest, Jorden – Sevian, Samuel, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-8/HSkVW1CT/KqvpMaTC" rel="noopener">Sindarov, Javokhir – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-9/QwsCiTIm/P16K0wBM" rel="noopener">Van Foreest, Jorden – Keymer, Vincent, 1/2-1/2</a></li></ul></div>
+    
   </article>
 <article class="card" id="landing-heavy">
     <h3><a href="#landing-heavy">landing-heavy</a></h3>
-    <p class="note">the whole queue answered, win and fail and skip</p>
+    <p class="note">Whole queue answered: win, fail, skip.</p>
     <p class="meta"><span class="who">vanforeest</span><code>/mistakes</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -198,11 +191,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-heavy.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-heavy.mobile.png" alt="landing-heavy, mobile"></a>
         <figcaption>mobile, 390×1213 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>Drawn from vanforeest’s games</h4><ul class="games"><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-1/YaTYmjqS/9YPwxjEY" rel="noopener">Caruana, Fabiano – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/J9oDdhuj" rel="noopener">Van Foreest, Jorden – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/5HUOordk" rel="noopener">Giri, Anish – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/xAFb1jAe" rel="noopener">Van Foreest, Jorden – Sevian, Samuel, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-8/HSkVW1CT/KqvpMaTC" rel="noopener">Sindarov, Javokhir – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-9/QwsCiTIm/P16K0wBM" rel="noopener">Van Foreest, Jorden – Keymer, Vincent, 1/2-1/2</a></li></ul></div>
+    
   </article>
 <article class="card" id="landing-put-back">
     <h3><a href="#landing-put-back">landing-put-back</a></h3>
-    <p class="note">the only undo the feature has, under the record it acts on</p>
+    <p class="note">The undo. Sits under the numbers it changes.</p>
     <p class="meta"><span class="who">vanforeest</span><code>/mistakes</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -213,11 +206,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-put-back.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-put-back.mobile.png" alt="landing-put-back, mobile"></a>
         <figcaption>mobile, 390×288 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>Drawn from vanforeest’s games</h4><ul class="games"><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-1/YaTYmjqS/9YPwxjEY" rel="noopener">Caruana, Fabiano – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/J9oDdhuj" rel="noopener">Van Foreest, Jorden – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/5HUOordk" rel="noopener">Giri, Anish – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/xAFb1jAe" rel="noopener">Van Foreest, Jorden – Sevian, Samuel, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-8/HSkVW1CT/KqvpMaTC" rel="noopener">Sindarov, Javokhir – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-9/QwsCiTIm/P16K0wBM" rel="noopener">Van Foreest, Jorden – Keymer, Vincent, 1/2-1/2</a></li></ul></div>
+    
   </article>
 <article class="card" id="landing-glossary">
     <h3><a href="#landing-glossary">landing-glossary</a></h3>
-    <p class="note">what got selected, and why this is not your puzzle history</p>
+    <p class="note">What got picked, and why it is not your puzzle history.</p>
     <p class="meta"><span class="who">vanforeest</span><code>/mistakes</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -228,11 +221,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-glossary.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-glossary.mobile.png" alt="landing-glossary, mobile"></a>
         <figcaption>mobile, 390×416 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>Drawn from vanforeest’s games</h4><ul class="games"><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-1/YaTYmjqS/9YPwxjEY" rel="noopener">Caruana, Fabiano – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/J9oDdhuj" rel="noopener">Van Foreest, Jorden – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/5HUOordk" rel="noopener">Giri, Anish – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/xAFb1jAe" rel="noopener">Van Foreest, Jorden – Sevian, Samuel, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-8/HSkVW1CT/KqvpMaTC" rel="noopener">Sindarov, Javokhir – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-9/QwsCiTIm/P16K0wBM" rel="noopener">Van Foreest, Jorden – Keymer, Vincent, 1/2-1/2</a></li></ul></div>
+    
   </article>
 <article class="card" id="landing-window-to-today">
     <h3><a href="#landing-window-to-today">landing-window-to-today</a></h3>
-    <p class="note">the window widened to reach today (?window=3-0)</p>
+    <p class="note">?window=3-0. Reaches today.</p>
     <p class="meta"><span class="who">vanforeest</span><code>/mistakes?window=3-0</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -243,15 +236,14 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-window-to-today.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/landing-window-to-today.mobile.png" alt="landing-window-to-today, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>Drawn from vanforeest’s games</h4><ul class="games"><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-1/YaTYmjqS/9YPwxjEY" rel="noopener">Caruana, Fabiano – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/J9oDdhuj" rel="noopener">Van Foreest, Jorden – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/5HUOordk" rel="noopener">Giri, Anish – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/xAFb1jAe" rel="noopener">Van Foreest, Jorden – Sevian, Samuel, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-8/HSkVW1CT/KqvpMaTC" rel="noopener">Sindarov, Javokhir – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-9/QwsCiTIm/P16K0wBM" rel="noopener">Van Foreest, Jorden – Keymer, Vincent, 1/2-1/2</a></li></ul></div>
+    
   </article>
 </section>
 <section>
-  <h2>The board</h2>
-  <p class="blurb">Dropped into a position cold, with the move that was played drawn on it and nothing else. The states are retro’s, minus the one that has nowhere to browse away to.</p>
+  <h2>Board</h2>
   <article class="card" id="board-ask">
     <h3><a href="#board-ask">board-ask</a></h3>
-    <p class="note">the question: this was played, find something better</p>
+    <p class="note">This was played. Find better.</p>
     <p class="meta"><span class="who">keymer</span><code>/mistakes/play</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -262,11 +254,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-ask.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-ask.mobile.png" alt="board-ask, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/WP0ePc1j#134" rel="noopener">Aronian, Levon – Keymer, Vincent, 1-0</a> — 67... Qc2+ was played, Qe6 was best <em>(desktop only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/y0rGl9OW#103" rel="noopener">Keymer, Vincent – Giri, Anish, 1-0</a> — 52. Rg8 was played, Nd7 was best <em>(mobile only)</em></li></ul></div>
+    <div class="sources"><h4>On lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/WP0ePc1j#134" rel="noopener">Aronian, Levon – Keymer, Vincent, 1-0</a> — 67... Qc2+ was played, Qe6 was best <em>(desktop only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/y0rGl9OW#103" rel="noopener">Keymer, Vincent – Giri, Anish, 1-0</a> — 52. Rg8 was played, Nd7 was best <em>(mobile only)</em></li></ul></div>
   </article>
 <article class="card" id="board-fail">
     <h3><a href="#board-fail">board-fail</a></h3>
-    <p class="note">playing the move from the game again - judged against the best move</p>
+    <p class="note">Played the game move again. Straight to fail, no engine needed.</p>
     <p class="meta"><span class="who">keymer</span><code>/mistakes/play</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -277,11 +269,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-fail.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-fail.mobile.png" alt="board-fail, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The position in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/y0rGl9OW#103" rel="noopener">Keymer, Vincent – Giri, Anish, 1-0</a> — 52. Rg8 was played, Nd7 was best</li></ul></div>
+    <div class="sources"><h4>On lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/y0rGl9OW#103" rel="noopener">Keymer, Vincent – Giri, Anish, 1-0</a> — 52. Rg8 was played, Nd7 was best</li></ul></div>
   </article>
 <article class="card" id="board-win">
     <h3><a href="#board-win">board-win</a></h3>
-    <p class="note">finding the move the engine wanted</p>
+    <p class="note">Found it.</p>
     <p class="meta"><span class="who">keymer</span><code>/mistakes/play</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -292,11 +284,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-win.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-win.mobile.png" alt="board-win, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/WP0ePc1j#134" rel="noopener">Aronian, Levon – Keymer, Vincent, 1-0</a> — 67... Qc2+ was played, Qe6 was best <em>(desktop only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#99" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 50. Bf3+ was played, Bg6+ was best <em>(mobile only)</em></li></ul></div>
+    <div class="sources"><h4>On lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/WP0ePc1j#134" rel="noopener">Aronian, Levon – Keymer, Vincent, 1-0</a> — 67... Qc2+ was played, Qe6 was best <em>(desktop only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#99" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 50. Bf3+ was played, Bg6+ was best <em>(mobile only)</em></li></ul></div>
   </article>
 <article class="card" id="board-solution">
     <h3><a href="#board-solution">board-solution</a></h3>
-    <p class="note">giving up on it, which retires the position as a fail</p>
+    <p class="note">Gave up. Counts as a fail.</p>
     <p class="meta"><span class="who">keymer</span><code>/mistakes/play</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -307,11 +299,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-solution.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-solution.mobile.png" alt="board-solution, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#45" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 23. Bxe5 was played, Qd1 was best <em>(desktop only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#99" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 50. Bf3+ was played, Bg6+ was best <em>(mobile only)</em></li></ul></div>
+    <div class="sources"><h4>On lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#45" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 23. Bxe5 was played, Qd1 was best <em>(desktop only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#99" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 50. Bf3+ was played, Bg6+ was best <em>(mobile only)</em></li></ul></div>
   </article>
 <article class="card" id="board-empty">
     <h3><a href="#board-empty">board-empty</a></h3>
-    <p class="note">nothing left in the window to draw from</p>
+    <p class="note">Window is dry.</p>
     <p class="meta"><span class="who">mvl</span><code>/mistakes/play</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -322,15 +314,14 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-empty.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-empty.mobile.png" alt="board-empty, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>Drawn from mvl’s games</h4><ul class="games"><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-1/YaTYmjqS/jmbFG1W7" rel="noopener">Giri, Anish – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/rwuGn2RC" rel="noopener">Vachier-Lagrave, Maxime – Sevian, Samuel, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/MHNH27Cj" rel="noopener">Sindarov, Javokhir – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/37V0f5kY" rel="noopener">Vachier-Lagrave, Maxime – Keymer, Vincent, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/J9oDdhuj" rel="noopener">Van Foreest, Jorden – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/BWDcE5ix" rel="noopener">Vachier-Lagrave, Maxime – So, Wesley, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/K4frez17" rel="noopener">Aronian, Levon – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-8/HSkVW1CT/ZOxHFdUo" rel="noopener">Vachier-Lagrave, Maxime – Praggnanandhaa R, 0-1</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-9/QwsCiTIm/inSJCx3Z" rel="noopener">Caruana, Fabiano – Vachier-Lagrave, Maxime, 1/2-1/2</a></li></ul></div>
+    
   </article>
 </section>
 <section>
-  <h2>What you have answered</h2>
-  <p class="blurb">Every position ever answered, drawn rather than described.</p>
+  <h2>Answered</h2>
   <article class="card" id="answered-empty">
     <h3><a href="#answered-empty">answered-empty</a></h3>
-    <p class="note">the list before anything has been answered</p>
+    <p class="note">Nothing answered yet.</p>
     <p class="meta"><span class="who">vanforeest</span><code>/mistakes/answered</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -341,11 +332,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/answered-empty.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/answered-empty.mobile.png" alt="answered-empty, mobile"></a>
         <figcaption>mobile, 390×285 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>Drawn from vanforeest’s games</h4><ul class="games"><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-1/YaTYmjqS/9YPwxjEY" rel="noopener">Caruana, Fabiano – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/J9oDdhuj" rel="noopener">Van Foreest, Jorden – Vachier-Lagrave, Maxime, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/5HUOordk" rel="noopener">Giri, Anish – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/xAFb1jAe" rel="noopener">Van Foreest, Jorden – Sevian, Samuel, 1/2-1/2</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-8/HSkVW1CT/KqvpMaTC" rel="noopener">Sindarov, Javokhir – Van Foreest, Jorden, 1-0</a></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-9/QwsCiTIm/P16K0wBM" rel="noopener">Van Foreest, Jorden – Keymer, Vincent, 1/2-1/2</a></li></ul></div>
+    
   </article>
 <article class="card" id="answered-list">
     <h3><a href="#answered-list">answered-list</a></h3>
-    <p class="note">every position answered, drawn rather than described</p>
+    <p class="note">Every answer, as a board.</p>
     <p class="meta"><span class="who">vanforeest</span><code>/mistakes/answered</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -356,11 +347,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/answered-list.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/answered-list.mobile.png" alt="answered-list, mobile"></a>
         <figcaption>mobile, 390×807 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/5HUOordk#78" rel="noopener">Giri, Anish – Van Foreest, Jorden, 1-0</a> — at 39...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9#96" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a> — at 48...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9#100" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a> — at 50...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv#95" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a> — at 48.</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn#132" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a> — at 66...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn#134" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a> — at 67...</li></ul></div>
+    <div class="sources"><h4>On lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-6/DYMP6F2F/5HUOordk#78" rel="noopener">Giri, Anish – Van Foreest, Jorden, 1-0</a> — at 39...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9#96" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a> — at 48...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9#100" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a> — at 50...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv#95" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a> — at 48.</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn#132" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a> — at 66...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn#134" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a> — at 67...</li></ul></div>
   </article>
 <article class="card" id="answered-filter-fail">
     <h3><a href="#answered-filter-fail">answered-filter-fail</a></h3>
-    <p class="note">the same list cut to the ones given up on</p>
+    <p class="note">?result=fail.</p>
     <p class="meta"><span class="who">vanforeest</span><code>/mistakes/answered?result=fail</code></p>
     
     <div class="figures"><figure class="desktop">
@@ -371,12 +362,12 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/answered-filter-fail.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/answered-filter-fail.mobile.png" alt="answered-filter-fail, mobile"></a>
         <figcaption>mobile, 390×387 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9#96" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a> — at 48...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn#134" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a> — at 67...</li></ul></div>
+    <div class="sources"><h4>On lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9#96" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a> — at 48...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn#134" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a> — at 67...</li></ul></div>
   </article>
 </section>
 
 <details class="corpus">
-  <summary>All 48 imported games, and the broadcast game each one is a copy of</summary>
+  <summary>All 48 games, and what each is a copy of</summary>
   <table>
     <thead><tr><th>round</th><th>game</th><th>result</th><th>local id</th><th>claimed by</th><th>on lichess</th></tr></thead>
     <tbody>
@@ -723,14 +714,8 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
 
 <footer>
   <p>
-    Generated from <code>manifest.json</code> by <code>page.mjs</code>; the shots were taken
-    2026-11-04T15:29:21.182Z against <code>http://ai.lan:9999</code>.
-    Accounts used: vanforeest <span class="dim">(main)</span>, keymer <span class="dim">(board)</span>, mvl <span class="dim">(empty)</span>, aaron <span class="dim">(cold)</span>, freshaccount <span class="dim">(fresh)</span>.
-  </p>
-  <p>
-    Nothing on this branch is code and nothing on it is meant to be merged: it shares no history
-    with <code>master</code> and never appears in a diff. Delete the branch once the pull request
-    that uses it is closed.
+    2026-11-04T15:29:21.182Z against <code>http://ai.lan:9999</code>. Accounts:
+    vanforeest, keymer, mvl, aaron, freshaccount. Orphan branch, no code, delete it with the PR.
   </p>
 </footer>
 
