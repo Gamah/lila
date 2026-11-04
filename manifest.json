@@ -1,5 +1,5 @@
 {
- "takenAt": "2026-11-04T15:26:15.098Z",
+ "takenAt": "2026-11-04T15:29:21.182Z",
  "base": "http://ai.lan:9999",
  "users": {
   "main": "vanforeest",
@@ -36,37 +36,6 @@
   "landing-ready": {
    "user": "vanforeest",
    "note": "analysed games in the window, nothing answered yet",
-   "mistake": {
-    "fen": "8/6kp/K7/2PR4/8/8/8/1r6 b - - 7 50",
-    "color": "black",
-    "played": {
-     "uci": "b1a1",
-     "san": "Ra1+"
-    },
-    "solution": [
-     "Kf6",
-     "c6",
-     "Ke6",
-     "Rc5",
-     "Kd6",
-     "c7",
-     "Kxc5",
-     "c8=Q+",
-     "Kd4",
-     "Qc2",
-     "Rb8",
-     "Qc7"
-    ],
-    "game": "/kfF4HNjh/black#100",
-    "intro": {
-     "fen": "8/6kp/8/1KPR4/8/8/8/1r6 w - - 6 50",
-     "uci": "b5a6"
-    },
-    "prevEval": {
-     "cp": 276
-    },
-    "divisionMiddle": 11
-   },
    "pref": {
     "coords": 1,
     "rookCastle": 1,
@@ -156,7 +125,7 @@
    "note": "one position answered: the record appears",
    "answered": [
     {
-     "game": "/s1RQMoxU/black#134",
+     "game": "/kfF4HNjh/black#96",
      "result": "win"
     }
    ],
@@ -186,7 +155,7 @@
    "note": "the whole queue answered, win and fail and skip",
    "answered": [
     {
-     "game": "/GoeBJsY4/black#78",
+     "game": "/s1RQMoxU/black#132",
      "result": "win"
     },
     {
@@ -194,19 +163,19 @@
      "result": "fail"
     },
     {
-     "game": "/s1RQMoxU/black#134",
+     "game": "/GoeBJsY4/black#78",
      "result": "win"
     },
     {
-     "game": "/s1RQMoxU/black#132",
+     "game": "/s1RQMoxU/black#134",
      "result": "skip"
     },
     {
-     "game": "/kfF4HNjh/black#100",
+     "game": "/kfF4HNjh/black#96",
      "result": "win"
     },
     {
-     "game": "/kfF4HNjh/black#96",
+     "game": "/kfF4HNjh/black#100",
      "result": "fail"
     }
    ],
@@ -248,11 +217,11 @@
      "result": "win"
     },
     {
-     "game": "/kfF4HNjh/black#96",
+     "game": "/s1RQMoxU/black#134",
      "result": "skip"
     },
     {
-     "game": "/s1RQMoxU/black#134",
+     "game": "/kfF4HNjh/black#96",
      "result": "win"
     },
     {
@@ -286,7 +255,7 @@
    "note": "what got selected, and why this is not your puzzle history",
    "answered": [
     {
-     "game": "/GoeBJsY4/black#78",
+     "game": "/rXfwJH9k/white#95",
      "result": "win"
     },
     {
@@ -294,19 +263,19 @@
      "result": "fail"
     },
     {
-     "game": "/rXfwJH9k/white#95",
-     "result": "win"
-    },
-    {
-     "game": "/s1RQMoxU/black#134",
-     "result": "skip"
-    },
-    {
      "game": "/kfF4HNjh/black#96",
      "result": "win"
     },
     {
      "game": "/s1RQMoxU/black#132",
+     "result": "skip"
+    },
+    {
+     "game": "/GoeBJsY4/black#78",
+     "result": "win"
+    },
+    {
+     "game": "/s1RQMoxU/black#134",
      "result": "fail"
     }
    ],
@@ -335,35 +304,24 @@
    "user": "vanforeest",
    "note": "the list before anything has been answered",
    "mistake": {
-    "fen": "3k4/5Q2/1r6/3K4/8/8/8/8 b - - 12 66",
-    "color": "black",
+    "fen": "6k1/8/6p1/3P1R2/1K6/4r1P1/8/8 w - - 0 48",
+    "color": "white",
     "played": {
-     "uci": "b6a6",
-     "san": "Ra6"
+     "uci": "f5f1",
+     "san": "Rf1"
     },
     "solution": [
-     "Kc8",
-     "Kc5",
-     "Rb7",
-     "Qe8+",
-     "Kc7",
-     "Qc6+",
-     "Kb8",
-     "Kd6",
-     "Ka7",
-     "Qa4+",
-     "Kb8",
-     "Qa3"
+     "Rg5"
     ],
-    "game": "/s1RQMoxU/black#132",
+    "game": "/rXfwJH9k/white#95",
     "intro": {
-     "fen": "3k4/5Q2/1r6/4K3/8/8/8/8 w - - 11 66",
-     "uci": "e5d5"
+     "fen": "6k1/6p1/8/3P1R2/1K6/4r1P1/8/8 b - - 0 47",
+     "uci": "g7g6"
     },
     "prevEval": {
-     "cp": 265
+     "cp": 177
     },
-    "divisionMiddle": 18
+    "divisionMiddle": 23
    },
    "pref": {
     "coords": 1,
@@ -400,15 +358,15 @@
    "note": "every position answered, drawn rather than described",
    "answered": [
     {
-     "game": "/GoeBJsY4/black#78",
+     "game": "/kfF4HNjh/black#96",
      "result": "win"
     },
     {
-     "game": "/kfF4HNjh/black#100",
+     "game": "/rXfwJH9k/white#95",
      "result": "fail"
     },
     {
-     "game": "/s1RQMoxU/black#134",
+     "game": "/kfF4HNjh/black#100",
      "result": "win"
     },
     {
@@ -416,11 +374,11 @@
      "result": "skip"
     },
     {
-     "game": "/rXfwJH9k/white#95",
+     "game": "/GoeBJsY4/black#78",
      "result": "win"
     },
     {
-     "game": "/kfF4HNjh/black#96",
+     "game": "/s1RQMoxU/black#134",
      "result": "fail"
     }
    ],
@@ -434,14 +392,14 @@
      "url": "/mistakes/answered",
      "positions": [
       {
-       "gameId": "kfF4HNjh",
+       "gameId": "s1RQMoxU",
        "color": "black",
-       "ply": 96
+       "ply": 134
       },
       {
-       "gameId": "rXfwJH9k",
-       "color": "white",
-       "ply": 95
+       "gameId": "GoeBJsY4",
+       "color": "black",
+       "ply": 78
       },
       {
        "gameId": "s1RQMoxU",
@@ -449,19 +407,19 @@
        "ply": 132
       },
       {
-       "gameId": "s1RQMoxU",
-       "color": "black",
-       "ply": 134
-      },
-      {
        "gameId": "kfF4HNjh",
        "color": "black",
        "ply": 100
       },
       {
-       "gameId": "GoeBJsY4",
+       "gameId": "rXfwJH9k",
+       "color": "white",
+       "ply": 95
+      },
+      {
+       "gameId": "kfF4HNjh",
        "color": "black",
-       "ply": 78
+       "ply": 96
       }
      ]
     },
@@ -474,14 +432,14 @@
      "url": "/mistakes/answered",
      "positions": [
       {
-       "gameId": "kfF4HNjh",
+       "gameId": "s1RQMoxU",
        "color": "black",
-       "ply": 96
+       "ply": 134
       },
       {
-       "gameId": "rXfwJH9k",
-       "color": "white",
-       "ply": 95
+       "gameId": "GoeBJsY4",
+       "color": "black",
+       "ply": 78
       },
       {
        "gameId": "s1RQMoxU",
@@ -489,19 +447,19 @@
        "ply": 132
       },
       {
-       "gameId": "s1RQMoxU",
-       "color": "black",
-       "ply": 134
-      },
-      {
        "gameId": "kfF4HNjh",
        "color": "black",
        "ply": 100
       },
       {
-       "gameId": "GoeBJsY4",
+       "gameId": "rXfwJH9k",
+       "color": "white",
+       "ply": 95
+      },
+      {
+       "gameId": "kfF4HNjh",
        "color": "black",
-       "ply": 78
+       "ply": 96
       }
      ]
     }
@@ -512,15 +470,15 @@
    "note": "the same list cut to the ones given up on",
    "answered": [
     {
-     "game": "/s1RQMoxU/black#134",
+     "game": "/rXfwJH9k/white#95",
      "result": "win"
     },
     {
-     "game": "/rXfwJH9k/white#95",
+     "game": "/kfF4HNjh/black#96",
      "result": "fail"
     },
     {
-     "game": "/s1RQMoxU/black#132",
+     "game": "/kfF4HNjh/black#100",
      "result": "win"
     },
     {
@@ -528,11 +486,11 @@
      "result": "skip"
     },
     {
-     "game": "/kfF4HNjh/black#100",
+     "game": "/s1RQMoxU/black#132",
      "result": "win"
     },
     {
-     "game": "/kfF4HNjh/black#96",
+     "game": "/s1RQMoxU/black#134",
      "result": "fail"
     }
    ],
@@ -546,14 +504,14 @@
      "url": "/mistakes/answered?result=fail",
      "positions": [
       {
+       "gameId": "s1RQMoxU",
+       "color": "black",
+       "ply": 134
+      },
+      {
        "gameId": "kfF4HNjh",
        "color": "black",
        "ply": 96
-      },
-      {
-       "gameId": "rXfwJH9k",
-       "color": "white",
-       "ply": 95
       }
      ]
     },
@@ -566,14 +524,14 @@
      "url": "/mistakes/answered?result=fail",
      "positions": [
       {
+       "gameId": "s1RQMoxU",
+       "color": "black",
+       "ply": 134
+      },
+      {
        "gameId": "kfF4HNjh",
        "color": "black",
        "ply": 96
-      },
-      {
-       "gameId": "rXfwJH9k",
-       "color": "white",
-       "ply": 95
       }
      ]
     }
@@ -632,11 +590,11 @@
      },
      "url": "/mistakes/play",
      "current": {
-      "gameId": "qgAP1CRb",
-      "color": "white",
-      "ply": 45,
-      "played": "Bxe5",
-      "solution": "Qd1"
+      "gameId": "bj2FSVyh",
+      "color": "black",
+      "ply": 134,
+      "played": "Qc2+",
+      "solution": "Qe6"
      },
      "positions": []
     },
@@ -648,11 +606,11 @@
      },
      "url": "/mistakes/play",
      "current": {
-      "gameId": "bj2FSVyh",
-      "color": "black",
-      "ply": 134,
-      "played": "Qc2+",
-      "solution": "Qe6"
+      "gameId": "JBNimOnH",
+      "color": "white",
+      "ply": 103,
+      "played": "Rg8",
+      "solution": "Nd7"
      },
      "positions": []
     }
@@ -661,6 +619,73 @@
   "board-fail": {
    "user": "keymer",
    "note": "playing the move from the game again - judged against the best move",
+   "mistake": {
+    "fen": "2r2bk1/3bq3/p4p1P/1p1pn1p1/3N4/4P1B1/PP2BP2/1Q3K1R w - - 1 35",
+    "color": "white",
+    "played": {
+     "uci": "h6h7",
+     "san": "h7+"
+    },
+    "solution": [
+     "f4"
+    ],
+    "game": "/waf9s60d/white#69",
+    "intro": {
+     "fen": "2r3k1/3bq1b1/p4p1P/1p1pn1p1/3N4/4P1B1/PP2BP2/1Q3K1R b - - 0 34",
+     "uci": "g7f8"
+    },
+    "prevEval": {
+     "cp": 163
+    },
+    "divisionMiddle": 17
+   },
+   "pref": {
+    "coords": 1,
+    "rookCastle": 1,
+    "destination": true,
+    "moveEvent": 2,
+    "highlight": true,
+    "is3d": false,
+    "animation": 70
+   },
+   "views": {
+    "desktop": {
+     "file": "board-fail.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes/play",
+     "current": {
+      "gameId": "JBNimOnH",
+      "color": "white",
+      "ply": 103,
+      "played": "Rg8",
+      "solution": "Nd7"
+     },
+     "positions": []
+    },
+    "mobile": {
+     "file": "board-fail.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes/play",
+     "current": {
+      "gameId": "JBNimOnH",
+      "color": "white",
+      "ply": 103,
+      "played": "Rg8",
+      "solution": "Nd7"
+     },
+     "positions": []
+    }
+   }
+  },
+  "board-win": {
+   "user": "keymer",
+   "note": "finding the move the engine wanted",
    "mistake": {
     "fen": "3qr1k1/r4pb1/3p1n1p/p1p1n1p1/PpP5/1P1Q1PP1/R3P1BP/B3RNK1 w - - 1 23",
     "color": "white",
@@ -681,85 +706,6 @@
      "cp": 104
     },
     "divisionMiddle": 20
-   },
-   "pref": {
-    "coords": 1,
-    "rookCastle": 1,
-    "destination": true,
-    "moveEvent": 2,
-    "highlight": true,
-    "is3d": false,
-    "animation": 70
-   },
-   "views": {
-    "desktop": {
-     "file": "board-fail.desktop.png",
-     "size": {
-      "width": 2560,
-      "height": 1440
-     },
-     "url": "/mistakes/play",
-     "current": {
-      "gameId": "bj2FSVyh",
-      "color": "black",
-      "ply": 134,
-      "played": "Qc2+",
-      "solution": "Qe6"
-     },
-     "positions": []
-    },
-    "mobile": {
-     "file": "board-fail.mobile.png",
-     "size": {
-      "width": 780,
-      "height": 1688
-     },
-     "url": "/mistakes/play",
-     "current": {
-      "gameId": "bj2FSVyh",
-      "color": "black",
-      "ply": 134,
-      "played": "Qc2+",
-      "solution": "Qe6"
-     },
-     "positions": []
-    }
-   }
-  },
-  "board-win": {
-   "user": "keymer",
-   "note": "finding the move the engine wanted",
-   "mistake": {
-    "fen": "3R4/4r2p/2P1k2P/4Np2/4pP2/2n5/5P2/5K2 w - - 7 52",
-    "color": "white",
-    "played": {
-     "uci": "d8g8",
-     "san": "Rg8"
-    },
-    "solution": [
-     "Nd7",
-     "Kd6",
-     "Nf8+",
-     "Kxc6",
-     "Rc8+",
-     "Kd6",
-     "Rxc3",
-     "Rf7",
-     "Rc8",
-     "Rf6",
-     "Re8",
-     "Rxh6"
-    ],
-    "game": "/JBNimOnH/white#103",
-    "intro": {
-     "fen": "3R4/4r2p/2P1k2P/1n2Np2/4pP2/8/5P2/5K2 b - - 6 51",
-     "uci": "b5c3"
-    },
-    "prevEval": {
-     "cp": 321,
-     "best": "e7a7"
-    },
-    "divisionMiddle": 18
    },
    "pref": {
     "coords": 1,
@@ -803,15 +749,15 @@
      "current": {
       "gameId": "qgAP1CRb",
       "color": "white",
-      "ply": 45,
-      "played": "Bxe5",
-      "solution": "Qd1"
+      "ply": 99,
+      "played": "Bf3+",
+      "solution": "Bg6+"
      },
      "positions": [
       {
        "gameId": "qgAP1CRb",
        "color": "white",
-       "ply": 45
+       "ply": 99
       }
      ]
     }
@@ -821,25 +767,24 @@
    "user": "keymer",
    "note": "giving up on it, which retires the position as a fail",
    "mistake": {
-    "fen": "3qr1k1/r4pb1/3p1n1p/p1p1n1p1/PpP5/1P1Q1PP1/R3P1BP/B3RNK1 w - - 1 23",
+    "fen": "2r2bk1/3bq3/p4p1P/1p1pn1p1/3N4/4P1B1/PP2BP2/1Q3K1R w - - 1 35",
     "color": "white",
     "played": {
-     "uci": "a1e5",
-     "san": "Bxe5"
+     "uci": "h6h7",
+     "san": "h7+"
     },
     "solution": [
-     "Qd1",
-     "d5"
+     "f4"
     ],
-    "game": "/qgAP1CRb/white#45",
+    "game": "/waf9s60d/white#69",
     "intro": {
-     "fen": "3qr1k1/r2n1pb1/3p1n1p/p1p3p1/PpP5/1P1Q1PP1/R3P1BP/B3RNK1 b - - 0 22",
-     "uci": "d7e5"
+     "fen": "2r3k1/3bq1b1/p4p1P/1p1pn1p1/3N4/4P1B1/PP2BP2/1Q3K1R b - - 0 34",
+     "uci": "g7f8"
     },
     "prevEval": {
-     "cp": 104
+     "cp": 163
     },
-    "divisionMiddle": 20
+    "divisionMiddle": 17
    },
    "pref": {
     "coords": 1,
@@ -861,15 +806,15 @@
      "current": {
       "gameId": "qgAP1CRb",
       "color": "white",
-      "ply": 99,
-      "played": "Bf3+",
-      "solution": "Bg6+"
+      "ply": 45,
+      "played": "Bxe5",
+      "solution": "Qd1"
      },
      "positions": [
       {
        "gameId": "qgAP1CRb",
        "color": "white",
-       "ply": 99
+       "ply": 45
       }
      ]
     },
@@ -881,17 +826,17 @@
      },
      "url": "/mistakes/play",
      "current": {
-      "gameId": "bj2FSVyh",
-      "color": "black",
-      "ply": 134,
-      "played": "Qc2+",
-      "solution": "Qe6"
+      "gameId": "qgAP1CRb",
+      "color": "white",
+      "ply": 99,
+      "played": "Bf3+",
+      "solution": "Bg6+"
      },
      "positions": [
       {
-       "gameId": "bj2FSVyh",
-       "color": "black",
-       "ply": 134
+       "gameId": "qgAP1CRb",
+       "color": "white",
+       "ply": 99
       }
      ]
     }
@@ -951,30 +896,6 @@
     }
    }
   },
-  "landing-cold-no-games": {
-   "user": "freshaccount",
-   "note": "an account with nothing in the window at all",
-   "views": {
-    "desktop": {
-     "file": "landing-cold-no-games.desktop.png",
-     "size": {
-      "width": 2560,
-      "height": 1440
-     },
-     "url": "/mistakes",
-     "positions": []
-    },
-    "mobile": {
-     "file": "landing-cold-no-games.mobile.png",
-     "size": {
-      "width": 780,
-      "height": 1688
-     },
-     "url": "/mistakes",
-     "positions": []
-    }
-   }
-  },
   "landing-warming": {
    "user": "aaron",
    "note": "a batch handed to fishnet, nothing back from it yet",
@@ -990,6 +911,30 @@
     },
     "mobile": {
      "file": "landing-warming.mobile.png",
+     "size": {
+      "width": 780,
+      "height": 1688
+     },
+     "url": "/mistakes",
+     "positions": []
+    }
+   }
+  },
+  "landing-cold-no-games": {
+   "user": "freshaccount",
+   "note": "an account with nothing in the window at all",
+   "views": {
+    "desktop": {
+     "file": "landing-cold-no-games.desktop.png",
+     "size": {
+      "width": 2560,
+      "height": 1440
+     },
+     "url": "/mistakes",
+     "positions": []
+    },
+    "mobile": {
+     "file": "landing-cold-no-games.mobile.png",
      "size": {
       "width": 780,
       "height": 1688

@@ -10,6 +10,8 @@ through htmlpreview:**
 
 <https://htmlpreview.github.io/?https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/index.html>
 
+The shots are all of the dark theme, and so is the page.
+
 Every shot on it links to the lichess broadcast game it came from, and where
 the page named a position, to that position at the same ply.
 

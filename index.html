@@ -6,19 +6,12 @@
 <title>Mistakes — every state of the feature</title>
 <meta name="description" content="Screenshots of every state of lila's /mistakes feature, each linked to the lichess broadcast game it was taken from.">
 <style>
+/* Dark, like every shot on the page. Not a preference: a light page around
+   dark pictures is a worse picture of the feature. */
 :root {
-  --bg: #fff; --fg: #2d2d2d; --dim: #6b6b6b; --line: #e3e3e3;
-  --card: #fafafa; --accent: #3692e7; --warn: #b33;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #161512; --fg: #bababa; --dim: #888; --line: #2e2c28;
-    --card: #1c1b18; --accent: #4e9bd6; --warn: #d66;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #161512; --fg: #bababa; --dim: #888; --line: #2e2c28;
+  --bg: #161512; --fg: #bababa; --dim: #868686; --line: #2e2c28;
   --card: #1c1b18; --accent: #4e9bd6; --warn: #d66;
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
 body {
@@ -51,6 +44,7 @@ figure.desktop { flex: 1 1 520px; min-width: 0; }
 figure.mobile { flex: 0 1 190px; }
 figure img {
   width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 4px;
+  background: #161512;
 }
 figcaption { font-size: .75rem; color: var(--dim); margin-top: .25rem; }
 .sources { margin-top: 1rem; font-size: .88rem; }
@@ -268,7 +262,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-ask.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-ask.mobile.png" alt="board-ask, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/WP0ePc1j#134" rel="noopener">Aronian, Levon – Keymer, Vincent, 1-0</a> — 67... Qc2+ was played, Qe6 was best <em>(mobile only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#45" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 23. Bxe5 was played, Qd1 was best <em>(desktop only)</em></li></ul></div>
+    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/WP0ePc1j#134" rel="noopener">Aronian, Levon – Keymer, Vincent, 1-0</a> — 67... Qc2+ was played, Qe6 was best <em>(desktop only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/y0rGl9OW#103" rel="noopener">Keymer, Vincent – Giri, Anish, 1-0</a> — 52. Rg8 was played, Nd7 was best <em>(mobile only)</em></li></ul></div>
   </article>
 <article class="card" id="board-fail">
     <h3><a href="#board-fail">board-fail</a></h3>
@@ -283,7 +277,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-fail.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-fail.mobile.png" alt="board-fail, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The position in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/WP0ePc1j#134" rel="noopener">Aronian, Levon – Keymer, Vincent, 1-0</a> — 67... Qc2+ was played, Qe6 was best</li></ul></div>
+    <div class="sources"><h4>The position in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-5/yjutpiJf/y0rGl9OW#103" rel="noopener">Keymer, Vincent – Giri, Anish, 1-0</a> — 52. Rg8 was played, Nd7 was best</li></ul></div>
   </article>
 <article class="card" id="board-win">
     <h3><a href="#board-win">board-win</a></h3>
@@ -298,7 +292,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-win.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-win.mobile.png" alt="board-win, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/WP0ePc1j#134" rel="noopener">Aronian, Levon – Keymer, Vincent, 1-0</a> — 67... Qc2+ was played, Qe6 was best <em>(desktop only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#45" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 23. Bxe5 was played, Qd1 was best <em>(mobile only)</em></li></ul></div>
+    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/WP0ePc1j#134" rel="noopener">Aronian, Levon – Keymer, Vincent, 1-0</a> — 67... Qc2+ was played, Qe6 was best <em>(desktop only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#99" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 50. Bf3+ was played, Bg6+ was best <em>(mobile only)</em></li></ul></div>
   </article>
 <article class="card" id="board-solution">
     <h3><a href="#board-solution">board-solution</a></h3>
@@ -313,7 +307,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-solution.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/board-solution.mobile.png" alt="board-solution, mobile"></a>
         <figcaption>mobile, 390×844 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/WP0ePc1j#134" rel="noopener">Aronian, Levon – Keymer, Vincent, 1-0</a> — 67... Qc2+ was played, Qe6 was best <em>(mobile only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#99" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 50. Bf3+ was played, Bg6+ was best <em>(desktop only)</em></li></ul></div>
+    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#45" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 23. Bxe5 was played, Qd1 was best <em>(desktop only)</em></li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-7/cAJCrXyE/bObOqXPg#99" rel="noopener">Keymer, Vincent – Sindarov, Javokhir, 0-1</a> — 50. Bf3+ was played, Bg6+ was best <em>(mobile only)</em></li></ul></div>
   </article>
 <article class="card" id="board-empty">
     <h3><a href="#board-empty">board-empty</a></h3>
@@ -377,7 +371,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
         <a href="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/answered-filter-fail.mobile.png" rel="noopener"><img loading="lazy" src="https://raw.githubusercontent.com/Gamah/lila/lila-mistakes-showcase/shots/answered-filter-fail.mobile.png" alt="answered-filter-fail, mobile"></a>
         <figcaption>mobile, 390×387 at 2×</figcaption>
       </figure></div>
-    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9#96" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a> — at 48...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-3/azxF1uaY/GlRHYLAv#95" rel="noopener">Van Foreest, Jorden – Aronian, Levon, 1/2-1/2</a> — at 48.</li></ul></div>
+    <div class="sources"><h4>The positions in the shot, on lichess</h4><ul><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-2/sBiDvWgY/EiJAE7b9#96" rel="noopener">So, Wesley – Van Foreest, Jorden, 1-0</a> — at 48...</li><li><a href="https://lichess.org/broadcast/gct-sinquefield-cup-2026/round-4/RJduOcY3/HOBQtqtn#134" rel="noopener">Praggnanandhaa R – Van Foreest, Jorden, 1-0</a> — at 67...</li></ul></div>
   </article>
 </section>
 
@@ -730,7 +724,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--line);
 <footer>
   <p>
     Generated from <code>manifest.json</code> by <code>page.mjs</code>; the shots were taken
-    2026-11-04T15:26:15.098Z against <code>http://ai.lan:9999</code>.
+    2026-11-04T15:29:21.182Z against <code>http://ai.lan:9999</code>.
     Accounts used: vanforeest <span class="dim">(main)</span>, keymer <span class="dim">(board)</span>, mvl <span class="dim">(empty)</span>, aaron <span class="dim">(cold)</span>, freshaccount <span class="dim">(fresh)</span>.
   </p>
   <p>
